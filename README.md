@@ -12,9 +12,9 @@ Curso de Programación 2, Universidad Nacional de Lujan
 
 Apellido y Nombre // Legajo // Mails
 Amado Facundo       197176      amadofacundo80@gmail.com -
-Fares Agostina      199541      Agostinafares64@gmail.com
-Wieczerynski Carolina 195270    carogmw@gmail.com
-Nunez Federico      1914177     fedenuul@gmail.com
-Beron Leandro       191405      leandroberon360@gmail.com
+Fares Agostina      199541      Agostinafares64@gmail.com -
+Wieczerynski Carolina 195270    carogmw@gmail.com -
+Nunez Federico      1914177     fedenuul@gmail.com -
+Beron Leandro       191405      leandroberon360@gmail.com -
 Perez Micaela       176089
 Mainetti Gianluca   195298      gmainetti2458@gmail.com
