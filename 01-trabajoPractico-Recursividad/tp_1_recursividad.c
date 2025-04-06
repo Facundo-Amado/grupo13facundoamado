@@ -161,25 +161,6 @@ float division(int m, int n) {
 }
 
 //Punto 5
-void validacionesSeparadorMiles(char num[]) //usa las 2 funciones anteriores y ademas verifica que el numero no pase de los 100 caracteres
-{
-    while ((estaVacio(num)) || (strlen(num )> 99) || (!esNumero(num)))
-    {
-        printf("El dato ingresado no cumple los requisitos. Ingrese un número nuevamente: ");
-        fflush(stdin);
-        fgets(num, 100, stdin);
-        size_t len = strlen(num);
-        if (len > 0 && num[len - 1] == '\n') {
-            num[len - 1] = '\0';
-        } 
-        else 
-        {
-            int c;
-            while ((c = getchar()) != '\n' && c != EOF);
-        }
-    }
-}
-
 void agregarSeparadorMilesRecursivo(char *num, int len, int cont) //funcion recursiva
 {
     if (len == 0)
@@ -218,44 +199,67 @@ char * agregarSeparadorMiles(char numero[])//funcion que invoca a la funcion rec
 }
 
 //Punto 6
-bool MCrecursivo(int n, char * a){
-    
-    a = MCi(n,a);
+void reunionMafiaRecursiva(int nivel, char* reunion){
+    if(nivel == 1){
+        strcpy(reunion, "(-.-)");
+    }
+    else{
+        char parte_izquierda[] = "(-.";
+        char parte_derecha[] = ".-)";
 
-    strcat(a,"(-.-)");
-    
-    a = MCd(n,a);
+        char reunion_anterior[200];
+        reunionMafiaRecursiva(nivel - 1, reunion_anterior);
 
-    printf("%s\n",a);
+        strcpy(reunion, parte_izquierda);
+        strcat(reunion, reunion_anterior);
+        strcat(reunion, parte_derecha);
+    }
 }
 
-char * MCi(int nveces,char * a){
-    if (nveces == 1)return a;
-
-    strcat(a,"(-.");
-
-    nveces = nveces - 1;
-
-    MCi(nveces,a);
-}
-char * MCd(int nveces,char * a){
-    if (nveces == 1)return a;
-
-    strcat(a,".-)");
-
-    nveces = nveces - 1;
-
-    MCd(nveces,a);
-}
-
-char *reunionMafia(int nivel)
-{
-    char mct[100] = "";
-    MCrecursivo(nivel,mct);
+char* reunionMafia(int nivel){
+    char* reunion =(char*)malloc(200 * sizeof(char));
+    reunionMafiaRecursiva(nivel, reunion);
+    return reunion;
 }
 
 //Punto 7
+void ondaDigitalAux(char seniales[], int longitud, char resultado[], int *pos) {
+    if (longitud == 0) return;
+    int n;
+    if (seniales[0] == 'L') {
+        n = sprintf(&resultado[*pos], "%s", "_");
+    } else {
+        n = sprintf(&resultado[*pos], "%s", "¯"); // Alt+238 
+    }
+    *pos += n;
 
+    if (longitud > 1 && seniales[0] != seniales[1]) {
+        n = sprintf(&resultado[*pos], "|");
+        *pos += n;
+    }
+
+    ondaDigitalAux(seniales + 1, longitud - 1, resultado, pos);
+}
+
+char *ondaDigital(char seniales[]) {
+    int longitud = strlen(seniales);
+    char *copia = strdup(seniales); // copiar seniales para no modificar el original
+    int cambios = 0;
+
+    for (int i = 1; i < longitud; i++) {
+        if (seniales[i] != seniales[i - 1]) {
+            cambios++;
+        }
+    }
+
+    char *resultado = malloc(longitud + cambios + 1); // espacio suficiente para la onda
+    int pos = 0;
+    ondaDigitalAux(copia, longitud, resultado, &pos);
+    resultado[pos] = '\0';
+
+    free(copia);
+    return resultado;
+}
 
 //Punto 8
 
@@ -271,7 +275,7 @@ bool divisiblePor7(int num)
   int numero_resultante = num / 10;        /*  622/10=62.2 el tipo de la variable es entero entonces descarta la parte flotante del numero y conseva la parte entera */
   int multiplicacion= 2*ultimo_digito ;       /* 2*2=4 queda guardado en multiplicacion    */
   int restante= numero_resultante - multiplicacion;
-  return separa_multiplica(restante);    /* llamada recursiva de la funcion hasta que se cumpla que "restante" sea menor a 70 y confirme si es o no multiplo de 7 */
+  return divisiblePor7(restante);    /* llamada recursiva de la funcion hasta que se cumpla que "restante" sea menor a 70 y confirme si es o no multiplo de 7 */
 }
 
 //Punto 10

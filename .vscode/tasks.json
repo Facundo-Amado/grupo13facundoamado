@@ -7,7 +7,9 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                //"${file}",
+                "${fileDirname}\\TP1-Main.c",
+                "${fileDirname}\\tp_1_recursividad.c",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "-Wall"
