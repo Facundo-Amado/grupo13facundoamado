@@ -122,13 +122,18 @@ int mainPalindromo()
 {
     char cadena[100];
     printf("Ingrese una palabra: ");
+    while (getchar() != '\n');
     fgets(cadena, 100, stdin);
-    /*while (!esCadena(cadena))
-    {   
+    cadena[strcspn(cadena, "\n")] = 0; // quitar salto de línea
+
+    while (!esCadena(cadena))
+    {
         printf("El dato ingresado no cumple los requisitos. Ingrese una palabra nueva: ");
         fflush(stdin);
         fgets(cadena, 100, stdin);
-    }*/
+        cadena[strcspn(cadena, "\n")] = 0;
+    }
+
     bool resultado = palindromo(cadena);
     if (resultado)
     {
@@ -147,19 +152,19 @@ int mainProducto()
     int a;
     printf("Ingrese un numero: ");
     scanf("%d", &a);
-    /*while (!isdigit(a))
+    while (a < 0)
     {
-        printf("dato invalido. ingrese un numero: ");
+        printf("dato invalido. ingrese un numero entero: ");
         scanf("%d", &a);
-    }*/
+    }
     int b;
     printf("Ingrese otro numero: ");
     scanf("%d", &b);
-    /*while (!isdigit(b))
+    while (b < 0)
     {
-        printf("dato invalido. ingrese un numero: ");
+        printf("dato invalido. ingrese un numero entero: ");
         scanf("%d", &b);
-    }*/
+    }
     int res = producto(a,b);
     printf("%i", res);
     return 0;
@@ -171,12 +176,12 @@ int mainFibonacci() {
 	printf("Ingrese n-esimo numero de la serie de fibonacci: ");
 	int ingreso;
 	scanf("%d", &ingreso);
-	/*while (ingreso < 0 || !isdigit(ingreso)) 
+	while (ingreso < 0) 
 	{
 		limpiarBuffer();
-		printf("Dato invalido. ingrese un nuevo numero: ");
+		printf("Dato invalido. ingrese un numero entero: ");
 		scanf("%d", &ingreso);
-	}*/
+	}
     printf("El numero seria: %d", terminoSeridFibonacci(ingreso));
 
     return 0;
@@ -188,17 +193,17 @@ int mainDivision() {
     int m, n;
     printf("Ingrese dividendo: ");
     scanf("%d", &m);
-    /*while(!isdigit(m) || m != 1) {
+    while(m < 0) {
         limpiarBuffer();
         printf("Invalido. Ingrese un numero entero: ");
-    }*/
+    }
 
     printf("Ingrese divisor: ");
     scanf("%d", &n);
-    /*while (!isdigit(n) || n != 1 || n == 0) {
+    while (n <= 0) {
         limpiarBuffer();
         printf("Invalido. Ingrese un numero entero (diferente a cero)");
-    }*/
+    }
 
     float resultado = division(m, n);
     printf("----- %.5f -----", resultado);
@@ -211,6 +216,7 @@ int mainSeparadorMiles()//main del ejercicio 5
 {
     char *num = (char *)calloc(100, sizeof(char));
     printf("Ingrese un número entero: ");
+    while (getchar() != '\n');
     fgets(num, 100, stdin);
     validacionesSeparadorMiles(num);
     agregarSeparadorMiles(num);
@@ -219,21 +225,25 @@ int mainSeparadorMiles()//main del ejercicio 5
 
 
 //Punto 6
-int mainChinos()
-{
+int mainChinos(){
     int nivel;
+    int valido = 0;
 
-    printf("Escriba el nivel de la reunion: ");
-    scanf("%i",&nivel);
-    /*while (!isdigit(nivel) || nivel < 1 || nivel > 12) 
-    {
-        printf("dato invalido. ingrese un numero: ");
-        scanf("%d", &nivel);
-    }*/
+    while(!valido){
+        printf("\nNivel de la reunion: ");
+        if(scanf("%i", &nivel) != 1 || nivel < 1 || nivel > 12 || getchar() != '\n'){
+            printf("Error: El nivel debe ser un número entero en el rango de 1 a 12.\n");
+            while(getchar() != '\n');
+        }
+        else{
+            valido = 1;
+        }
+    }
+
     char* resultado = reunionMafia(nivel);
     printf("%s\n", resultado);
     free(resultado);
-    
+
     return 0;
 }
 
@@ -245,7 +255,6 @@ int mainOnda() {
     ValidarOnda(seniales);
     char *resultado = ondaDigital(seniales);
     printf("Onda digital:\n%s\n", resultado);
-    free(resultado);
     return 0;
 }
 
@@ -261,11 +270,11 @@ int mainDivPor7()
     int num;
     printf("Ingrese un numero entero: \n" );
     scanf("%d", &num);
-    /*while (!isdigit(num) || num < 0) 
+    while (num < 0) 
     {
         printf("Dato invalido. Ingrese un nuevo numero entero: " );
         scanf("%d", &num);            // vacia el buffer    
-    }*/
+    }
     if (divisiblePor7(num)) 
     {                    /* si la funcion devuelve verdadero si numero es multiplo de 7 entonces ejecuta el cuerpo del if */
         printf("%d es divisible por 7 \n", num);
@@ -280,30 +289,26 @@ int mainDivPor7()
 //Punto 10
 int mainBomba() {
     int n, b;
-    int indice = 0;
     printf("Ingrese el numero (N): ");
     scanf("%d", &n);
-    /*while (!isdigit(n))
+    while (n < 0)
     {
         printf("dato invalido. ingrese un numero: ");
         scanf("%d", &n);
-    }*/
-    printf("Ingrese la bomba (B): ");
+    }
+    printf("Ingrese la bomba (B. debe ser menor a n): ");
     scanf("%d", &b);
-    /*while (!isdigit(b))
+    while (b < 0 || b >=n)
     {
-        printf("dato invalido. ingrese un numero: ");
+        printf("dato invalido. ingrese otro numero: ");
         scanf("%d", &b);
-    }*/
-
+    }
     int* res = explosion(n, b);
-
     printf("Resultado de la explosion:\n");
-    for (int i = 0; i < indice; i++) {
+    for (int i = 0; res[i] != -1; i++) {
         printf("%d ", res[i]);
     }
     printf("\n");
-
     return 0;
 }
 
@@ -345,9 +350,8 @@ int main()
         while (opcion < 0 || opcion > 10)
         {
             printf("Opción incorrecta\n");
-            printf("  Por favor seleccione una opción: ");
-            while (getchar() != '\n')
-                ;
+            printf("Por favor seleccione una opción: ");
+            while (getchar() != '\n');
             scanf("%i", &opcion);
         }
         switch (opcion)

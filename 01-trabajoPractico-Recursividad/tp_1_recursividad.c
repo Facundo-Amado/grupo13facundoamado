@@ -279,21 +279,22 @@ bool divisiblePor7(int num)
 }
 
 //Punto 10
-void explotar(int n, int b, int resultado[]) 
+void explotar(int n, int b, int resultado[], int *indice) 
 {
-    int indice = 0;
     if (n <= b) {
-        resultado[indice++] = n;
+        resultado[(*indice)++] = n;
         return;
     }
     int n1 = n / b;
     int n2 = n - n1;
-    explotar(n1, b, resultado);
-    explotar(n2, b, resultado);
+    explotar(n1, b, resultado, indice);
+    explotar(n2, b, resultado, indice);
 }
 
 int* explosion(int n, int b) {
-    int resultado[1000];
-    explotar(n, b, resultado);
+    int *resultado = (int *)malloc(sizeof(int) * 1000);
+    int indice = 0;
+    explotar(n, b, resultado, &indice);
+    resultado[indice] = -1;
     return resultado;
 }
