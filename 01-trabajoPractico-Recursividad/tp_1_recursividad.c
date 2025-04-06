@@ -31,18 +31,16 @@ bool palindromo(char *cadena)
 }
 
 // Punto 2
-int producto(int m, int n)
-{
-    // caso base
-    if (n == 0)
-    {
+int producto(int num, int prod) {
+    if (prod == 0) {
         return 0;
     }
-    // caso recursivo
-    else
-    {
-        return m + producto(m, n - 1);
+
+    if (prod < 0) {
+        return -producto(num, -prod);
     }
+
+    return num + producto(num, prod - 1);
 }
 
 // Punto 3
