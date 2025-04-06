@@ -286,6 +286,65 @@ char *ondaDigital(char seniales[])
 }
 
 // Punto 8
+void imprimirSubconjunto(int subconjunto[], int n, char **output) {
+    if(n == 0) {
+        return;
+    }
+    
+    char buffer[100];
+
+    if(n == 1) {
+        sprintf(buffer, "%d", subconjunto[0]);
+        strcat(*output, buffer);
+    } else {
+        imprimirSubconjunto(subconjunto, n - 1, output);
+        strcat(*output, ", ");
+        sprintf(buffer, "%d", subconjunto[n - 1]);
+        strcat(*output, buffer);
+    }
+}
+
+void sumaSubconjunto(int conjunto[], int subconjunto[], int tamano, int tamSubconjunto, int sumaActual, int n, int SumaObjetivo, char **output) {
+    if (n == tamano) {
+        if (sumaActual == SumaObjetivo && tamSubconjunto > 0) { // Si el total alcanza nuestro objetivo, significa que se encontró un subconjunto válido
+            strcat(*output, "{");
+            imprimirSubconjunto(subconjunto, tamSubconjunto, output); // Utiliza la anterior funcion para imprimir el subconjunto.
+            strcat(*output, "}, ");
+        }
+        return;
+    }
+
+    subconjunto[tamSubconjunto] = conjunto[n]; // Incluir el elemento actual
+    sumaSubconjunto(conjunto, subconjunto, tamano, tamSubconjunto + 1, sumaActual + conjunto[n], n + 1, SumaObjetivo, output);
+    // No Incluir el elemento actual
+    sumaSubconjunto(conjunto, subconjunto, tamano, tamSubconjunto, sumaActual, n + 1, SumaObjetivo, output);
+}
+
+void subconjuntosQueSumanN(int conjunto[], int tamano, int n, char **output) {
+    char *resultado = malloc(1000);
+    if (!resultado) {
+        return;
+    }
+    resultado[0] = '\0';
+
+    int *subconjunto = malloc(sizeof(int) * tamano);; // Creo un array para almacenar los subconjuntos
+    if (!subconjunto) {
+        free(resultado);
+        return;
+    }
+    sumaSubconjunto(conjunto, subconjunto, tamano, 0, 0, 0, n, &resultado);
+
+    int len = strlen(resultado); // Elimino ultima coma y espacio
+    if (len > 2) {
+        resultado[len - 2] = '\0';
+    }
+    *output = malloc(strlen(resultado) + 3); // [] + \0
+    sprintf(*output, "[%s]", resultado);
+
+    free(resultado);
+    free(subconjunto);
+}
+
 
 // Punto 9
 bool divisiblePor7(int num)

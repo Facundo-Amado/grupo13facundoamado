@@ -284,10 +284,53 @@ int mainOnda()
 }
 
 // Punto 8
-/*int mainSubconjunto()
+int mainSubconjunto()
 {
+    int tamano;
+    char c;
+    printf("Ingrese el tamano del conjunto: ");
+    while (scanf("%d", &tamano) != 1 || tamano <= 0) {
+        while ((c = getchar()) != '\n' && c != EOF); // limpiar buffer
+        printf("Error: ingrese un numero entero positivo para el tamano: ");
+    }
+    
+    if (tamano <= 0) {
+        printf("Tamano invalido.\n");
+        return 1;
+    }
+
+    int *conjunto = malloc(sizeof(int) * tamano);
+    if (!conjunto) {
+        printf("Error de memoria.\n");
+        return 1;
+    }
+
+    printf("Ingrese los %d elementos del conjunto:\n", tamano);
+    for (int i = 0; i < tamano; i++) {
+        printf("Elemento %d: ", i + 1);
+        while (scanf("%d", &conjunto[i]) != 1) {
+            while ((c = getchar()) != '\n' && c != EOF);
+            printf("Error: ingrese un numero entero valido para el elemento %d: ", i + 1);
+        }
+    }
+
+    int objetivo;
+    printf("Ingrese el numero objetivo: ");
+    while (scanf("%d", &objetivo) != 1) {
+        while ((c = getchar()) != '\n' && c != EOF);
+        printf("Error: ingrese un numero entero valido como suma objetivo: ");
+    }
+    
+    char *resultado = NULL;
+    subconjuntosQueSumanN(conjunto, tamano, objetivo, &resultado);
+
+    if (resultado && strcmp(resultado, "[]") != 0 && resultado[0] != '\0') {
+        printf("Subconjuntos que suman %d: %s\n", objetivo, resultado);
+    } else {
+        printf("No se pudieron calcular subconjuntos.\n");
+    }
     return 0;
-}*/
+}
 
 // Punto 9
 int mainDivPor7()
@@ -413,7 +456,7 @@ int main()
             getch();
             break;
         case 8:
-            // mainSubconjunto();
+            mainSubconjunto();
             getch();
             break;
         case 9:
