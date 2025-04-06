@@ -6,13 +6,15 @@
 #include <conio.h>
 #include "tp_1_recursividad.h"
 
-void limpiarBuffer() {
-	char c;
-	while ( (c = getchar()) != '\n' && c != EOF);
+void limpiarBuffer()
+{
+    char c;
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
 }
 
-//Validaciones
-bool estaVacio(char *num)//verifica que el numero ingresado no sea una cadena vacia
+// Validaciones
+bool estaVacio(char *num) // verifica que el numero ingresado no sea una cadena vacia
 {
     if (num[0] == '\0' || num[0] == '\n')
     {
@@ -24,7 +26,7 @@ bool estaVacio(char *num)//verifica que el numero ingresado no sea una cadena va
     }
 }
 
-bool esNumero(char *num)//verifica que la cadena contenga solo numeros
+bool esNumero(char *num) // verifica que la cadena contenga solo numeros
 {
     int i = 0;
     if (num[0] == '-')
@@ -42,21 +44,23 @@ bool esNumero(char *num)//verifica que la cadena contenga solo numeros
     return true;
 }
 
-void validacionesSeparadorMiles(char num[]) //usa las 2 funciones anteriores y ademas verifica que el numero no pase de los 100 caracteres
+void validacionesSeparadorMiles(char num[]) // usa las 2 funciones anteriores y ademas verifica que el numero no pase de los 100 caracteres
 {
-    while ((estaVacio(num)) || (strlen(num )> 99) || (!esNumero(num)))
+    while ((estaVacio(num)) || (strlen(num) > 99) || (!esNumero(num)))
     {
         printf("El dato ingresado no cumple los requisitos. Ingrese un número nuevamente: ");
         fflush(stdin);
         fgets(num, 100, stdin);
         size_t len = strlen(num);
-        if (len > 0 && num[len - 1] == '\n') {
+        if (len > 0 && num[len - 1] == '\n')
+        {
             num[len - 1] = '\0';
-        } 
-        else 
+        }
+        else
         {
             int c;
-            while ((c = getchar()) != '\n' && c != EOF);
+            while ((c = getchar()) != '\n' && c != EOF)
+                ;
         }
     }
 }
@@ -75,10 +79,13 @@ bool esCadena(char cadena[])
     return true;
 }
 
-bool NoNumerica(char *seniales) {
+bool NoNumerica(char *seniales)
+{
     int i = 0;
-    while (seniales[i] != '\n' && seniales[i] != '\0') {
-        if (isdigit(seniales[i])) {
+    while (seniales[i] != '\n' && seniales[i] != '\0')
+    {
+        if (isdigit(seniales[i]))
+        {
             return false;
         }
         i++;
@@ -86,16 +93,21 @@ bool NoNumerica(char *seniales) {
     return true;
 }
 
-void convertirAMayusculas(char *cadena) {
-    for (int i = 0; cadena[i]; i++) {
+void convertirAMayusculas(char *cadena)
+{
+    for (int i = 0; cadena[i]; i++)
+    {
         cadena[i] = toupper(cadena[i]);
     }
 }
 
-bool ValidarLH(char *seniales) {
+bool ValidarLH(char *seniales)
+{
     int i = 0;
-    while (seniales[i] != '\0') {
-        if (seniales[i] != 'L' && seniales[i] != 'H') {
+    while (seniales[i] != '\0')
+    {
+        if (seniales[i] != 'L' && seniales[i] != 'H')
+        {
             return false;
         }
         i++;
@@ -103,11 +115,13 @@ bool ValidarLH(char *seniales) {
     return true;
 }
 
-void ValidarOnda(char *seniales) {
-    seniales[strcspn(seniales, "\n")] = '\0';  // eliminar '\n'
-    convertirAMayusculas(seniales);            // convertir desde el principio
+void ValidarOnda(char *seniales)
+{
+    seniales[strcspn(seniales, "\n")] = '\0'; // eliminar '\n'
+    convertirAMayusculas(seniales);           // convertir desde el principio
 
-    while (!ValidarLH(seniales) || !NoNumerica(seniales)) {
+    while (!ValidarLH(seniales) || !NoNumerica(seniales))
+    {
         printf("La cadena ingresada no es válida. Ingrese la cadena nuevamente: ");
         fflush(stdin);
         fgets(seniales, 100, stdin);
@@ -116,13 +130,14 @@ void ValidarOnda(char *seniales) {
     }
 }
 
-//Ejercicios
-//Punto 1
+// Ejercicios
+// Punto 1
 int mainPalindromo()
 {
     char cadena[100];
     printf("Ingrese una palabra: ");
-    while (getchar() != '\n');
+    while (getchar() != '\n')
+        ;
     fgets(cadena, 100, stdin);
     cadena[strcspn(cadena, "\n")] = 0; // quitar salto de línea
 
@@ -146,7 +161,7 @@ int mainPalindromo()
     return 0;
 }
 
-//Punto 2
+// Punto 2
 int mainProducto()
 {
     int a;
@@ -165,42 +180,46 @@ int mainProducto()
         printf("dato invalido. ingrese un numero entero: ");
         scanf("%d", &b);
     }
-    int res = producto(a,b);
+    int res = producto(a, b);
     printf("%i", res);
     return 0;
 }
 
-//Punto 3
-int mainFibonacci() {
+// Punto 3
+int mainFibonacci()
+{
 
-	printf("Ingrese n-esimo numero de la serie de fibonacci: ");
-	int ingreso;
-	scanf("%d", &ingreso);
-	while (ingreso < 0) 
-	{
-		limpiarBuffer();
-		printf("Dato invalido. ingrese un numero entero: ");
-		scanf("%d", &ingreso);
-	}
+    printf("Ingrese n-esimo numero de la serie de fibonacci: ");
+    int ingreso;
+    scanf("%d", &ingreso);
+    while (ingreso < 0)
+    {
+        limpiarBuffer();
+        printf("Dato invalido. ingrese un numero entero: ");
+        scanf("%d", &ingreso);
+    }
     printf("El numero seria: %d", terminoSeridFibonacci(ingreso));
 
     return 0;
 }
 
-//Punto 4
-int mainDivision() {
+// Punto 4
+int mainDivision()
+{
 
     int m, n;
     printf("Ingrese dividendo: ");
     scanf("%d", &m);
-    while(m < 0) {
+    while (m < 0)
+    {
         limpiarBuffer();
         printf("Invalido. Ingrese un numero entero: ");
     }
 
     printf("Ingrese divisor: ");
     scanf("%d", &n);
-    while (n <= 0) {
+    while (n <= 0)
+    {
         limpiarBuffer();
         printf("Invalido. Ingrese un numero entero (diferente a cero)");
     }
@@ -211,44 +230,50 @@ int mainDivision() {
     return 0;
 }
 
-//Punto 5
-int mainSeparadorMiles()//main del ejercicio 5
+// Punto 5
+int mainSeparadorMiles() // main del ejercicio 5
 {
     char *num = (char *)calloc(100, sizeof(char));
     printf("Ingrese un número entero: ");
-    while (getchar() != '\n');
+    while (getchar() != '\n')
+        ;
     fgets(num, 100, stdin);
     validacionesSeparadorMiles(num);
     agregarSeparadorMiles(num);
     return 0;
 }
 
-
-//Punto 6
-int mainChinos(){
+// Punto 6
+int mainChinos()
+{
     int nivel;
     int valido = 0;
 
-    while(!valido){
+    while (!valido)
+    {
         printf("\nNivel de la reunion: ");
-        if(scanf("%i", &nivel) != 1 || nivel < 1 || nivel > 12 || getchar() != '\n'){
+        if (scanf("%i", &nivel) != 1 || nivel < 1 || nivel > 12 || getchar() != '\n')
+        {
             printf("Error: El nivel debe ser un número entero en el rango de 1 a 12.\n");
-            while(getchar() != '\n');
+            while (getchar() != '\n')
+                ;
         }
-        else{
+        else
+        {
             valido = 1;
         }
     }
 
-    char* resultado = reunionMafia(nivel);
+    char *resultado = reunionMafia(nivel);
     printf("%s\n", resultado);
     free(resultado);
 
     return 0;
 }
 
-//Punto 7
-int mainOnda() {
+// Punto 7
+int mainOnda()
+{
     char seniales[100];
     printf("Escriba la onda digital (L y H): ");
     fgets(seniales, sizeof(seniales), stdin);
@@ -258,36 +283,37 @@ int mainOnda() {
     return 0;
 }
 
-//Punto 8
+// Punto 8
 /*int mainSubconjunto()
 {
     return 0;
 }*/
 
-//Punto 9
+// Punto 9
 int mainDivPor7()
 {
     int num;
-    printf("Ingrese un numero entero: \n" );
+    printf("Ingrese un numero entero: \n");
     scanf("%d", &num);
-    while (num < 0) 
+    while (num < 0)
     {
-        printf("Dato invalido. Ingrese un nuevo numero entero: " );
-        scanf("%d", &num);            // vacia el buffer    
+        printf("Dato invalido. Ingrese un nuevo numero entero: ");
+        scanf("%d", &num); // vacia el buffer
     }
-    if (divisiblePor7(num)) 
-    {                    /* si la funcion devuelve verdadero si numero es multiplo de 7 entonces ejecuta el cuerpo del if */
+    if (divisiblePor7(num))
+    { /* si la funcion devuelve verdadero si numero es multiplo de 7 entonces ejecuta el cuerpo del if */
         printf("%d es divisible por 7 \n", num);
-    } 
-    else 
+    }
+    else
     {
         printf("%d no es divisible por  7 \n", num);
     }
     return 0;
-  }
+}
 
-//Punto 10
-int mainBomba() {
+// Punto 10
+int mainBomba()
+{
     int n, b;
     printf("Ingrese el numero (N): ");
     scanf("%d", &n);
@@ -298,21 +324,22 @@ int mainBomba() {
     }
     printf("Ingrese la bomba (B. debe ser menor a n): ");
     scanf("%d", &b);
-    while (b < 0 || b >=n)
+    while (b < 0 || b >= n)
     {
         printf("dato invalido. ingrese otro numero: ");
         scanf("%d", &b);
     }
-    int* res = explosion(n, b);
+    int *res = explosion(n, b);
     printf("Resultado de la explosion:\n");
-    for (int i = 0; res[i] != -1; i++) {
+    for (int i = 0; res[i] != -1; i++)
+    {
         printf("%d ", res[i]);
     }
     printf("\n");
     return 0;
 }
 
-//Menu
+// Menu
 void menu_principal()
 {
     printf("\n");
@@ -351,7 +378,8 @@ int main()
         {
             printf("Opción incorrecta\n");
             printf("Por favor seleccione una opción: ");
-            while (getchar() != '\n');
+            while (getchar() != '\n')
+                ;
             scanf("%i", &opcion);
         }
         switch (opcion)
@@ -385,7 +413,7 @@ int main()
             getch();
             break;
         case 8:
-            //mainSubconjunto();
+            // mainSubconjunto();
             getch();
             break;
         case 9:
