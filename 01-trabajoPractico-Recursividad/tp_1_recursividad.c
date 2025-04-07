@@ -166,7 +166,7 @@ float division(int m, int n)
     resultado[0] = '\0';
     int contador = 0;
     divisionAUX(m, n, contador, resultado);
-    float resultadoCasteado = atof(resultado);
+    float resultadoCasteado = strtof(resultado, NULL);
     resultadoCasteado = resultadoCasteado * (float)mNegativo * (float)nNegativo;
     return resultadoCasteado;
 }
