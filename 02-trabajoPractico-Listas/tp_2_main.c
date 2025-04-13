@@ -4,6 +4,16 @@
 #include <stdbool.h>
 #include <string.h>
 #include <conio.h>
+#include "tipo_elemento.h"
+#include "tp_2_listas.h"
+#include "listas.h"
+
+void limpiarBuffer()
+{
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
 
 //Punto 1
 
@@ -16,6 +26,66 @@
 //Punto 5
 
 //Punto 6
+Lista cargarLista(Lista l)
+{
+    int i = 0;
+    int tamano;
+    int elemento;
+    TipoElemento elem;
+    printf("ingrese la cantidad de elementos que desea ingresar en la lista: ");
+    while ((scanf("%d", &tamano) != 1) || (tamano < 0 || tamano > 99))
+    {
+        printf("dato invalido. ingrese la cantidad de elementos que desea ingresar en la lista: ");
+        scanf("%d", &tamano);
+        limpiarBuffer();
+    }
+    tamano = (int)tamano;
+    while(i < tamano)
+    {
+        printf("ingrese un elemento de la lista. (solo se admiten numeros enteros): ");
+     
+        while (scanf("%d", &elemento) != 1)
+        {
+            printf("elemento invalido. ingrese un elemento de la lista: ");
+            scanf("%d", &elemento);
+            limpiarBuffer();
+        }
+        elemento = (int)elemento;
+        elem = te_crear(elemento);
+        l_agregar(l, elem);
+        i++;
+    }
+    return l;
+}
+
+int mainSublista()
+{
+    printf("\t--- Carga de la lista 1 ---\n");
+    Lista l1 = l_crear();
+    l1 = cargarLista(l1);
+    printf("\t--- Carga de la lista 2 ---\n");
+    Lista l2 = l_crear();
+    l2 = cargarLista(l2);
+    bool rta = esSublista(l1, l2);
+    if (rta == true)
+    {
+    printf("\nla lista 2 es sublista de la lista 1");
+    }
+    else
+    {
+        printf("\nla lista 2 no es sublista de la lista 1");
+        rta = esSublista(l2, l1);
+        if (rta == true)
+        {
+            printf("\nla lista 1 es sublista de la lista 2");
+        }
+        else
+        {
+            printf("\nla lista 1 no es sublista de la lista 2");
+        }
+    }
+}
+
 
 void menu_principal()
 {
@@ -92,19 +162,19 @@ int main()
                 switch (opcion)
                 {
                 case 1:
-                    main_menor();
+                    //main_menor();
                     getch();
                     break;
                 case 2:
-                    main_mayor();
+                    //main_mayor();
                     getch();
                     break;
                 case 3:
-                    main_promedio();
+                    //main_promedio();
                     getch();
                     break;
                 case 4:
-                    main_multiplos();
+                    //main_multiplos();
                     getch();
                     break;
                 case 0:
@@ -112,21 +182,21 @@ int main()
                 }
             }
             break;
-            menu_principal();
+            //menu_principal();
         case 3:
-            main_multiplo();
+            //main_multiplo();
             getch();
             break;
         case 4:
-            main_comparar();
+            //main_comparar();
             getch();
             break;
         case 5:
-            main_polinomio();
+            //main_polinomio();
             getch();
             break;
         case 6:
-            main_sublista();
+            mainSublista();
             getch();
             break;
         case 0:

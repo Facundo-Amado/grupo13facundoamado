@@ -2,7 +2,6 @@
 #define LISTAS_H
 
 #include <stdbool.h>
-//#include "D:\Mario\Prog_2_2009\2024\TADs\Tipos\tipo_elemento.h"
 #include "tipo_elemento.h"
 
 struct ListaRep;
