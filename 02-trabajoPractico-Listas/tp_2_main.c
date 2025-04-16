@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <conio.h>
+#include <math.h>
 #include "tipo_elemento.h"
 #include "tp_2_listas.h"
 #include "listas.h"
@@ -86,6 +87,68 @@ int mainMultiplo() {
 //Punto 4
 
 //Punto 5
+void mostrarComplejidad() {
+    printf("\n=== Complejidad Algoritmica ===\n");
+    printf("Ingreso del polinomio: O(n), donde n es la cantidad de terminos del polinomio\n");
+    printf("Evaluacion de polinomio: O(n)\n");
+    printf("Calcular rango: O(m x n), con m = cantidad de puntos evaluados entre [desde, hasta] segun el intervalo.\n");
+}
+
+int mainPolinomio() {
+    Lista polinomio = l_crear();
+    printf("=== Calculo de valores de un polinomio ===\n");
+    printf("\n");
+    printf("=== Ingreso del polinomio ===\n");
+    hacerPolinomio(polinomio);
+
+    if(l_es_vacia(polinomio)) {
+        printf("Error: no se ingreso ningun polinomio.\n");
+        return EXIT_FAILURE;
+    }
+
+    double desde, hasta, intervalo;
+    printf("\n=== Evaluacion en rango ===\n");
+    printf("Desde X: ");
+    scanf("%lf", &desde);
+    printf("Hasta X: ");
+    scanf("%lf", &hasta);
+
+    printf("Intervalo: ");
+    scanf("%lf", &intervalo);
+
+    if (intervalo == 0.0) {
+        printf("Error: el intervalo no puede ser cero.\n");
+        return EXIT_FAILURE;
+    }
+
+    if ((hasta - desde) * intervalo < 0) {
+        printf("Error: el intervalo no es coherente con el rango.\n");
+        return EXIT_FAILURE;
+    }
+
+    Lista resultados = calcularRango(polinomio, desde, hasta, intervalo);
+
+    printf("\n=== Resultados F(x) ===\n");
+    Iterador it = iterador(resultados);
+    int i = 0;
+    for (double x = desde; hay_siguiente(it); x += intervalo) {
+        TipoElemento te = siguiente(it);
+        double* fx = (double*)te->valor;
+        printf("F(%.2lf) = %.2lf\n", x, *fx);
+        free(fx);
+        i++;
+    }
+
+    it = iterador(polinomio);
+    while (hay_siguiente(it)) {
+        TipoElemento te = siguiente(it);
+        free(te->valor);
+    }
+
+    // mostrarComplejidad();
+
+    return EXIT_SUCCESS;
+}
 
 //Punto 6
 Lista cargarLista(Lista l)
@@ -257,7 +320,7 @@ int main()
             getch();
             break;
         case 5:
-            //main_polinomio();
+            mainPolinomio();
             getch();
             break;
         case 6:

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <conio.h>
+#include <math.h>
 #include "tipo_elemento.h"
 #include "tp_2_listas.h"
 #include "listas.h"
@@ -57,7 +57,55 @@ ResultadosMul multiplo(Lista l1, Lista l2) {
 
 
 //Punto 5
+void hacerPolinomio(Lista list) {
+    int grado;
+    printf("Ingrese el grado del polinomio: ");
+    scanf("%d", &grado);
 
+    if(grado < 0) {
+        printf("Error: el grado del polinomio no puede ser negativo.\n");
+        return;
+    }
+
+    for (int i = 0; i <= grado; i++) {
+        printf("Ingrese el coeficiente de x^%d: ", i);
+        float* coeficiente = malloc(sizeof(float));
+        scanf("%f", coeficiente);                   
+
+        TipoElemento te = te_crear_con_valor(i, coeficiente); // clave = grado del término
+        l_agregar(list, te);
+    }
+}
+
+double evaluarPolinomio(Lista list, double x) {
+    Iterador ite = iterador(list);
+    double result = 0.0;
+
+    while (hay_siguiente(ite)) {
+        TipoElemento te = siguiente(ite);
+        float coef = *(float*)te->valor; // desreferenciar el puntero
+        result += coef * pow(x, te->clave);
+    }
+
+    return result;
+}
+ 
+Lista calcularRango(Lista list, double x, double y, double sumando) {
+    Lista rango = l_crear();
+
+    int index = 0;
+    for (double x_i = x; x_i <= y; x_i += sumando) {
+        double* result = malloc(sizeof(double));
+        *result = evaluarPolinomio(list, x_i);
+
+        TipoElemento te = te_crear_con_valor(index, result);
+        l_agregar(rango, te);
+
+        index++;
+    }
+
+    return rango;
+}
 
 //Punto 6
 bool esSublista(Lista l1, Lista l2)
