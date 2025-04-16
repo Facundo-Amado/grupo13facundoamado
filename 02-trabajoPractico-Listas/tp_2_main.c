@@ -18,6 +18,70 @@ void limpiarBuffer()
 //Punto 2
 
 //Punto 3
+int mainMultiplo() {
+    int n1, n2;
+
+    // Crear y llenar la Lista 1
+    printf("Ingrese la cantidad de elementos para la Lista 1: ");
+    Lista l1 = l_crear();
+    while (scanf("%d", &n1) != 1 || n1 <= 0) {
+        limpiarBuffer();
+        printf("Error: ingrese un numero entero positivo para el tamano: ");
+    }
+    
+    if (n1 <= 0) {
+        printf("Tamano invalido.\n");
+        return 1;
+    }
+
+    printf("Ingrese los %d elementos de la Lista 1:\n", n1);
+    for (int i = 0; i < n1; i++) {
+        int valor;
+        printf("Elemento %d: ", i + 1);
+        while (scanf("%d", &valor) != 1) {
+            limpiarBuffer();
+            printf("Error: ingrese un numero entero valido para el elemento %d: ", i + 1);
+        }
+        l_agregar(l1, te_crear(valor));
+    }
+
+    // Crear y llenar la Lista 2
+    printf("Ingrese la cantidad de elementos para la Lista 2: ");
+    Lista l2 = l_crear();
+    while (scanf("%d", &n2) != 1 || n2 <= 0) {
+        limpiarBuffer();
+        printf("Error: ingrese un numero entero positivo para el tamano: ");
+    }
+    
+    if (n2 <= 0) {
+        printf("Tamano invalido.\n");
+        return 1;
+    }
+
+    printf("Ingrese los %d elementos de la Lista 2:\n", n2);
+    for (int i = 0; i < n2; i++) {
+        int valor;
+        printf("Elemento %d: ", i + 1);
+        while (scanf("%d", &valor) != 1) {
+            limpiarBuffer();
+            printf("Error: ingrese un numero entero valido para el elemento %d: ", i + 1);
+        }
+        l_agregar(l2, te_crear(valor));
+    }
+
+    // Verificar si L2 es múltiplo de L1
+    ResultadosMul resultado = multiplo(l1, l2);
+
+    if (!resultado.esMultiplo) {
+        printf("L2 NO es multiplo de L1.\n");
+    } else {
+        printf("L2 ES multiplo de L1.\n");
+        if (resultado.escalar) {
+            printf("Es ESCALAR con el numero %d.\n", resultado.numEscalar);
+        }
+    }
+    return 0;
+}
 
 //Punto 4
 
@@ -82,6 +146,8 @@ int mainSublista()
             printf("\nla lista 1 no es sublista de la lista 2");
         }
     }
+    printf("\n\t --- Complejidad algoritmica del ejercicio ---\n");
+    printf("el ejercicio es de complejidad cuadratica (O(n^2)) ya que las operaciones de mayor complejidad \nutilizadas son 2 while anidados. cada while se itera n veces, lo que equivale a n*n 0 n^2.\n");
     return 0;
 }
 
@@ -183,7 +249,7 @@ int main()
             break;
             //menu_principal();
         case 3:
-            //main_multiplo();
+            mainMultiplo();
             getch();
             break;
         case 4:
