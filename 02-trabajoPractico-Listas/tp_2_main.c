@@ -15,8 +15,6 @@ void limpiarBuffer()
 }
 
 
-//Punto 1
-
 //Punto 2
 
 //Punto 3
@@ -84,6 +82,7 @@ int mainSublista()
             printf("\nla lista 1 no es sublista de la lista 2");
         }
     }
+    return 0;
 }
 
 
@@ -188,7 +187,7 @@ int main()
             getch();
             break;
         case 4:
-            //main_comparar();
+            //mainComparar();
             getch();
             break;
         case 5:
