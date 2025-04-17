@@ -54,7 +54,30 @@ ResultadosMul multiplo(Lista l1, Lista l2) {
 }
 
 //Punto 4
-
+int CompararListas (Lista l1, Lista l2){
+    int l1T = l_longitud(l1);
+    int l2T = l_longitud(l2);
+    float pl1 = 0;
+    float pl2 = 0;
+    if(l1T != l2T){
+        printf("\nError. las listas deben ser de igual tamaño\n");
+        return -1;
+    }        
+    for (int i = 1; i <= l1T; i++)
+    {
+        if (l_recuperar(l1,i)->clave > l_recuperar(l2,i)->clave) pl1 = pl1 + 1;
+        if (l_recuperar(l1,i)->clave < l_recuperar(l2,i)->clave) pl2 = pl2 + 1;
+        if (l_recuperar(l1,i)->clave == l_recuperar(l2,i)->clave)
+        {
+            pl1 = pl1 + 1;
+            pl2 = pl2 + 1;
+        }
+    }
+    if (pl1 == pl2) return 0;
+    if (pl1 > pl2) return 1;
+    if (pl1 < pl2) return 2;
+    else return -1;
+}
 
 //Punto 5
 void hacerPolinomio(Lista list) {

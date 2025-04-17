@@ -85,6 +85,58 @@ int mainMultiplo() {
 }
 
 //Punto 4
+Lista cargarlistas(Lista l){
+    float entrada;
+    int tam, i = 0;
+    printf("Ingrese la cantidad de elementos para la lista: ");
+    while (scanf("%d", &tam) != 1 || tam <= 0) 
+    {
+        limpiarBuffer();
+        printf("Error: ingrese un numero entero positivo para el tamano: ");
+    }
+    while (i < tam)
+    {
+        printf("ingrese un numero:");
+        while (scanf("%f", &entrada) != 1)
+        {
+            printf("Error. Solo se admiten numeros enteros y flotantes\n");            
+            printf("ingrese un numero:");
+            scanf("%f", &entrada);
+            limpiarBuffer();
+
+        }
+        l_agregar(l, te_crear(entrada));
+        i++;
+    }
+    return l;
+}
+
+int mainComparar()
+{
+    Lista l1 = l_crear();
+    Lista l2 = l_crear();
+    printf("\n --- Comparador de listas de igual tamaño --- ");    
+    printf("\n\t --- Cargar primera lista --- \n");    
+    cargarlistas(l1);
+    l_mostrar(l1);
+    printf("\n\t --- Cargar segunda lista --- \n");
+    cargarlistas(l2);
+    l_mostrar(l2);
+    int res = CompararListas(l1,l2);
+    if (res == 0)
+    {
+        printf("\nLas listas son iguales\n");
+    }
+    if(res == 1)
+    {
+        printf("\nL1 es mayor a L2\n");
+    }
+    if(res == 2)
+    {
+        printf("\nL1 es menor a L2\n");
+    }
+    return 0;
+}
 
 //Punto 5
 void mostrarComplejidad() {
@@ -168,7 +220,6 @@ Lista cargarLista(Lista l)
     while(i < tamano)
     {
         printf("ingrese un elemento de la lista. (solo se admiten numeros enteros): ");
-     
         while (scanf("%d", &elemento) != 1)
         {
             printf("elemento invalido. ingrese un elemento de la lista: ");
@@ -316,7 +367,7 @@ int main()
             getch();
             break;
         case 4:
-            //mainComparar();
+            mainComparar();
             getch();
             break;
         case 5:
