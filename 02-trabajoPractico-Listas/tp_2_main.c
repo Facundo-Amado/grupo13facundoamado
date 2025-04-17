@@ -135,6 +135,8 @@ int mainComparar()
     {
         printf("\nL1 es menor a L2\n");
     }
+    printf("\n\t --- Complejidad algoritmica del ejercicio ---\n");
+    printf("el ejercicio es de complejidad lineal, ya que cuenta con una sola estructura iterativa de complejidad O(n).\n");
     return 0;
 }
 
