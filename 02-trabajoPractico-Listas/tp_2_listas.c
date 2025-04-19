@@ -4,9 +4,9 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
-#include "tipo_elemento.h"
-#include "tp_2_listas.h"
-#include "listas.h"
+#include "..\libs\tipoElemento\headers\tipo_elemento.h"
+#include "..\libs\listas\headers\tp_2_listas.h"
+#include "..\libs\listas\headers\listas.h"
 
 //Punto 2
 

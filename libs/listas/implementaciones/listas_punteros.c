@@ -1,6 +1,6 @@
-//#include "D:\Mario\Prog_2_2009\2024\TADs\Listas\listas.h"
-#include "listas.h"
-#include "tipo_elemento.h"
+#include "..\headers\listas.h"
+#include "..\..\tipoElemento\headers\tipo_elemento.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 
