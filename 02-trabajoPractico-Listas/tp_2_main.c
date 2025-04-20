@@ -5,6 +5,7 @@
 #include <string.h>
 #include <conio.h>
 #include <math.h>
+#include <time.h>
 #include "..\libs\tipoElemento\headers\tipo_elemento.h"
 #include "..\libs\listas\headers\tp_2_listas.h"
 #include "..\libs\listas\headers\listas.h"
@@ -15,8 +16,123 @@ void limpiarBuffer()
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
+Lista cargarLista(Lista l)
+{
+    int i = 0;
+    int tamano;
+    int elemento;
+    TipoElemento elem;
+    printf("ingrese la cantidad de elementos que desea ingresar en la lista: ");
+    while ((scanf("%d", &tamano) != 1) || (tamano < 0 || tamano > 99))
+    {
+        printf("dato invalido. ingrese la cantidad de elementos que desea ingresar en la lista: ");
+        scanf("%d", &tamano);
+        limpiarBuffer();
+    }
+    tamano = (int)tamano;
+    while(i < tamano)
+    {
+        printf("ingrese un elemento de la lista. (solo se admiten numeros enteros): ");
+        while (scanf("%d", &elemento) != 1)
+        {
+            printf("elemento invalido. ingrese un elemento de la lista: ");
+            scanf("%d", &elemento);
+            limpiarBuffer();
+        }
+        elemento = (int)elemento;
+        elem = te_crear(elemento);
+        l_agregar(l, elem);
+        i++;
+    }
+    return l;
+}
+
+/*Lista cargarListaAuto(Lista lista, int tam) 
+{
+    srand(time(NULL));
+    for (int i = 0; i < tam; i++) {
+        int numero_aleatorio = 1 + rand() % (99 - 1 + 1);
+        TipoElemento te = te_crear(numero_aleatorio);
+        l_agregar(lista, te);
+    }
+}*/
 
 //Punto 2
+Resultados promedioAmbasListas(Lista l1, Lista l2) {
+
+    Resultados resultado;
+    resultado.resultado1 = promedio(l1);
+    resultado.resultado2 = promedio(l2);
+
+    return resultado;
+}
+
+//puntos a y b
+int mainNoRepetidos()
+{
+    Lista l1 = l_crear();
+    Lista l2 = l_crear();
+    printf("\n\t --- Cargar primera lista --- \n");    
+    cargarLista(l1);
+    printf("\n\t --- Cargar segunda lista --- \n");
+    cargarLista(l2);
+    Lista valores = l_crear();
+    //a
+    valores = verElementosQueNoSeRepiten(l1, l2);
+    printf("Valores de l1 que no estan en l2: ");
+    l_mostrar(valores);
+    printf("\n\n");
+    //b
+    valores = verElementosQueNoSeRepiten(l2, l1);
+    printf("Valores de l2 que no estan en l1: ");
+    l_mostrar(valores);
+    return 0;
+}
+
+//punto c
+int mainRepetidos()
+{
+    Lista l1 = l_crear();
+    Lista l2 = l_crear();
+    Lista valores = l_crear();
+    printf("\n\t --- Cargar primera lista --- \n");    
+    cargarLista(l1);
+    printf("\n\t --- Cargar segunda lista --- \n");
+    cargarLista(l2);
+    valores = verElementosRepetidos(l1, l2);
+    printf("Elementos comunes a ambas listas: ");
+    l_mostrar(valores);
+    return 0;
+}
+
+//punto d
+int mainPromedio()
+{
+    Lista l1 = l_crear();
+    Lista l2 = l_crear();
+    printf("\n\t --- Cargar primera lista --- \n");    
+    cargarLista(l1);
+    printf("\n\t --- Cargar segunda lista --- \n");
+    cargarLista(l2);
+    Resultados resultado = promedioAmbasListas(l1, l2);
+    printf("Promedio de l1: %f      Promedio de l2: %f", resultado.resultado1, resultado.resultado2);
+    return 0;
+}
+
+//punto e
+int mainMenorValor()
+{
+    Lista l1 = l_crear();
+    Lista l2 = l_crear();
+    printf("\n\t --- Cargar primera lista --- \n");    
+    cargarLista(l1);
+    printf("\n\t --- Cargar segunda lista --- \n");
+    cargarLista(l2);
+    ResultadoValorMinimo valorMenor = valorMinimo(l1, l2);
+    printf("Menor valor de la lista 1: %d. Está en la posición %d",valorMenor.valor, valorMenor.pos);
+    printf("Menor valor de la lista 2: %d. Está en la posición %d",valorMenor.valor_2, valorMenor.pos_2);
+    return 0;
+}
 
 //Punto 3
 int mainMultiplo() {
@@ -205,37 +321,6 @@ int mainPolinomio() {
 }
 
 //Punto 6
-Lista cargarLista(Lista l)
-{
-    int i = 0;
-    int tamano;
-    int elemento;
-    TipoElemento elem;
-    printf("ingrese la cantidad de elementos que desea ingresar en la lista: ");
-    while ((scanf("%d", &tamano) != 1) || (tamano < 0 || tamano > 99))
-    {
-        printf("dato invalido. ingrese la cantidad de elementos que desea ingresar en la lista: ");
-        scanf("%d", &tamano);
-        limpiarBuffer();
-    }
-    tamano = (int)tamano;
-    while(i < tamano)
-    {
-        printf("ingrese un elemento de la lista. (solo se admiten numeros enteros): ");
-        while (scanf("%d", &elemento) != 1)
-        {
-            printf("elemento invalido. ingrese un elemento de la lista: ");
-            scanf("%d", &elemento);
-            limpiarBuffer();
-        }
-        elemento = (int)elemento;
-        elem = te_crear(elemento);
-        l_agregar(l, elem);
-        i++;
-    }
-    return l;
-}
-
 int mainSublista()
 {
     printf("\t--- Carga de la lista 1 ---\n");
@@ -268,7 +353,7 @@ int mainSublista()
 }
 
 
-void menu_principal()
+void menuPrincipal()
 {
     printf("\n");
     printf("  ============================================================================\n");
@@ -288,17 +373,17 @@ void menu_principal()
     printf("  Por favor seleccione una opción: ");
 }
 
-void menu_punto2()
+void menuPunto2()
 {
     printf("\n");
     printf("  ============================================================================\n");
     printf(" |                         2   Operaciones con listas                         |\n");
     printf("  ============================================================================\n");
     printf("\n");
-    printf("  1   Menor de los datos\n");
-    printf("  2   Mayor de los datos\n");
-    printf("  3   Promedio\n");
-    printf("  4   Lista de múltiplos\n");
+    printf("  1   Claves no repetidas\n");
+    printf("  2   Claves repetidas\n");
+    printf("  3   Promedio de claves\n");
+    printf("  4   Menor valor\n");
     ;
     printf("\n");
     printf("  0   Salir\n");
@@ -315,7 +400,7 @@ int main()
     int opcion;
     while (!salir)
     {
-        menu_principal();
+        menuPrincipal();
         scanf("%d", &opcion);
         while (opcion < 0 || opcion > 6 || opcion == 1)
         {
@@ -330,7 +415,7 @@ int main()
         case 2:
             while (!salir1)
             {
-                menu_punto2();
+                menuPunto2();
                 scanf("%i", &opcion);
                 while (opcion < 0 || opcion > 4)
                 {
@@ -343,19 +428,19 @@ int main()
                 switch (opcion)
                 {
                 case 1:
-                    //main_menor();
+                    mainNoRepetidos();
                     getch();
                     break;
                 case 2:
-                    //main_mayor();
+                    mainRepetidos();
                     getch();
                     break;
                 case 3:
-                    //main_promedio();
+                    mainPromedio();
                     getch();
                     break;
                 case 4:
-                    //main_multiplos();
+                    mainMenorValor();
                     getch();
                     break;
                 case 0:
@@ -363,7 +448,7 @@ int main()
                 }
             }
             break;
-            //menu_principal();
+            menuPrincipal();
         case 3:
             mainMultiplo();
             getch();
