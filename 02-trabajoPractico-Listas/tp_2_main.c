@@ -58,30 +58,34 @@ Lista cargarLista(Lista l)
 }*/
 
 //Punto 2
+
+void crearlistas(Lista l1, Lista l2)
+{
+    printf("\n\t --- Cargar primera lista --- \n");    
+    cargarLista(l1);
+    printf("\n\t --- Cargar segunda lista --- \n");
+    cargarLista(l2);
+    printf("Pulse enter para volver al menú");
+    return;
+}
+
 Resultados promedioAmbasListas(Lista l1, Lista l2) {
 
     Resultados resultado;
     resultado.resultado1 = promedio(l1);
     resultado.resultado2 = promedio(l2);
-
     return resultado;
 }
 
 //puntos a y b
-int mainNoRepetidos()
+int mainNoRepetidos(Lista l1, Lista l2)
 {
-    Lista l1 = l_crear();
-    Lista l2 = l_crear();
-    printf("\n\t --- Cargar primera lista --- \n");    
-    cargarLista(l1);
-    printf("\n\t --- Cargar segunda lista --- \n");
-    cargarLista(l2);
     Lista valores = l_crear();
     //a
     valores = verElementosQueNoSeRepiten(l1, l2);
     printf("Valores de l1 que no estan en l2: ");
     l_mostrar(valores);
-    printf("\n\n");
+    printf("\n");
     //b
     valores = verElementosQueNoSeRepiten(l2, l1);
     printf("Valores de l2 que no estan en l1: ");
@@ -90,15 +94,9 @@ int mainNoRepetidos()
 }
 
 //punto c
-int mainRepetidos()
+int mainRepetidos(Lista l1, Lista l2)
 {
-    Lista l1 = l_crear();
-    Lista l2 = l_crear();
     Lista valores = l_crear();
-    printf("\n\t --- Cargar primera lista --- \n");    
-    cargarLista(l1);
-    printf("\n\t --- Cargar segunda lista --- \n");
-    cargarLista(l2);
     valores = verElementosRepetidos(l1, l2);
     printf("Elementos comunes a ambas listas: ");
     l_mostrar(valores);
@@ -106,28 +104,16 @@ int mainRepetidos()
 }
 
 //punto d
-int mainPromedio()
+int mainPromedio(Lista l1, Lista l2)
 {
-    Lista l1 = l_crear();
-    Lista l2 = l_crear();
-    printf("\n\t --- Cargar primera lista --- \n");    
-    cargarLista(l1);
-    printf("\n\t --- Cargar segunda lista --- \n");
-    cargarLista(l2);
     Resultados resultado = promedioAmbasListas(l1, l2);
-    printf("Promedio de l1: %f      Promedio de l2: %f", resultado.resultado1, resultado.resultado2);
+    printf("Promedio de l1: %f\nPromedio de l2: %f", resultado.resultado1, resultado.resultado2);
     return 0;
 }
 
 //punto e
-int mainMenorValor()
+int mainMenorValor(Lista l1, Lista l2)
 {
-    Lista l1 = l_crear();
-    Lista l2 = l_crear();
-    printf("\n\t --- Cargar primera lista --- \n");    
-    cargarLista(l1);
-    printf("\n\t --- Cargar segunda lista --- \n");
-    cargarLista(l2);
     ResultadoValorMinimo valorMenor = valorMinimo(l1, l2);
     printf("Menor valor de la lista 1: %d. Está en la posición %d",valorMenor.valor, valorMenor.pos);
     printf("Menor valor de la lista 2: %d. Está en la posición %d",valorMenor.valor_2, valorMenor.pos_2);
@@ -155,7 +141,7 @@ int mainMultiplo() {
     for (int i = 0; i < n1; i++) {
         int valor;
         printf("Elemento %d: ", i + 1);
-        while (scanf("%d", &valor) != 1) {
+        while (scanf("%d", &valor) != 1 || valor == 0) {
             limpiarBuffer();
             printf("Error: ingrese un numero entero valido para el elemento %d: ", i + 1);
         }
@@ -179,7 +165,7 @@ int mainMultiplo() {
     for (int i = 0; i < n2; i++) {
         int valor;
         printf("Elemento %d: ", i + 1);
-        while (scanf("%d", &valor) != 1) {
+        while (scanf("%d", &valor) != 1 || valor == 0) {
             limpiarBuffer();
             printf("Error: ingrese un numero entero valido para el elemento %d: ", i + 1);
         }
@@ -380,10 +366,11 @@ void menuPunto2()
     printf(" |                         2   Operaciones con listas                         |\n");
     printf("  ============================================================================\n");
     printf("\n");
-    printf("  1   Claves no repetidas\n");
-    printf("  2   Claves repetidas\n");
-    printf("  3   Promedio de claves\n");
-    printf("  4   Menor valor\n");
+    printf("  1   Crear Listas\n");
+    printf("  2   Claves no repetidas\n");
+    printf("  3   Claves repetidas\n");
+    printf("  4   Promedio de claves\n");
+    printf("  5   Menor valor\n");
     ;
     printf("\n");
     printf("  0   Salir\n");
@@ -395,6 +382,9 @@ void menuPunto2()
 
 int main()
 {
+    Lista l1 = l_crear();
+    Lista l2 = l_crear();
+    bool listasCargadas = false;
     bool salir1 = false;
     bool salir = false;
     int opcion;
@@ -417,7 +407,7 @@ int main()
             {
                 menuPunto2();
                 scanf("%i", &opcion);
-                while (opcion < 0 || opcion > 4)
+                while (opcion < 0 || opcion > 5)
                 {
                     printf("Opción incorrecta\n");
                     printf("Por favor seleccione una opción: ");
@@ -428,19 +418,56 @@ int main()
                 switch (opcion)
                 {
                 case 1:
-                    mainNoRepetidos();
+                    crearlistas(l1, l2);
+                    listasCargadas = true;
                     getch();
                     break;
                 case 2:
-                    mainRepetidos();
+                    if (listasCargadas) 
+                    {
+                        mainNoRepetidos(l1, l2);
+                    }
+                    else 
+                    {
+                        printf("Primero debe cargar las listas (opción 1).\n");
+                        printf("Pulse enter para volver al menú");
+                    }
                     getch();
                     break;
                 case 3:
-                    mainPromedio();
+                    if (listasCargadas) 
+                    {
+                        mainRepetidos(l1, l2);
+                    }
+                    else 
+                    {
+                        printf("Primero debe cargar las listas (opción 1).\n");
+                        printf("Pulse enter para volver al menú");
+                    }
                     getch();
                     break;
                 case 4:
-                    mainMenorValor();
+                    if (listasCargadas) 
+                    {
+                        mainPromedio(l1, l2);
+                    }
+                    else 
+                    {
+                        printf("Primero debe cargar las listas (opción 1).\n");
+                        printf("Pulse enter para volver al menú");
+                    }
+                    getch();
+                    break;
+                case 5:
+                    if (listasCargadas) 
+                    {
+                        mainMenorValor(l1, l2);
+                    }
+                    else 
+                    {
+                        printf("Primero debe cargar las listas (opción 1).\n");
+                        printf("Pulse enter para volver al menú");
+                    }
                     getch();
                     break;
                 case 0:
