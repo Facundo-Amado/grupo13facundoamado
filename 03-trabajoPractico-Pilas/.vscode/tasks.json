@@ -10,6 +10,7 @@
                 //"${file}",
                 "${fileDirname}\\tp_3_main.c",
                 "${fileDirname}\\../libs/pila/implementaciones/pilas_punteros.c",
+                "${fileDirname}\\../libs/tipoElemento/implementaciones/tipo_elemento_1.c",
                 "${fileDirname}\\tp_3_pilas.c",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
@@ -38,7 +39,7 @@
                 "${fileDirname}\\tp_3_main.c",
                 "${fileDirname}\\../libs/pilas/implementaciones/pilas_arreglos.c",
                 "${fileDirname}\\tp_3_pilas.c",
-                "${fileDirname}\\../libs/tipoElemento/implementaciones/tipo_elemento.c",
+                "${fileDirname}\\../libs/tipoElemento/implementaciones/tipo_elemento_1.c",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "-Wall"

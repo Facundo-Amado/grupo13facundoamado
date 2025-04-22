@@ -334,7 +334,7 @@ int mainSublista()
         }
     }
     printf("\n\t --- Complejidad algoritmica del ejercicio ---\n");
-    printf("el ejercicio es de complejidad cuadratica (O(n^2)) ya que las operaciones de mayor complejidad \nutilizadas son 2 while anidados. cada while se itera n veces, lo que equivale a n*n 0 n^2.\n");
+    printf("el ejercicio es de complejidad cuadratica (O(n*m)) ya que las operaciones de mayor complejidad \nutilizadas son 2 while anidados. cada while se itera n veces, lo que equivale a n*n 0 n^2.\n");
     return 0;
 }
 

@@ -9,6 +9,12 @@
 #include "../libs/pila/headers/pilas.h"
 #include "../libs/pila/headers/tp_3_pilas.h"
 
+void limpiarBuffer()
+{
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}    
+
 //Punto 2
 
 //Punto 3
@@ -20,6 +26,51 @@
 //Punto 6
 
 //Punto 7
+void cargarpila(Pila p)
+{
+    int i = 0, tamano, elemento;
+    TipoElemento elem;
+    printf("ingrese la cantidad de elementos que desea ingresar a la pila: ");
+    while (scanf("%d", &tamano) != 1 || (tamano <= 0 || tamano > 10))
+    {
+        printf("Dato invalido. Ingrese un número entero entre 1 y 10: ");
+        scanf("%d", &tamano);
+        limpiarBuffer();
+    }
+    tamano = (int)tamano;
+    while (i< tamano)
+    {
+        printf("ingrese un elemento de la lista. (solo se admiten numeros enteros): ");
+        while (scanf("%d", &elemento) != 1)
+        {
+            printf("elemento invalido. ingrese un elemento de la lista: ");
+            scanf("%d", &elemento);
+            limpiarBuffer();
+        }
+        elemento = (int)elemento;
+        elem = te_crear(elemento);
+        p_apilar(p, elem);
+        i++;
+    }
+}
+
+int mainElementosComunes()
+{
+    Pila p1 = p_crear();
+    printf("\n\t --- Carga de la primera pila ---\n");
+    cargarpila(p1);
+    p_mostrar(p1);
+    Pila p2 = p_crear();
+    printf("\n\t --- Carga de la segunda pila ---\n");
+    cargarpila(p2);
+    p_mostrar(p2);
+    Pila comunes = p_ej7_elementoscomunes(p1, p2);
+    printf("\n\t --- Elementos en común ---\n");
+    p_mostrar(comunes);
+    printf("\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
+    printf("el ejercicio es de complejidad cuadratica (O(n*m)) ya que se deben recorer 2 pilas cuyos tamaños \npueden ser iguales o no, pero la complejidad aumenta dependiendo del tamaño de las pilas.\n");
+    return 0;
+}
 
 //Punto 8
 
@@ -148,7 +199,7 @@ int main()
             getch();
             break;
         case 7:
-            //main_elemento_en_comun();
+            mainElementosComunes();
             getch();
             break;
         case 8:
