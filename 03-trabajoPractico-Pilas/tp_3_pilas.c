@@ -16,6 +16,20 @@
 //Punto 4
 
 //Punto 5
+Pila  p_ej5_invertir(Pila p){
+    Pila p_invertida = p_crear();
+    Pila aux = p_crear();
+    while(!p_es_vacia(p)){
+        TipoElemento elem = p_desapilar(p);
+        p_apilar(p_invertida, elem);
+        p_apilar(aux, elem);
+    }
+    while (!p_es_vacia(aux)){
+        TipoElemento elemento = p_desapilar(aux);
+        p_apilar(p, elemento);
+    }
+    return p_invertida;
+}
 
 //Punto 6
 

@@ -15,17 +15,6 @@ void limpiarBuffer()
     while ((c = getchar()) != '\n' && c != EOF);
 }    
 
-//Punto 2
-
-//Punto 3
-
-//Punto 4
-
-//Punto 5
-
-//Punto 6
-
-//Punto 7
 void cargarpila(Pila p)
 {
     int i = 0, tamano, elemento;
@@ -54,14 +43,40 @@ void cargarpila(Pila p)
     }
 }
 
+//Punto 2
+
+//Punto 3
+
+//Punto 4
+
+//Punto 5
+int mainInvertida(){
+    Pila p = p_crear();
+    Pila p_invertida = p_crear();
+    printf("\n\t\t --- Carga de la pila ---\n");
+    cargarpila(p);
+    printf("\nPila ingresada: ");
+    p_mostrar(p);
+    p_invertida = p_ej5_invertir(p);
+    printf("\nPila invertida: ");
+    p_mostrar(p_invertida);
+    printf("\n\t\t--- Complejidad algoritmica ---\n");
+    printf("el ejercicio tiene complejidad algoritmica O(2n) en el peor de los casos, ya que contiene \ndos ciclos while separados que recorren la pila de tamaño n.\n");
+    system("pause");
+    return 0;
+}
+
+//Punto 6
+
+//Punto 7
 int mainElementosComunes()
 {
     Pila p1 = p_crear();
-    printf("\n\t --- Carga de la primera pila ---\n");
+    printf("\n\t\t --- Carga de la primera pila ---\n");
     cargarpila(p1);
     p_mostrar(p1);
     Pila p2 = p_crear();
-    printf("\n\t --- Carga de la segunda pila ---\n");
+    printf("\n\t\t --- Carga de la segunda pila ---\n");
     cargarpila(p2);
     p_mostrar(p2);
     Pila comunes = p_ej7_elementoscomunes(p1, p2);
@@ -69,6 +84,7 @@ int mainElementosComunes()
     p_mostrar(comunes);
     printf("\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
     printf("el ejercicio es de complejidad cuadratica (O(n*m)) ya que se deben recorer 2 pilas cuyos tamaños \npueden ser iguales o no, pero la complejidad aumenta dependiendo del tamaño de las pilas.\n");
+    system("pause");
     return 0;
 }
 
@@ -191,7 +207,7 @@ int main()
             getch();
             break;
         case 5:
-            //main_invertida();
+            mainInvertida();
             getch();
             break;
         case 6:
