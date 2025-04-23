@@ -11,7 +11,7 @@ Curso de Programación 2, Universidad Nacional de Lujan
 ## Alumnos:
 
 #### Apellido y Nombre   //   Legajo   //   Mails
-##### Amado Facundo – 197176 - amadofacundo80@gmail.com 
+##### Amado Facundo – 197176 – amadofacundo80@gmail.com 
 ##### Fares Agostina – 199541 – agostinafares64@gmail.com
 ##### Wieczerynski Carolina – 195270 – carogmw@gmail.com
 ##### Nunez Federico – 191417 – fedenuul@gmail.com
