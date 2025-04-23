@@ -14,7 +14,6 @@ void limpiarBuffer()
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }    
-
 void cargarpila(Pila p)
 {
     int i = 0, tamano, elemento;
@@ -22,7 +21,7 @@ void cargarpila(Pila p)
     printf("ingrese la cantidad de elementos que desea ingresar a la pila: ");
     while (scanf("%d", &tamano) != 1 || (tamano <= 0 || tamano > 10))
     {
-        printf("Dato invalido. Ingrese un número entero entre 1 y 10: ");
+        printf("Dato invalido. Ingrese un numero entero entre 1 y 10: ");
         scanf("%d", &tamano);
         limpiarBuffer();
     }
@@ -60,6 +59,8 @@ int mainInvertida(){
     p_invertida = p_ej5_invertir(p);
     printf("\nPila invertida: ");
     p_mostrar(p_invertida);
+    printf("\n\nPila original sin modificar: \n");
+    p_mostrar(p);
     printf("\n\t\t--- Complejidad algoritmica ---\n");
     printf("el ejercicio tiene complejidad algoritmica O(2n) en el peor de los casos, ya que contiene \ndos ciclos while separados que recorren la pila de tamaño n.\n");
     system("pause");
@@ -67,6 +68,41 @@ int mainInvertida(){
 }
 
 //Punto 6
+int cargarClave(Pila p) {
+    int a;
+    printf("\nIngrese clave a borrar: ");
+    while( scanf("%d", &a) != 1 ) {
+        limpiarBuffer();
+        printf("Invalido. Ingrese un numero entero: ");
+    }
+    limpiarBuffer();
+    return a;
+}
+
+int main_eliminar_ocurrencias() {
+
+    Pila nueva_pila = p_crear();
+    cargarpila(nueva_pila);
+    printf("\n");
+    int clave = cargarClave(nueva_pila);
+    printf("\n\n");
+    p_mostrar(nueva_pila);
+
+    printf("\n\t --- Resolucion iterativa --- \n");
+    Pila nueva_pila2 = p_crear();
+    nueva_pila2 = p_ej6_eliminarclave(nueva_pila, clave);
+    p_mostrar(nueva_pila2);
+
+    printf("\n\t --- Resolucion recursiva --- \n");
+    Pila nueva_pila_r = p_crear();
+    nueva_pila_r = p_ej6_eliminarclave_r(nueva_pila, clave);
+    p_mostrar(nueva_pila_r);
+
+    printf("\n\nPila original sin modificar: \n");
+    p_mostrar(nueva_pila);
+    system("pause");
+    return 0;
+}
 
 //Punto 7
 int mainElementosComunes()
@@ -80,8 +116,12 @@ int mainElementosComunes()
     cargarpila(p2);
     p_mostrar(p2);
     Pila comunes = p_ej7_elementoscomunes(p1, p2);
-    printf("\n\t --- Elementos en común ---\n");
+    printf("\n\t --- Elementos en comun ---\n");
     p_mostrar(comunes);
+    printf("\n\nPila 1 original sin modificar: \n");
+    p_mostrar(p1);
+    printf("\n\nPila 2 original sin modificar: \n");
+    p_mostrar(p2);
     printf("\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
     printf("el ejercicio es de complejidad cuadratica (O(n*m)) ya que se deben recorer 2 pilas cuyos tamaños \npueden ser iguales o no, pero la complejidad aumenta dependiendo del tamaño de las pilas.\n");
     system("pause");
@@ -103,14 +143,14 @@ void menu_principal()
     printf("  4   Conversor de base\n");
     printf("  5   Invertir pila\n");
     printf("  6   Eliminar item\n");
-    printf("  7   Elementos en común\n");
+    printf("  7   Elementos en comun\n");
     printf("  8   Contador de valores\n");
     printf("\n");
     printf("  0   Salir\n");
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("  Por favor seleccione una opción: ");
+    printf("  Por favor seleccione una opcion: ");
 }
 
 void menu_punto2()
@@ -131,7 +171,7 @@ void menu_punto2()
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("  Por favor seleccione una opción: ");
+    printf("  Por favor seleccione una opcion: ");
 }
 
 int main()
@@ -145,8 +185,8 @@ int main()
         int validador = scanf("%i", &opcion);
         while (validador != 1 || opcion < 0 || opcion > 8 || opcion == 1)
         {
-            printf("Opción incorrecta\n");
-            printf("  Por favor seleccione una opción: ");
+            printf("Opcion incorrecta\n");
+            printf("  Por favor seleccione una opcion: ");
             while (getchar() != '\n')
                 ;
             validador = scanf("%i", &opcion);
@@ -160,8 +200,8 @@ int main()
                 validador = scanf("%i", &opcion);
                 while (validador != 1 || opcion < 0 || opcion > 6)
                 {
-                    printf("Opción incorrecta\n");
-                    printf("  Por favor seleccione una opción: ");
+                    printf("Opcion incorrecta\n");
+                    printf("  Por favor seleccione una opcion: ");
                     while (getchar() != '\n')
                         ;
                     validador = scanf("%i", &opcion);
@@ -211,7 +251,7 @@ int main()
             getch();
             break;
         case 6:
-            //main_eliminar_ocurrencias();
+            main_eliminar_ocurrencias();
             getch();
             break;
         case 7:

@@ -33,6 +33,92 @@ Pila  p_ej5_invertir(Pila p){
 
 //Punto 6
 
+// Version iterativa
+Pila p_ej6_eliminarclave(Pila p, int clave) {
+    if (p_es_vacia(p)) {
+        return NULL;
+    }
+    Pila paux = p_crear();
+    Pila paux2 = p_crear();
+    TipoElemento temp = te_crear(0);
+
+    while(!p_es_vacia(p)) {
+        temp = p_tope(p);
+        p_apilar(paux, temp);
+        temp = p_desapilar(p);
+        p_apilar(paux2, temp);
+    }
+
+    while(!p_es_vacia(paux)) {
+        temp = p_desapilar(paux);
+        p_apilar(p, temp);
+    }
+
+    while(!p_es_vacia(paux2)) {
+        temp = p_desapilar(paux2);
+        if (temp->clave != clave) {
+            p_apilar(paux, temp);
+        }
+    }
+    printf("\n\t\t\t--- Complejidad algoritmica ---\n");
+    printf("La complejidad algoritima es lineal, en este caso 3n, ya que hay tres ciclos while consecutivos \nque dependen de la cantidad de elementos (a mas elementos, mas tardaran los tres, a menos elementos, \nseran mas rapidos)");
+    return paux;
+}
+
+// Version recursiva
+Pila eliminarClaveRAUX(Pila p, Pila paux, TipoElemento temp, int clave) {
+    if (p_es_vacia(p)) {
+        return paux;
+    }
+    else {
+        temp = p_desapilar(p);
+        if (temp->clave != clave) {
+            p_apilar(paux, temp);
+        }
+
+        eliminarClaveRAUX(p, paux, temp, clave);
+    }
+}
+
+Pila p_ej6_eliminarclave_r(Pila p, int clave) {
+    if (p_es_vacia(p)) {
+        return NULL;
+    }
+
+    Pila paux = p_crear();
+    Pila paux2 = p_crear();
+    TipoElemento temp = te_crear(0);
+
+    while(!p_es_vacia(p)) {
+        temp = p_tope(p);
+        p_apilar(paux, temp);
+        temp = p_desapilar(p);
+        p_apilar(paux2, temp);
+    }
+
+    while(!p_es_vacia(paux)) {
+        temp = p_desapilar(paux);
+        p_apilar(p, temp);
+    }
+
+    while(!p_es_vacia(paux2)) {
+        temp = p_desapilar(paux2);
+        if (temp->clave != clave) {
+            p_apilar(paux, temp);
+        }
+    }
+    paux2 = p_crear();
+    paux = eliminarClaveRAUX(paux, paux2, temp, clave);
+    paux2 = p_crear();
+    while(!p_es_vacia(paux)) {
+        temp = p_desapilar(paux);
+        p_apilar(paux2, temp);
+    }
+    printf("\n\t\t\t--- Complejidad algoritmica ---\n");
+    printf("La complejidad algoritmica es lineal, en este caso 5n, ya que hay cuatro ciclos while en la funcion \nprincipal, y luego la funcion auxiliar recursiva realiza un proceso equivalente a otro ciclo while \ndependiente de la cantidad de elementos");
+    return paux2;
+}
+
 //Punto 7
 Pila copiarpila(Pila p)
 {
