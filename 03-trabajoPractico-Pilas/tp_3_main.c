@@ -79,27 +79,37 @@ int cargarClave(Pila p) {
     return a;
 }
 
-int main_eliminar_ocurrencias() {
+int mainEliminarIterativo() {
 
     Pila nueva_pila = p_crear();
     cargarpila(nueva_pila);
     printf("\n");
     int clave = cargarClave(nueva_pila);
-    printf("\n\n");
+    printf("\n");
     p_mostrar(nueva_pila);
-
-    printf("\n\t --- Resolucion iterativa --- \n");
     Pila nueva_pila2 = p_crear();
     nueva_pila2 = p_ej6_eliminarclave(nueva_pila, clave);
     p_mostrar(nueva_pila2);
-
-    printf("\n\t --- Resolucion recursiva --- \n");
-    Pila nueva_pila_r = p_crear();
-    nueva_pila_r = p_ej6_eliminarclave_r(nueva_pila, clave);
-    p_mostrar(nueva_pila_r);
-
     printf("\n\nPila original sin modificar: \n");
     p_mostrar(nueva_pila);
+    system("pause");
+    return 0;
+}
+
+int mainEliminarRecursivo()
+{
+    Pila nueva_pila = p_crear();
+    cargarpila(nueva_pila);
+    printf("\n");
+    int clave = cargarClave(nueva_pila);
+    Pila nueva_pila_r = p_crear();
+    nueva_pila_r = p_ej6_eliminarclave_r(nueva_pila, clave);
+    printf("Nueva pila: \n");
+    p_mostrar(nueva_pila_r);
+    printf("\nPila original sin modificar: \n");
+    p_mostrar(nueva_pila);
+    printf("\n\t\t\t--- Complejidad algoritmica ---\n");
+    printf("La complejidad algoritmica es lineal, en este caso 5n, ya que hay cuatro ciclos while en la funcion \nprincipal, y luego la funcion auxiliar recursiva realiza un proceso equivalente a otro ciclo while \ndependiente de la cantidad de elementos\n");
     system("pause");
     return 0;
 }
@@ -123,7 +133,7 @@ int mainElementosComunes()
     printf("\n\nPila 2 original sin modificar: \n");
     p_mostrar(p2);
     printf("\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
-    printf("el ejercicio es de complejidad cuadratica (O(n*m)) ya que se deben recorer 2 pilas cuyos tamaños \npueden ser iguales o no, pero la complejidad aumenta dependiendo del tamaño de las pilas.\n");
+    printf("el ejercicio es de complejidad cuadratica (O(n*m)) ya que tiene 2 ciclos iterativos que recoren 2 pilas cuyos tamaños \npueden ser iguales o no, pero la complejidad aumenta dependiendo del tamaño de las pilas. \n");
     system("pause");
     return 0;
 }
@@ -166,6 +176,23 @@ void menu_punto2()
     printf("  4   Intercambiar elementos\n");
     printf("  5   Duplicar pila\n");
     printf("  6   Contar elementos\n");
+    printf("\n");
+    printf("  0   Salir\n");
+    printf("\n");
+    printf(" ------------------------------------------------------------------------------\n");
+    printf("\n");
+    printf("  Por favor seleccione una opcion: ");
+}
+
+void menu_punto5()
+{
+    printf("\n");
+    printf("  ============================================================================\n");
+    printf(" |                         5   Eliminar elemento de la pila                   |\n");
+    printf("  ============================================================================\n");
+    printf("\n");
+    printf("  1   Ejecutar iterativamente\n");
+    printf("  2   Ejecutar recursivamente\n");
     printf("\n");
     printf("  0   Salir\n");
     printf("\n");
@@ -251,9 +278,34 @@ int main()
             getch();
             break;
         case 6:
-            main_eliminar_ocurrencias();
-            getch();
-            break;
+        while (!salir1)
+        {
+            menu_punto5();
+            validador = scanf("%i", &opcion);
+            while (validador != 1 || opcion < 0 || opcion > 2)
+            {
+                printf("Opcion incorrecta\n");
+                printf("  Por favor seleccione una opcion: ");
+                while (getchar() != '\n')
+                    ;
+                validador = scanf("%i", &opcion);
+            }
+            switch (opcion)
+            {
+            case 1:
+                mainEliminarIterativo();
+                getch();
+                break;
+            case 2:
+                mainEliminarRecursivo();
+                getch();
+                break;
+            case 0:
+                salir1 = true;
+            }
+        }
+        break;
+        menu_principal();
         case 7:
             mainElementosComunes();
             getch();
