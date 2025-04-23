@@ -24,6 +24,151 @@ void limpiarBuffer()
 //Punto 5
 
 //Punto 6
+void cargarPila(Pila p) {
+    int a;
+    for(int i = 0; i < 10; i++){
+        printf("Ingrese elemento de la pila: ");
+        while( scanf("%d", &a) != 1 ) {
+            limpiarBuffer();
+            printf("Invalido. Ingrese un numero entero: ");
+        }
+        TipoElemento temp = te_crear(a);
+        p_apilar(p, temp);
+        limpiarBuffer();
+    }
+}
+
+int cargarClave(Pila p) {
+    int a;
+    printf("\nIngrese clave a borrar: ");
+    while( scanf("%d", &a) != 1 ) {
+        limpiarBuffer();
+        printf("Invalido. Ingrese un numero entero: ");
+    }
+    limpiarBuffer();
+
+    return a;
+}
+
+// Version iterativa
+Pila p_ej6_eliminarclave(Pila p, int clave) {
+    if (p_es_vacia(p)) {
+        return NULL;
+    }
+
+    Pila paux = p_crear();
+    Pila paux2 = p_crear();
+    TipoElemento temp = te_crear(0);
+
+    while(!p_es_vacia(p)) {
+        temp = p_tope(p);
+        p_apilar(paux, temp);
+        temp = p_desapilar(p);
+        p_apilar(paux2, temp);
+    }
+
+    while(!p_es_vacia(paux)) {
+        temp = p_desapilar(paux);
+        p_apilar(p, temp);
+    }
+
+    while(!p_es_vacia(paux2)) {
+        temp = p_desapilar(paux2);
+        if (temp->clave != clave) {
+            p_apilar(paux, temp);
+        }
+    }
+
+    return paux;
+}
+
+// Version recursiva
+Pila eliminarClaveRAUX(Pila p, Pila paux, TipoElemento temp, int clave) {
+    if (p_es_vacia(p)) {
+        return paux;
+    }
+    else {
+        temp = p_desapilar(p);
+        if (temp->clave != clave) {
+            p_apilar(paux, temp);
+        }
+
+        eliminarClaveRAUX(p, paux, temp, clave);
+    }
+}
+
+Pila p_ej6_eliminarclave_r(Pila p, int clave) {
+    if (p_es_vacia(p)) {
+        return NULL;
+    }
+
+    Pila paux = p_crear();
+    Pila paux2 = p_crear();
+    TipoElemento temp = te_crear(0);
+
+    while(!p_es_vacia(p)) {
+        temp = p_tope(p);
+        p_apilar(paux, temp);
+        temp = p_desapilar(p);
+        p_apilar(paux2, temp);
+    }
+
+    while(!p_es_vacia(paux)) {
+        temp = p_desapilar(paux);
+        p_apilar(p, temp);
+    }
+
+    while(!p_es_vacia(paux2)) {
+        temp = p_desapilar(paux2);
+        if (temp->clave != clave) {
+            p_apilar(paux, temp);
+        }
+    }
+
+    paux2 = p_crear();
+    paux = eliminarClaveRAUX(paux, paux2, temp, clave);
+
+    paux2 = p_crear();
+    while(!p_es_vacia(paux)) {
+        temp = p_desapilar(paux);
+        p_apilar(paux2, temp);
+    }
+
+    return paux2;
+}
+
+
+int main_eliminar_ocurrencias() {
+
+    Pila nueva_pila = p_crear();
+    cargarPila(nueva_pila);
+    
+    printf("\n");
+    int clave = cargarClave(nueva_pila);
+    printf("\n\n");
+
+
+    p_mostrar(nueva_pila);
+
+    printf("\n\nResuelto iterativamente: \n");
+    Pila nueva_pila2 = p_crear();
+    nueva_pila2 = p_ej6_eliminarclave(nueva_pila, clave);
+    p_mostrar(nueva_pila2);
+    printf("Complejidad algoritima lineal, en este caso 3n, ya que hay tres ciclos while consecutivos que dependen de la cantidad de elementos (a mas elementos, mas tardaran los tres, a menos elementos, seran mas rapidos)");
+
+    printf("\n\nResuelto recursivamente: \n");
+    Pila nueva_pila_r = p_crear();
+    nueva_pila_r = p_ej6_eliminarclave_r(nueva_pila, clave);
+    p_mostrar(nueva_pila_r);
+    printf("Complejidad algoritmica lineal, en este caso 5n, ya que hay cuatro ciclos while en la funcion principal, y luego la funcion auxiliar recursiva realiza un proceso equivalente a otro ciclo while dependiente de la cantidad de elementos");
+
+    printf("\n\nPila original sin modificar: \n");
+    p_mostrar(nueva_pila);
+    system("pause");
+
+
+    return 0;
+}
 
 //Punto 7
 void cargarpila(Pila p)
@@ -195,7 +340,7 @@ int main()
             getch();
             break;
         case 6:
-            //main_eliminar_ocurrencias();
+            main_eliminar_ocurrencias();
             getch();
             break;
         case 7:
