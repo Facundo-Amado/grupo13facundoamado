@@ -178,7 +178,7 @@ void cargarpila(Pila p)
     printf("ingrese la cantidad de elementos que desea ingresar a la pila: ");
     while (scanf("%d", &tamano) != 1 || (tamano <= 0 || tamano > 10))
     {
-        printf("Dato invalido. Ingrese un número entero entre 1 y 10: ");
+        printf("Dato invalido. Ingrese un numero entero entre 1 y 10: ");
         scanf("%d", &tamano);
         limpiarBuffer();
     }
@@ -210,10 +210,10 @@ int mainElementosComunes()
     cargarpila(p2);
     p_mostrar(p2);
     Pila comunes = p_ej7_elementoscomunes(p1, p2);
-    printf("\n\t --- Elementos en común ---\n");
+    printf("\n\t --- Elementos en comun ---\n");
     p_mostrar(comunes);
     printf("\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
-    printf("el ejercicio es de complejidad cuadratica (O(n*m)) ya que se deben recorer 2 pilas cuyos tamaños \npueden ser iguales o no, pero la complejidad aumenta dependiendo del tamaño de las pilas.\n");
+    printf("el ejercicio es de complejidad cuadratica (O(n*m)) ya que se deben recorer 2 pilas cuyos tamanos \npueden ser iguales o no, pero la complejidad aumenta dependiendo del tamano de las pilas.\n");
     return 0;
 }
 
@@ -232,14 +232,14 @@ void menu_principal()
     printf("  4   Conversor de base\n");
     printf("  5   Invertir pila\n");
     printf("  6   Eliminar item\n");
-    printf("  7   Elementos en común\n");
+    printf("  7   Elementos en comun\n");
     printf("  8   Contador de valores\n");
     printf("\n");
     printf("  0   Salir\n");
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("  Por favor seleccione una opción: ");
+    printf("  Por favor seleccione una opcion: ");
 }
 
 void menu_punto2()
@@ -260,7 +260,7 @@ void menu_punto2()
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("  Por favor seleccione una opción: ");
+    printf("  Por favor seleccione una opcion: ");
 }
 
 int main()
@@ -274,8 +274,8 @@ int main()
         int validador = scanf("%i", &opcion);
         while (validador != 1 || opcion < 0 || opcion > 8 || opcion == 1)
         {
-            printf("Opción incorrecta\n");
-            printf("  Por favor seleccione una opción: ");
+            printf("Opcion incorrecta\n");
+            printf("  Por favor seleccione una opcion: ");
             while (getchar() != '\n')
                 ;
             validador = scanf("%i", &opcion);
@@ -289,8 +289,8 @@ int main()
                 validador = scanf("%i", &opcion);
                 while (validador != 1 || opcion < 0 || opcion > 6)
                 {
-                    printf("Opción incorrecta\n");
-                    printf("  Por favor seleccione una opción: ");
+                    printf("Opcion incorrecta\n");
+                    printf("  Por favor seleccione una opcion: ");
                     while (getchar() != '\n')
                         ;
                     validador = scanf("%i", &opcion);
