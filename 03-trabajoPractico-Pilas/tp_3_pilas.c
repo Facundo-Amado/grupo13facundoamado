@@ -9,7 +9,168 @@
 #include "../libs/pila/headers/pilas.h"
 #include "../libs/pila/headers/tp_3_pilas.h"
 
+Pila copiarpila(Pila p)
+{
+    Pila copia = p_crear();
+    Pila aux = p_crear();
+    TipoElemento elemento;
+    while (!p_es_vacia(p)) {
+        elemento = p_desapilar(p);
+        p_apilar(aux, elemento);
+        p_apilar(copia, elemento);
+    }
+    while (!p_es_vacia(aux)) {
+        elemento = p_desapilar(aux);
+        p_apilar(p, elemento);
+    }
+    return copia;
+}
+
 //Punto 2
+bool p_ej2_existeclave(Pila pila, int clave) {
+    Pila aux = p_crear();                                               
+    bool encontrado = false;
+    TipoElemento elem;                                       
+    while (!p_es_vacia(pila)) {                               
+        elem = p_desapilar(pila);             
+        if (clave == elem->clave) {
+            encontrado = 1;
+        }
+        p_apilar(aux, elem);                                
+    }
+    while (!p_es_vacia(aux)) 
+    {
+        elem =  p_desapilar(aux);
+        p_apilar(pila, elem);                  
+    }
+    return encontrado;                                    
+}
+
+Pila p_ej2_colocarelemento(Pila pila, int posicion, TipoElemento valor) {
+    Pila aux = p_crear();
+    TipoElemento x;                                                       
+    int i = 1;
+    if (posicion <= 0 || p_es_vacia(pila)) 
+    {
+        return pila;
+    }
+    while (!p_es_vacia(pila) && i < posicion) 
+    {   x = p_desapilar(pila);               
+        p_apilar(aux, x);                          
+        i++;
+    }
+    p_apilar(pila, valor);                                     
+    while (!p_es_vacia(aux)) 
+    {
+        x =  p_desapilar(aux);
+        p_apilar(pila, x);  
+                
+    }
+    return pila;
+}
+
+Pila p_ej2_eliminarclave(Pila pila, int clave) {
+    Pila aux = p_crear();
+    TipoElemento elemento;                                                              
+    bool eliminado = false;                                                             
+    while (!p_es_vacia(pila) && !eliminado) {                                            
+        elemento = p_desapilar(pila);                        
+        if (elemento->clave == clave) 
+        {               
+            eliminado = true;                                                
+        } 
+        else 
+        {
+            p_apilar(aux, elemento);                                     
+        }
+    }                                    
+    while (!p_es_vacia(aux)) { 
+        elemento = p_desapilar(aux);                                                  
+        p_apilar(pila, elemento);
+
+    }
+    return pila;
+}
+
+Pila p_ej2_intercambiarposiciones(Pila pila, int pos1, int pos2) {        
+    Pila aux = p_crear();
+    int cont = 1;
+    TipoElemento x; 
+    TipoElemento temp1;
+    TipoElemento temp2;
+    if (pos1 == pos2)
+    {
+        return pila;
+    }
+    else
+    {
+        while (!p_es_vacia(pila))
+        { 
+            x = p_desapilar(pila);
+            if (cont == pos1)
+            {
+                temp1 = x;
+            }
+            else if (cont == pos2)
+            {
+                temp2 = x;
+            }   
+            p_apilar(aux, x);                         
+            cont ++;
+        }
+        cont --;
+        while(!p_es_vacia(aux))
+        {
+            x = p_desapilar(aux);
+            if (cont == pos1)
+            {
+                p_apilar(pila, temp2);
+            }
+            else if (cont == pos2)
+            {
+                p_apilar(pila, temp1);
+            }
+            else
+            {
+                p_apilar(pila, x); 
+            } 
+            cont --;
+        }
+        return pila;
+    }
+}
+
+Pila p_ej2_duplicar(Pila pila) {
+
+    Pila duplicada = p_crear();
+    Pila aux = p_crear();
+    TipoElemento valor;
+    while (!p_es_vacia(pila)) {
+        valor = p_desapilar(pila);
+        p_apilar(aux, valor);
+        p_apilar(duplicada, valor);
+    }
+    while (!p_es_vacia(aux)) {
+        valor = p_desapilar(aux);
+        p_apilar(pila, valor);
+    }
+    return duplicada;
+}
+
+int p_ej2_cantidadelementos(Pila pila) {
+    Pila aux = p_crear();                                        
+    aux = copiarpila(pila);                                       
+    int contador = 0;                                      
+    // Desapilar todos los elementos para contar
+    while (!p_es_vacia(pila)) {                            
+        p_desapilar(pila);                                
+        contador++;                                        
+    }                                   
+    while (!p_es_vacia(aux)) {                             
+        p_apilar(pila, p_desapilar(aux));                  
+    }
+    return contador;                                         
+}
 
 //Punto 3
 
@@ -32,7 +193,6 @@ Pila  p_ej5_invertir(Pila p){
 }
 
 //Punto 6
-
 // Version iterativa
 Pila p_ej6_eliminarclave(Pila p, int clave) {
     if (p_es_vacia(p)) {
@@ -60,8 +220,6 @@ Pila p_ej6_eliminarclave(Pila p, int clave) {
             p_apilar(paux, temp);
         }
     }
-    printf("\n\t\t\t--- Complejidad algoritmica ---\n");
-    printf("La complejidad algoritima es lineal, en este caso 3n, ya que hay tres ciclos while consecutivos \nque dependen de la cantidad de elementos (a mas elementos, mas tardaran los tres, a menos elementos, \nseran mas rapidos)\n");
     return paux;
 }
 
@@ -84,42 +242,38 @@ Pila p_ej6_eliminarclave_r(Pila p, int clave) {
 }
 
 //Punto 7
-Pila copiarpila(Pila p)
-{
-    Pila copia = p_crear();
-    Pila aux = p_crear();
-
-    while (!p_es_vacia(p)) {
-        TipoElemento elemento = p_desapilar(p);
-        p_apilar(aux, elemento);
-        p_apilar(copia, elemento);
-    }
-    while (!p_es_vacia(aux)) {
-        TipoElemento elemento = p_desapilar(aux);
-        p_apilar(p, elemento);
-    }
-    return copia;
-}
-
 Pila p_ej7_elementoscomunes(Pila p1, Pila p2)
 {
     Pila elemcomunes = p_crear();
-    Pila p1copia = copiarpila(p1);
-    Pila p2copia = copiarpila(p2);
+    Pila aux1 = p_crear();
+    Pila aux2 = p_crear();
     TipoElemento te1;
     TipoElemento te2;
-    while (!p_es_vacia(p1copia))
+    if (p_es_vacia(p1) || p_es_vacia(p2)) 
     {
-        te1 = p_desapilar(p1copia);
-        p2copia = copiarpila(p2);
-        while (!p_es_vacia(p2copia))
+        return elemcomunes;
+    }
+    while (!p_es_vacia(p1))
+    {
+        te1 = p_desapilar(p1);
+        p_apilar(aux1, te1);
+        while (!p_es_vacia(p2))
         {
-            te2 = p_desapilar(p2copia);
+            te2 = p_desapilar(p2);
+            p_apilar(aux2, te2);
             if (te1->clave == te2->clave)
             {
                 p_apilar(elemcomunes, te1);
             }
-        }    
+        }   
+        while (!p_es_vacia(aux2)) 
+        {
+            p_apilar(p2, p_desapilar(aux2));                  
+        } 
+    }
+    while (!p_es_vacia(aux1)) 
+    {
+        p_apilar(p1, p_desapilar(aux1));                  
     }
     return elemcomunes;
 }

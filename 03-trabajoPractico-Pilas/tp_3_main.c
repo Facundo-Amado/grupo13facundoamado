@@ -43,6 +43,138 @@ void cargarpila(Pila p)
 }
 
 //Punto 2
+void crearpila(Pila p)
+{
+    printf("\n\t\t --- Carga de la pila --- \n");    
+    cargarpila(p);
+    printf("Pulse enter para volver al menú");
+    return;
+}
+
+int mainBuscarClave(Pila p)
+{
+    int clave;
+    if (p_es_vacia(p)) {
+        printf("La pila esta vacia.\n");
+    } 
+    printf("ingrese el elemento que busca: ");
+    while ((scanf("%d", &clave) != 1))
+    {
+        printf("dato invalido. ingrese un elemento valido: ");
+        scanf("%d", &clave);
+        limpiarBuffer();
+    }
+    if (p_ej2_existeclave(p, clave))
+    {
+        printf("La clave existe en la pila");
+    }
+    else
+    {
+        printf("La clave no existe en la pila");
+    }
+    printf("\n\nPulse enter para volver al menú");
+    return 0;
+}
+
+int mainInsertarEnPila(Pila p)
+{
+    Pila aux = p_crear();
+    TipoElemento clave;
+    int pos, clavetemp;
+    if (p_es_vacia(p)) {
+        printf("La pila esta vacia.\n");
+    } 
+    printf("ingrese el elemento para agregar en la pila: ");
+    while ((scanf("%d", &clavetemp) != 1))
+    {
+        printf("dato invalido. ingrese un elemento valido: ");
+        scanf("%d", &clavetemp);
+        limpiarBuffer();
+    }
+    clave = te_crear(clavetemp);
+    printf("ingrese la posicion en la que va a estar el elemento: ");
+    while ((scanf("%d", &pos) != 1) || pos < 0)
+    {
+        printf("dato invalido. ingrese una posicion valida: ");
+        scanf("%d", &pos);
+        limpiarBuffer();
+    }
+    aux = p_ej2_colocarelemento(p, pos, clave);
+    p_mostrar(aux);
+    printf("\n\nPulse enter para volver al menú");
+    return 0;
+}
+
+int mainEliminarPorClave(Pila p)
+{
+    Pila aux = p_crear();
+    int clave;
+    if (p_es_vacia(p)) {
+        printf("La pila esta vacia.\n");
+    } 
+    printf("ingrese el elemento que desea eliminar: ");
+    while ((scanf("%d", &clave) != 1))
+    {
+        printf("dato invalido. ingrese un elemento valido: ");
+        scanf("%d", &clave);
+        limpiarBuffer();
+    }
+    aux = p_ej2_eliminarclave(p, clave);
+    p_mostrar(aux);
+    printf("\n\nPulse enter para volver al menú");
+    return 0;
+}
+
+int mainIntercambiar(Pila p)
+{   
+    Pila aux = p_crear();
+    int pos1, pos2;
+    if (p_es_vacia(p)) {
+        printf("La pila esta vacia.\n");
+    } 
+    printf("ingrese la posicion del primer elemento: ");
+    while(scanf("%d", &pos1) != 1 || pos1 < 0)
+    {
+        printf("dato invalido. ingrese un numero entero: ");
+        scanf("%d", &pos1);
+        limpiarBuffer();
+    }
+    printf("ingrese la posicion del segundo elemento: ");
+    while(scanf("%d", &pos2) != 1 || pos2 < 0)
+    {
+        printf("dato invalido. ingrese un numero entero: ");
+        scanf("%d", &pos1);
+        limpiarBuffer();
+    }
+    aux = p_ej2_intercambiarposiciones(p, pos1, pos2);
+    p_mostrar(aux);
+    printf("\n\nPulse enter para volver al menú");
+    return 0;
+}
+
+int mainDuplicarPila(Pila p)
+{
+    Pila aux = p_crear();
+    if (p_es_vacia(p)) {
+        printf("La pila esta vacia.\n");
+    } 
+    aux = p_ej2_duplicar(p);
+    p_mostrar(aux);
+    printf("\n\nPulse enter para volver al menú");
+    return 0;
+}
+
+int mainContador(Pila p)
+{
+    int cant;
+    if (p_es_vacia(p)) {
+        printf("La pila esta vacia.\n");
+    } 
+    cant = p_ej2_cantidadelementos(p);
+    printf("La cantidad de elementos de la pila es: %d", cant);
+    printf("\n\nPulse enter para volver al menú");
+    return 0;
+}
 
 //Punto 3
 
@@ -63,7 +195,7 @@ int mainInvertida(){
     p_mostrar(p);
     printf("\n\t\t--- Complejidad algoritmica ---\n");
     printf("el ejercicio tiene complejidad algoritmica O(2n) en el peor de los casos, ya que contiene \ndos ciclos while separados que recorren la pila de tamaño n.\n");
-    system("pause");
+    printf("\n\nPulse enter para volver al menú");
     return 0;
 }
 
@@ -92,7 +224,9 @@ int mainEliminarIterativo() {
     p_mostrar(nueva_pila2);
     printf("\n\nPila original sin modificar: \n");
     p_mostrar(nueva_pila);
-    system("pause");
+    printf("\n\t\t\t--- Complejidad algoritmica ---\n");
+    printf("La complejidad algoritima es lineal, en este caso 3n, ya que hay tres ciclos while consecutivos \nque dependen de la cantidad de elementos (a mas elementos, mas tardaran los tres, a menos elementos, \nseran mas rapidos)\n");
+    printf("\n\nPulse enter para volver al menú");
     return 0;
 }
 
@@ -110,7 +244,7 @@ int mainEliminarRecursivo()
     p_mostrar(nueva_pila);
     printf("\n\t\t\t--- Complejidad algoritmica ---\n");
     printf("La complejidad algoritmica es lineal, en este caso 5n, ya que hay cuatro ciclos while en la funcion \nprincipal, y luego la funcion auxiliar recursiva realiza un proceso equivalente a otro ciclo while \ndependiente de la cantidad de elementos\n");
-    system("pause");
+    printf("\n\nPulse enter para volver al menú");
     return 0;
 }
 
@@ -134,7 +268,7 @@ int mainElementosComunes()
     p_mostrar(p2);
     printf("\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
     printf("el ejercicio es de complejidad cuadratica (O(n*m)) ya que tiene 2 ciclos iterativos que recoren 2 pilas cuyos tamaños \npueden ser iguales o no, pero la complejidad aumenta dependiendo del tamaño de las pilas. \n");
-    system("pause");
+    printf("\n\nPulse enter para volver al menú");
     return 0;
 }
 
@@ -170,12 +304,13 @@ void menu_punto2()
     printf(" |                         2   Operaciones con pilas                         |\n");
     printf("  ============================================================================\n");
     printf("\n");
-    printf("  1   Buscar elemento\n");
-    printf("  2   Insertar elemento\n");
-    printf("  3   Eliminar elemento\n");
-    printf("  4   Intercambiar elementos\n");
-    printf("  5   Duplicar pila\n");
-    printf("  6   Contar elementos\n");
+    printf("  1   Cargar pilas\n");
+    printf("  2   Buscar elemento\n");
+    printf("  3   Insertar elemento\n");
+    printf("  4   Eliminar elemento\n");
+    printf("  5   Intercambiar elementos\n");
+    printf("  6   Duplicar pila\n");
+    printf("  7   Contar elementos\n");
     printf("\n");
     printf("  0   Salir\n");
     printf("\n");
@@ -203,60 +338,110 @@ void menu_punto5()
 
 int main()
 {
-    bool salir1 = false;
-    bool salir = false;
-    int opcion;
+    Pila p = p_crear();
+    bool pilaCargada = false;
+    bool salir2 = false, salir1 = false, salir = false;
+    int opc, opc1, opc2;
     while (!salir)
     {
         menu_principal();
-        int validador = scanf("%i", &opcion);
-        while (validador != 1 || opcion < 0 || opcion > 8 || opcion == 1)
+        while (scanf("%i", &opc) != 1 || opc < 1 || opc > 8)
         {
             printf("Opcion incorrecta\n");
-            printf("  Por favor seleccione una opcion: ");
-            while (getchar() != '\n')
-                ;
-            validador = scanf("%i", &opcion);
+            printf("Por favor seleccione una opcion: ");
+            scanf("%i", &opc);
+            limpiarBuffer();
         }
-        switch (opcion)
+        switch (opc)
         {
         case 2:
             while (!salir1)
             {
                 menu_punto2();
-                validador = scanf("%i", &opcion);
-                while (validador != 1 || opcion < 0 || opcion > 6)
+                while (scanf("%i", &opc1)!= 1 || opc1 < 0 || opc > 7)
                 {
                     printf("Opcion incorrecta\n");
-                    printf("  Por favor seleccione una opcion: ");
-                    while (getchar() != '\n')
-                        ;
-                    validador = scanf("%i", &opcion);
+                    printf("Por favor seleccione una opcion: ");
+                    scanf("%i", &opc1);
+                    while (getchar() != '\n');
                 }
-                switch (opcion)
+                switch (opc1)
                 {
                 case 1:
-                    //main_buscar_clave();
-                    // getch();
+                    crearpila(p);
+                    pilaCargada = true;
+                    getch();
                     break;
                 case 2:
-                    //main_insertar_en_pila();
+                    if (pilaCargada)
+                    {
+                        mainBuscarClave(p);
+                    }
+                    else
+                    {
+                        printf("Primero debe cargar las pilas (opción 1).\n");
+                        printf("Pulse enter para volver al menú");
+                    }
                     getch();
                     break;
                 case 3:
-                    //main_eliminar_por_clave();
-                    // getch();
+                    if (pilaCargada)
+                    {
+                        mainInsertarEnPila(p);
+                    }
+                    else
+                    {
+                        printf("Primero debe cargar las pilas (opción 1).\n");
+                        printf("Pulse enter para volver al menú");
+                    }
+                    getch();
                     break;
                 case 4:
-                    //main_intercambiar();
-                    // getch();
+                    if (pilaCargada)
+                    {
+                        mainEliminarPorClave(p);
+                    }
+                    else
+                    {
+                        printf("Primero debe cargar las pilas (opción 1).\n");
+                        printf("Pulse enter para volver al menú");
+                    }
+                    getch();
                     break;
                 case 5:
-                    //main_duplicar_pila();
+                    if (pilaCargada)
+                    {
+                        mainIntercambiar(p);
+                    }
+                    else
+                    {
+                        printf("Primero debe cargar las pilas (opción 1).\n");
+                        printf("Pulse enter para volver al menú");
+                    }
                     getch();
                     break;
                 case 6:
-                    //main_contador();
+                    if (pilaCargada)
+                    {
+                        mainDuplicarPila(p);
+                    }
+                    else
+                    {
+                        printf("Primero debe cargar las pilas (opción 1).\n");
+                        printf("Pulse enter para volver al menú");
+                    }
+                    getch();
+                    break;
+                case 7:
+                    if (pilaCargada)
+                    {
+                        mainContador(p);
+                    }
+                    else
+                    {
+                        printf("Primero debe cargar las pilas (opción 1).\n");
+                        printf("Pulse enter para volver al menú");
+                    }
                     getch();
                     break;
                 case 0:
@@ -278,19 +463,17 @@ int main()
             getch();
             break;
         case 6:
-        while (!salir1)
+        while (!salir2)
         {
             menu_punto5();
-            validador = scanf("%i", &opcion);
-            while (validador != 1 || opcion < 0 || opcion > 2)
+            while (scanf("%i", &opc2) != 1 || opc2 < 0 || opc2 > 2)
             {
                 printf("Opcion incorrecta\n");
                 printf("  Por favor seleccione una opcion: ");
-                while (getchar() != '\n')
-                    ;
-                validador = scanf("%i", &opcion);
+                scanf("%i", &opc2);
+                while (getchar() != '\n');
             }
-            switch (opcion)
+            switch (opc2)
             {
             case 1:
                 mainEliminarIterativo();
@@ -301,7 +484,7 @@ int main()
                 getch();
                 break;
             case 0:
-                salir1 = true;
+                salir2 = true;
             }
         }
         break;
