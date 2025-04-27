@@ -334,3 +334,133 @@ Pila p_ej7_elementoscomunes(Pila p1, Pila p2)
 }
 
 //Punto 8
+
+Pila p_ej8_sacarrepetidos(Pila p){
+    Pila PR = p_crear();
+    Pila aux1 = p_crear();
+    Pila aux2 = p_crear();
+    int contadorelemento = 0;
+    TipoElemento te, teaux;
+    ClonarPila(p, aux1);
+
+    while(!p_es_vacia(aux1)){
+        IntercambiarPilas(aux1, aux2);
+        te = p_desapilar(aux2);
+        contadorelemento = 1;
+
+        while(!p_es_vacia(aux2)){
+            teaux = p_desapilar(aux2);
+            if(teaux->clave == te->clave){
+                contadorelemento++;
+            } else {
+                p_apilar(aux1, teaux);
+            }
+        }
+
+        TipoElemento nuevo_elemento = te_crear_con_valor(te->clave, (void *)(intptr_t)contadorelemento);
+        p_apilar(PR, nuevo_elemento);
+    }
+
+    Pila PRR = p_crear();
+    while(!p_es_vacia(PR)){
+        te = p_desapilar(PR);
+        p_apilar(PRR, te);
+    }
+
+    return PRR;
+}
+
+void p_mostrar_con_valor(Pila pila){
+
+    if (p_es_vacia(pila)){
+
+        printf("PILA VACIA! \n");
+        return;
+    }
+
+    Pila Paux = p_crear();
+    TipoElemento X = te_crear(0);
+    printf ("Contenido de la pila: \n");
+    while (p_es_vacia(pila) != true) {
+
+        X = p_desapilar(pila);
+        p_apilar(Paux, X);
+    }
+
+    while (p_es_vacia(Paux) != true){
+
+        X = p_desapilar(Paux);
+        printf("{%d:%d},", X->clave, X->valor);
+        p_apilar(pila, X);
+    }
+
+    printf("\n");
+}
+
+
+// FUNCIONES AUX
+
+void IntercambiarPilas(Pila pila, Pila Paux){
+
+    TipoElemento X;
+
+    while (p_es_vacia(pila) != true) {
+
+        X = p_desapilar(pila);
+        p_apilar(Paux, X);
+    }
+
+}
+
+
+void ClonarPila(Pila pila, Pila pila_clonada){
+
+    Pila Paux = p_crear();
+    TipoElemento te_aux;
+
+    while(p_es_vacia(pila) != true){
+
+        te_aux = p_desapilar(pila);
+        p_apilar(Paux,te_aux);
+    }
+
+    while(p_es_vacia(Paux) != true){
+
+        te_aux = p_desapilar(Paux);
+        p_apilar(pila, te_aux);
+        p_apilar(pila_clonada, te_aux);
+    }
+}
+bool validarentero(int n){
+}
+
+Pila cargarPilas(Pila p){
+    int idx;
+    int elemn;
+    printf("TAMANIO DE LA PILA: ");
+    if (scanf("%i",&idx) != 1)
+    {
+        printf("\n\t---ERROR---\n\t");
+        printf("SOLO NUMEROS ENTEROS\n");
+        return p;
+    }
+    if(idx > 10){
+        printf("\t\t---ERROR---\n --TAMANIO MAXIMO DE PILA 10--\n");
+        return p;
+    }
+    
+    
+    for (int i = 1; i <= idx; i++)
+    {
+        printf("Cargar pila: ");    
+        if (scanf("%i",&elemn) != 1)
+        {
+            printf("\n\t---ERROR---\n\t");
+            printf("SOLO NUMEROS ENTEROS\n");
+            return p;
+        }
+        
+        p_apilar(p,te_crear(elemn));
+    }
+    
+}
