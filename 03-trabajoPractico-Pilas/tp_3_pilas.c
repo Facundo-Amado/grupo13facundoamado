@@ -335,6 +335,9 @@ Pila p_ej7_elementoscomunes(Pila p1, Pila p2)
 
 //Punto 8
 
+// Ejercicio 8: La complejidad algorítmica O(n^2), donde n es el número total de elementos en la pila original p. 
+// La complejidad es la misma tanto para la implementación con punteros que para la implementación con arreglos
+
 Pila p_ej8_sacarrepetidos(Pila p){
     Pila PR = p_crear();
     Pila aux1 = p_crear();
