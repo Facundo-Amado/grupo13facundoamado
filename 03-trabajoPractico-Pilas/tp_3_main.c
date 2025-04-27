@@ -186,7 +186,7 @@ void mostrarComplejidadEj4() {
     printf("reduciendo su tamanio en forma logaritmica.");
 }
 
-void mainConversorBases() {
+int mainConversorBases() {
     int numero;
     int base;
 
@@ -208,6 +208,7 @@ void mainConversorBases() {
     mostrarComplejidadEj4();
 
     free(resultado);
+    return 0;
 }
 
 //Punto 5
