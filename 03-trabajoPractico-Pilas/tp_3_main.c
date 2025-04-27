@@ -179,6 +179,36 @@ int mainContador(Pila p)
 //Punto 3
 
 //Punto 4
+void mostrarComplejidadEj4() {
+    printf("=== Complejidad algoritmica ===");
+    printf("La complejidad del algoritmo es O(log n), donde n representa el valor absoluto del numero decimal a convertir.");
+    printf("Esto se debe a que, en cada iteracion del bucle principal, el numero n es dividido por la base b elegida con (2 <= b <= 16)");
+    printf("reduciendo su tamanio en forma logaritmica.");
+}
+
+void mainConversorBases() {
+    int numero;
+    int base;
+
+    printf("Ingrese el número decimal que desea convertir: ");
+    if (scanf("%d", &numero) != 1) {
+        printf("Error: Entrada inválida para número.\n");
+        return;
+    }
+
+    printf("Ingrese la base de destino (entre 2 y 16): ");
+    if (scanf("%d", &base) != 1) {
+        printf("Error: Entrada inválida para base.\n");
+        return;
+    }
+
+    char* resultado = p_ej4_cambiarbase(numero, base);
+
+    printf("El número %d convertido a base %d es: %s\n", numero, base, resultado);
+    mostrarComplejidadEj4();
+
+    free(resultado);
+}
 
 //Punto 5
 int mainInvertida(){
@@ -455,7 +485,7 @@ int main()
             getch();
             break;
         case 4:
-            //main_conversor();
+            mainConversorBases();
             getch();
             break;
         case 5:
