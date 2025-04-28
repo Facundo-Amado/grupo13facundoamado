@@ -13,7 +13,8 @@ void limpiarBuffer()
 {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
-}    
+}  
+
 void cargarpila(Pila p)
 {
     int i = 0, tamano, elemento;
@@ -28,10 +29,10 @@ void cargarpila(Pila p)
     tamano = (int)tamano;
     while (i< tamano)
     {
-        printf("ingrese un elemento de la lista. (solo se admiten numeros enteros): ");
+        printf("ingrese un elemento de la pila. (solo se admiten numeros enteros): ");
         while (scanf("%d", &elemento) != 1)
         {
-            printf("elemento invalido. ingrese un elemento de la lista: ");
+            printf("elemento invalido. ingrese un elemento de la pila: ");
             scanf("%d", &elemento);
             limpiarBuffer();
         }
@@ -177,6 +178,65 @@ int mainContador(Pila p)
 }
 
 //Punto 3
+Pila cargarPilas(Pila p, int tamano)
+{
+    int i = 0, elemento;
+    TipoElemento elem;
+    while (i< tamano)
+    {
+        printf("ingrese un elemento de la pila. (solo se admiten numeros enteros): ");
+        while (scanf("%d", &elemento) != 1)
+        {
+            printf("elemento invalido. ingrese un elemento de la pila: ");
+            scanf("%d", &elemento);
+            limpiarBuffer();
+        }
+        elemento = (int)elemento;
+        elem = te_crear(elemento);
+        p_apilar(p, elem);
+        i++;
+    }
+}
+ 
+int main() {
+    int n1, n2;
+    // Crear y llenar la Pila 1
+    Pila p1 = p_crear();
+    printf("Ingrese la cantidad de elementos para la Pila 1: ");
+    while (scanf("%d", &n1) != 1 || n1 <= 0) {
+        limpiarBuffer();
+        printf("Error: ingrese un numero entero positivo para el tamano: ");
+    }
+    printf("\n\t\t --- Carga de la pila 1--- \n");    
+    cargarPilas(p1, n1);
+
+    // Crear y llenar la Pila 2
+    Pila p2 = p_crear();
+    printf("Ingrese la cantidad de elementos para la Pila 2: ");
+    while (scanf("%d", &n2) != 1 || n2 <= 0) {
+        limpiarBuffer();
+        printf("Error: ingrese un numero entero positivo para el tamano: ");
+    }
+    // Verificar si la longitud de la Pila 2 es menor que la de la Pila 1
+    if (n2 != n1) {
+        printf("Las pilas son de diferentes longitudes, no son iguales.\n");
+        return 0;  // Terminar el programa si las longitudes son diferentes
+    }
+    printf("\n\t\t --- Carga de la pila 2--- \n");    
+    cargarPilas(p2, n2);
+
+    // Verificar si las pilas son iguales
+    bool sonIguales = p_ej3_iguales(p1, p2);
+    if (sonIguales) {
+        printf("Las pilas son EXACTAMENTE IGUALES.\n");
+    } 
+    else {
+        printf("Las pilas NO son iguales.\n");
+    }
+    printf("\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
+    printf("la complejidad es de O(n), donde n es el número de elementos en la pila.");
+    return 0;
+}
 
 //Punto 4
 void mostrarComplejidadEj4() {
@@ -304,118 +364,18 @@ int mainElementosComunes()
 }
 
 //Punto 8
-
-
-void p_mostrar_con_valor(Pila pila);
-void IntercambiarPilas(Pila pila, Pila Paux);
-void ClonarPila(Pila pila, Pila pila_clonada);
-Pila cargarPilas(Pila p);
-
 int main(){
 
     Pila P1 = p_crear();
     Pila p2 = p_crear();
-    cargarPilas(P1);
+    cargarpila(P1);
     p2 = p_ej8_sacarrepetidos(P1);
-    p_mostrar_con_valor(p2);
+    p_mostrar(p2);
+    printf("\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
+    printf("La complejidad algorítmica O(n^2), donde n es el número total de elementos en la pila original p. La complejidad es \nla misma tanto para la implementación con punteros que para la implementación con arreglos. \n");
+    printf("\n\nPulse enter para volver al menú");
     return 0;
 }
-
-void p_mostrar_con_valor(Pila pila){
-
-    if (p_es_vacia(pila)){
-
-        printf("PILA VACIA! \n");
-        return;
-    }
-
-    Pila Paux = p_crear();
-    TipoElemento X = te_crear(0);
-    printf ("Contenido de la pila: \n");
-    while (p_es_vacia(pila) != true) {
-
-        X = p_desapilar(pila);
-        p_apilar(Paux, X);
-    }
-
-    while (p_es_vacia(Paux) != true){
-
-        X = p_desapilar(Paux);
-        printf("{%d:%d},", X->clave, X->valor);
-        p_apilar(pila, X);
-    }
-
-    printf("\n");
-}
-
-
-// FUNCIONES AUX
-
-void IntercambiarPilas(Pila pila, Pila Paux){
-
-    TipoElemento X;
-
-    while (p_es_vacia(pila) != true) {
-
-        X = p_desapilar(pila);
-        p_apilar(Paux, X);
-    }
-
-}
-
-
-void ClonarPila(Pila pila, Pila pila_clonada){
-
-    Pila Paux = p_crear();
-    TipoElemento te_aux;
-
-    while(p_es_vacia(pila) != true){
-
-        te_aux = p_desapilar(pila);
-        p_apilar(Paux,te_aux);
-    }
-
-    while(p_es_vacia(Paux) != true){
-
-        te_aux = p_desapilar(Paux);
-        p_apilar(pila, te_aux);
-        p_apilar(pila_clonada, te_aux);
-    }
-}
-bool validarentero(int n){
-}
-
-Pila cargarPilas(Pila p){
-    int idx;
-    int elemn;
-    printf("TAMANIO DE LA PILA: ");
-    if (scanf("%i",&idx) != 1)
-    {
-        printf("\n\t---ERROR---\n\t");
-        printf("SOLO NUMEROS ENTEROS\n");
-        return p;
-    }
-    if(idx > 10){
-        printf("\t\t---ERROR---\n --TAMANIO MAXIMO DE PILA 10--\n");
-        return p;
-    }
-    
-    
-    for (int i = 1; i <= idx; i++)
-    {
-        printf("Cargar pila: ");    
-        if (scanf("%i",&elemn) != 1)
-        {
-            printf("\n\t---ERROR---\n\t");
-            printf("SOLO NUMEROS ENTEROS\n");
-            return p;
-        }
-        
-        p_apilar(p,te_crear(elemn));
-    }
-    
-}
-
 
 void menu_principal()
 {

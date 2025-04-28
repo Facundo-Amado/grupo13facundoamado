@@ -173,6 +173,34 @@ int p_ej2_cantidadelementos(Pila pila) {
 }
 
 //Punto 3
+bool p_ej3_iguales(Pila p1, Pila p2) {
+    Pila aux = p_crear();
+    TipoElemento elem1, elem2;
+    bool resultado = true;
+
+    // Comparar los elementos de ambas pilas
+    while (!p_es_vacia(p1) && !p_es_vacia(p2) && resultado) {
+        elem1 = p_desapilar(p1);
+        elem2 = p_desapilar(p2);
+        p_apilar(aux, elem1);
+        p_apilar(aux, elem2);
+
+        // Si las claves son diferentes, las pilas no son iguales
+        if (elem1->clave != elem2->clave) {
+            resultado = false;
+        }
+    }
+
+    // Restaurar las pilas a su estado original
+    while (!p_es_vacia(aux)) {
+        elem2 = p_desapilar(aux);
+        elem1 = p_desapilar(aux);
+        p_apilar(p2, elem2);
+        p_apilar(p1, elem1);
+    }
+
+    return resultado;
+}
 
 //Punto 4
 char* p_ej4_cambiarbase(int nrobasedecimal, int nrootrabase) {
@@ -334,41 +362,46 @@ Pila p_ej7_elementoscomunes(Pila p1, Pila p2)
 }
 
 //Punto 8
-
-// Ejercicio 8: La complejidad algorítmica O(n^2), donde n es el número total de elementos en la pila original p. 
-// La complejidad es la misma tanto para la implementación con punteros que para la implementación con arreglos
-
 Pila p_ej8_sacarrepetidos(Pila p){
     Pila PR = p_crear();
     Pila aux1 = p_crear();
     Pila aux2 = p_crear();
-    int contadorelemento = 0;
-    TipoElemento te, teaux;
-    ClonarPila(p, aux1);
-
+    Pila temp = p_crear();
+    Pila copia = p_crear();
+    int contelemento;
+    TipoElemento te, teaux, nuevo_elemento;
+    while (!p_es_vacia(p)) {
+        teaux = p_desapilar(p);
+        p_apilar(aux1, teaux);
+        p_apilar(aux2, teaux);
+        p_apilar(copia, teaux);
+    }
     while(!p_es_vacia(aux1)){
-        IntercambiarPilas(aux1, aux2);
-        te = p_desapilar(aux2);
-        contadorelemento = 1;
-
+        te = p_desapilar(aux1);
+        contelemento = 1;
         while(!p_es_vacia(aux2)){
             teaux = p_desapilar(aux2);
-            if(teaux->clave == te->clave){
-                contadorelemento++;
-            } else {
-                p_apilar(aux1, teaux);
+            if (teaux->clave == te->clave){
+                contelemento++;
+            } 
+            else {
+                p_apilar(temp, teaux);
             }
         }
-
-        TipoElemento nuevo_elemento = te_crear_con_valor(te->clave, (void *)(intptr_t)contadorelemento);
+        nuevo_elemento = te_crear_con_valor(te->clave, (void *)(intptr_t)contelemento);
         p_apilar(PR, nuevo_elemento);
+        while (!p_es_vacia(temp)) 
+        {
+            p_apilar(aux2, p_desapilar(temp));
+        }
     }
-
-    Pila PRR = p_crear();
-    while(!p_es_vacia(PR)){
-        te = p_desapilar(PR);
-        p_apilar(PRR, te);
+    while (!p_es_vacia(copia)) 
+    {
+        p_apilar(p, p_desapilar(copia));                  
     }
-
-    return PRR;
+    Pila Pfinal = p_crear();
+    while (!p_es_vacia(PR)) {
+        p_apilar(Pfinal, p_desapilar(PR));
+    }
+    return Pfinal;
 }
