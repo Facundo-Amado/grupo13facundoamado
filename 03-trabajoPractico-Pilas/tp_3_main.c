@@ -178,7 +178,7 @@ int mainContador(Pila p)
 }
 
 //Punto 3
-Pila cargarPilas(Pila p, int tamano)
+void cargarPilas(Pila p, int tamano)
 {
     int i = 0, elemento;
     TipoElemento elem;
@@ -198,7 +198,7 @@ Pila cargarPilas(Pila p, int tamano)
     }
 }
  
-int main() {
+int mainComparaPilas() {
     int n1, n2;
     // Crear y llenar la Pila 1
     Pila p1 = p_crear();
@@ -212,7 +212,7 @@ int main() {
 
     // Crear y llenar la Pila 2
     Pila p2 = p_crear();
-    printf("Ingrese la cantidad de elementos para la Pila 2: ");
+    printf("\n\nIngrese la cantidad de elementos para la Pila 2: ");
     while (scanf("%d", &n2) != 1 || n2 <= 0) {
         limpiarBuffer();
         printf("Error: ingrese un numero entero positivo para el tamano: ");
@@ -228,12 +228,12 @@ int main() {
     // Verificar si las pilas son iguales
     bool sonIguales = p_ej3_iguales(p1, p2);
     if (sonIguales) {
-        printf("Las pilas son EXACTAMENTE IGUALES.\n");
+        printf("\nLas pilas son EXACTAMENTE IGUALES.\n");
     } 
     else {
-        printf("Las pilas NO son iguales.\n");
+        printf("\nLas pilas NO son iguales.\n");
     }
-    printf("\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
+    printf("\n\t\t--- Complejidad algoritmica del ejercicio ---\n");
     printf("la complejidad es de O(n), donde n es el número de elementos en la pila.");
     return 0;
 }
@@ -253,13 +253,13 @@ int mainConversorBases() {
     printf("Ingrese el número decimal que desea convertir: ");
     if (scanf("%d", &numero) != 1) {
         printf("Error: Entrada inválida para número.\n");
-        return;
+        return 0;
     }
 
     printf("Ingrese la base de destino (entre 2 y 16): ");
     if (scanf("%d", &base) != 1) {
         printf("Error: Entrada inválida para base.\n");
-        return;
+        return 0;
     }
 
     char* resultado = p_ej4_cambiarbase(numero, base);
@@ -364,13 +364,48 @@ int mainElementosComunes()
 }
 
 //Punto 8
-int main(){
+void p_mostrar_con_valor(Pila pila){
+
+    if (p_es_vacia(pila)){
+
+        printf("PILA VACIA! \n");
+        return;
+    }
+    Pila Paux = p_crear();
+    Pila Paux2 = p_crear();
+    TipoElemento X = te_crear(0);
+    printf ("Contenido de la pila: ");
+    while (p_es_vacia(pila) != true) 
+    {
+        X = p_desapilar(pila);
+        p_apilar(Paux, X);
+    }
+    while (p_es_vacia(Paux) != true) 
+    {
+        p_apilar(Paux2, p_desapilar(Paux));
+    }
+
+    while (p_es_vacia(Paux2) != true){
+
+        X = p_desapilar(Paux2);
+        printf("{%d:%lld},", X->clave, (intptr_t)X->valor);
+        p_apilar(Paux, X);
+    }
+    while (p_es_vacia(Paux) != true) 
+    {
+        p_apilar(pila, p_desapilar(Paux));
+    }
+    printf("\n");
+}
+
+int mainContadorValores(){
 
     Pila P1 = p_crear();
     Pila p2 = p_crear();
+    printf("\n\t\t --- Carga de la pila --- \n");    
     cargarpila(P1);
     p2 = p_ej8_sacarrepetidos(P1);
-    p_mostrar(p2);
+    p_mostrar_con_valor(p2);
     printf("\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
     printf("La complejidad algorítmica O(n^2), donde n es el número total de elementos en la pila original p. La complejidad es \nla misma tanto para la implementación con punteros que para la implementación con arreglos. \n");
     printf("\n\nPulse enter para volver al menú");
@@ -553,7 +588,7 @@ int main()
             break;
             menu_principal();
         case 3:
-            //main_compara_pilas();
+            mainComparaPilas();
             getch();
             break;
         case 4:
@@ -596,7 +631,7 @@ int main()
             getch();
             break;
         case 8:
-            //main_contador_valores();
+            mainContadorValores();
             getch();
             break;
         case 0:

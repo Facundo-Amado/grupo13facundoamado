@@ -9,23 +9,6 @@
 #include "../libs/pila/headers/pilas.h"
 #include "../libs/pila/headers/tp_3_pilas.h"
 
-Pila copiarpila(Pila p)
-{
-    Pila copia = p_crear();
-    Pila aux = p_crear();
-    TipoElemento elemento;
-    while (!p_es_vacia(p)) {
-        elemento = p_desapilar(p);
-        p_apilar(aux, elemento);
-        p_apilar(copia, elemento);
-    }
-    while (!p_es_vacia(aux)) {
-        elemento = p_desapilar(aux);
-        p_apilar(p, elemento);
-    }
-    return copia;
-}
-
 //Punto 2
 bool p_ej2_existeclave(Pila pila, int clave) {
     Pila aux = p_crear();                                               
@@ -159,15 +142,21 @@ Pila p_ej2_duplicar(Pila pila) {
 
 int p_ej2_cantidadelementos(Pila pila) {
     Pila aux = p_crear();                                        
-    aux = copiarpila(pila);                                       
+    Pila aux2 = p_crear();                                        
+    TipoElemento elemento;    
+    while (!p_es_vacia(pila)) {
+        elemento = p_desapilar(pila);
+        p_apilar(aux, elemento);
+        p_apilar(aux2, elemento);
+    }                                  
     int contador = 0;                                      
     // Desapilar todos los elementos para contar
-    while (!p_es_vacia(pila)) {                            
-        p_desapilar(pila);                                
+    while (!p_es_vacia(aux)) {                            
+        p_desapilar(aux);                                
         contador++;                                        
     }                                   
-    while (!p_es_vacia(aux)) {                             
-        p_apilar(pila, p_desapilar(aux));                  
+    while (!p_es_vacia(aux2)) {                             
+        p_apilar(pila, p_desapilar(aux2));                  
     }
     return contador;                                         
 }
@@ -366,33 +355,33 @@ Pila p_ej8_sacarrepetidos(Pila p){
     Pila PR = p_crear();
     Pila aux1 = p_crear();
     Pila aux2 = p_crear();
-    Pila temp = p_crear();
+    //Pila temp = p_crear();
     Pila copia = p_crear();
     int contelemento;
     TipoElemento te, teaux, nuevo_elemento;
     while (!p_es_vacia(p)) {
         teaux = p_desapilar(p);
         p_apilar(aux1, teaux);
-        p_apilar(aux2, teaux);
+        //p_apilar(aux2, teaux);
         p_apilar(copia, teaux);
     }
     while(!p_es_vacia(aux1)){
         te = p_desapilar(aux1);
         contelemento = 1;
-        while(!p_es_vacia(aux2)){
-            teaux = p_desapilar(aux2);
+        while(!p_es_vacia(aux1)){
+            teaux = p_desapilar(aux1);
             if (teaux->clave == te->clave){
                 contelemento++;
             } 
             else {
-                p_apilar(temp, teaux);
+                p_apilar(aux2, teaux);
             }
         }
         nuevo_elemento = te_crear_con_valor(te->clave, (void *)(intptr_t)contelemento);
         p_apilar(PR, nuevo_elemento);
-        while (!p_es_vacia(temp)) 
+        while (!p_es_vacia(aux2)) 
         {
-            p_apilar(aux2, p_desapilar(temp));
+            p_apilar(aux1, p_desapilar(aux2));
         }
     }
     while (!p_es_vacia(copia)) 
@@ -405,3 +394,5 @@ Pila p_ej8_sacarrepetidos(Pila p){
     }
     return Pfinal;
 }
+
+
