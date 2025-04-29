@@ -12,6 +12,8 @@
                 "${fileDirname}\\../libs/cola/implementaciones/colas_punteros.c",
                 "${fileDirname}\\tp_4_colas.c",
                 "${fileDirname}\\../libs/tipoElemento/implementaciones/tipo_elemento_1.c",
+                "${fileDirname}\\../libs/pila/implementaciones/pilas_punteros.c",
+                "${fileDirname}\\../libs/listas/implementaciones/listas_punteros.c",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "-Wall"
@@ -40,6 +42,9 @@
                 "${fileDirname}\\../libs/cola/implementaciones/colas_arreglos.c",
                 "${fileDirname}\\tp_4_colas.c",
                 "${fileDirname}\\../libs/tipoElemento/implementaciones/tipo_elemento_1.c",
+                "${fileDirname}\\../libs/cola/implementaciones/colas_arreglos.c",
+                "${fileDirname}\\../libs/pila/implementaciones/pilas_punteros.c",
+                "${fileDirname}\\../libs/listas/implementaciones/listas_punteros.c",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "-Wall"
@@ -68,6 +73,8 @@
                 "${fileDirname}\\../libs/cola/implementaciones/colas_arreglos_circular.c",
                 "${fileDirname}\\tp_4_colas.c",
                 "${fileDirname}\\../libs/tipoElemento/implementaciones/tipo_elemento_1.c",
+                "${fileDirname}\\../libs/pila/implementaciones/pilas_punteros.c",
+                "${fileDirname}\\../libs/listas/implementaciones/listas_punteros.c",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "-Wall"

@@ -18,25 +18,29 @@ void limpiarBuffer()
     while ((c = getchar()) != '\n' && c != EOF);
 }  
 
-void cargarCola(Cola c)
+int cargarTamano()
 {
-    int i = 0, tamano, elemento;
-    TipoElemento elem;
+    int tamano;
     printf("ingrese la cantidad de elementos que desea ingresar a la cola: ");
     while (scanf("%d", &tamano) != 1 || (tamano <= 0 || tamano > 10))
     {
         printf("Dato invalido. Ingrese un numero entero entre 1 y 10: ");
-        scanf("%d", &tamano);
         limpiarBuffer();
     }
     tamano = (int)tamano;
+    return tamano;
+}
+
+void cargarCola(Cola c, int tamano)
+{
+    int i = 0, elemento;
+    TipoElemento elem;
     while (i< tamano)
     {
         printf("ingrese un elemento de la cola. (solo se admiten numeros enteros): ");
         while (scanf("%d", &elemento) != 1)
         {
             printf("elemento invalido. ingrese un elemento de la cola: ");
-            scanf("%d", &elemento);
             limpiarBuffer();
         }
         elemento = (int)elemento;
@@ -46,7 +50,121 @@ void cargarCola(Cola c)
     }
 }
 
+void cargarColaej5(Cola c, int tamano)
+{
+    int i = 0, elemento;
+    TipoElemento elem;
+    while (i< tamano)
+    {
+        printf("ingrese un elemento de la cola. (solo se admiten numeros enteros mayores a 2): ");
+        while (scanf("%d", &elemento) != 1 || elemento < 2)
+        {
+            printf("elemento invalido. ingrese un numero mayor a 2: ");
+            limpiarBuffer();
+        }
+        elemento = (int)elemento;
+        elem = te_crear(elemento);
+        c_encolar(c, elem);
+        i++;
+    }
+}
+void c_mostrar_con_valor(Cola cola)
+{
+    if (c_es_vacia(cola)){
+
+        printf("COLA VACIA! \n");
+        return;
+    }
+    Pila paux = p_crear();
+    TipoElemento x = te_crear(0);
+    printf ("\nContenido de la cola: ");
+    while (!c_es_vacia(cola)) 
+    {
+        x = c_desencolar(cola);
+        p_apilar(paux, x);
+    }
+    while (!p_es_vacia(paux)){
+
+        x = p_desapilar(paux);
+        printf("{%d:%lld},", x->clave, (intptr_t)x->valor);
+        c_encolar(cola, x);
+    }
+}
+void c_mostrar_con_valortf(Cola cola)
+{
+    int valor;
+    Pila paux = p_crear();
+    TipoElemento x = te_crear(0);
+    if (c_es_vacia(cola)){
+
+        printf("COLA VACIA! \n");
+        return;
+    }
+    printf ("Contenido de la cola: ");
+    while (!c_es_vacia(cola)) 
+    {
+        x = c_desencolar(cola);
+        p_apilar(paux, x);
+    }
+    while (!p_es_vacia(paux)){
+
+        x = p_desapilar(paux);
+        valor = (int)(intptr_t)(x->valor);
+        printf("{%d: %s},", x->clave, (valor ? "true" : "false"));
+        c_encolar(cola, x);
+    }
+}
+
+/*Cola cargarColaSinRepetidos(Cola cola, int *tamano)
+{
+    int elemento, validador;
+    bool esRepetido = false;
+    limpiarBuffer();
+    for (int i = 0; i < *tamano; i++)
+    {
+        printf("Ingrese clave del elemento a cargar (mayor a 2 y sin repetir): ");
+        validador = scanf("%d", &elemento);
+        if (c_es_vacia(cola))
+        {
+            esRepetido = false;
+        }
+        else
+        {
+            esRepetido = buscar(cola, elemento);
+        }
+        limpiarBuffer();
+        while (validador != 1 || elemento < 2 || esRepetido)
+        {
+            printf("elemento invalido. ingrese un numero mayor a 2: ");
+            scanf("%d", &elemento);
+            limpiarBuffer();
+            validador = scanf("%d", &elemento);
+            if (c_es_vacia(cola))
+                esRepetido = false;
+            else
+                esRepetido = buscar(cola, elemento);
+            limpiarBuffer();
+        }
+        TipoElemento x = te_crear(elemento);
+        c_encolar(cola, x);
+    }
+    c_mostrar(cola); // muestro la cola como quedo cargada
+    printf("\n");
+    return cola;
+}*/
+
 //Punto 2
+//item A
+
+//item B
+
+//item C
+
+//item D
+
+//item E
+
+//item F
 
 
 //Punto 3
@@ -61,9 +179,12 @@ int mainDivisores()
     Cola c1 = c_crear();
     Cola c2 = c_crear();
     printf("\n\t\t --- Carga de la cola --- \n");    
-    cargarCola(c1);
+    int tamano = cargarTamano();
+    cargarColaej5(c1, tamano);
     c2 = c_ej5_divisortotal(c1);
-    c_mostrar_con_valor(c2);
+    c_mostrar_con_valortf(c2);
+    printf("\n\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
+    printf("La complejidad de la solución empleada es lineal O(n^2) porque hay varios ciclos que dependen de la cantidad de elementos \nde la cola, y ademas se encuentran anidados.");
     printf("\n\nPulse enter para volver al menú");
     return 0;
 }
