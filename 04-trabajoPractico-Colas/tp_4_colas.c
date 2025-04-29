@@ -8,6 +8,8 @@
 #include "../libs/tipoElemento/headers/tipo_elemento.h"
 #include "../libs/cola/headers/colas.h"
 #include "../libs/cola/headers/tp_4_colas.h"
+#include "../libs/pila/headers/pilas.h"
+#include "../libs/listas/headers/listas.h"
 
 
 //Punto 2
@@ -20,6 +22,10 @@
 
 
 //Punto 5
+Cola c_ej5_divisortotal(Cola c)
+{
+
+}
 
 
 //Punto 6

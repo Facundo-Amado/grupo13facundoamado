@@ -8,8 +8,43 @@
 #include "../libs/tipoElemento/headers/tipo_elemento.h"
 #include "../libs/cola/headers/colas.h"
 #include "../libs/cola/headers/tp_4_colas.h"
+#include "../libs/pila/headers/pilas.h"
+#include "../libs/listas/headers/listas.h"
 
 
+void limpiarBuffer()
+{
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}  
+
+void cargarCola(Cola c)
+{
+    int i = 0, tamano, elemento;
+    TipoElemento elem;
+    printf("ingrese la cantidad de elementos que desea ingresar a la cola: ");
+    while (scanf("%d", &tamano) != 1 || (tamano <= 0 || tamano > 10))
+    {
+        printf("Dato invalido. Ingrese un numero entero entre 1 y 10: ");
+        scanf("%d", &tamano);
+        limpiarBuffer();
+    }
+    tamano = (int)tamano;
+    while (i< tamano)
+    {
+        printf("ingrese un elemento de la cola. (solo se admiten numeros enteros): ");
+        while (scanf("%d", &elemento) != 1)
+        {
+            printf("elemento invalido. ingrese un elemento de la cola: ");
+            scanf("%d", &elemento);
+            limpiarBuffer();
+        }
+        elemento = (int)elemento;
+        elem = te_crear(elemento);
+        c_encolar(c, elem);
+        i++;
+    }
+}
 
 //Punto 2
 
@@ -21,7 +56,17 @@
 
 
 //Punto 5
-
+int mainDivisores()
+{
+    Cola c1 = c_crear();
+    Cola c2 = c_crear();
+    printf("\n\t\t --- Carga de la cola --- \n");    
+    cargarCola(c1);
+    c2 = c_ej5_divisortotal(c1);
+    c_mostrar_con_valor(c2);
+    printf("\n\nPulse enter para volver al menú");
+    return 0;
+}
 
 //Punto 6
 
@@ -52,7 +97,7 @@ void menu_principal()
     printf("  Por favor seleccione una opción: ");
 }
 
-/// @brief Menu del Punto 2: Operaciones con cola
+//Menu del Punto 2: Operaciones con cola
 void menu_punto2()
 {
     printf("\n");
@@ -78,37 +123,35 @@ int main()
 {
     bool salir1 = false;
     bool salir = false;
-    int opcion;
+    int opc1, opc2;
     while (!salir)
     {
         menu_principal();
-        int validador = scanf("%i", &opcion);
+        int validador = scanf("%i", &opc1);
         while (getchar() != '\n')
             ;
-        while (validador != 1 || opcion < 0 || opcion > 8 || opcion == 1)
+        while (validador != 1 || opc1 < 0 || opc1 > 8 || opc1 == 1)
         {
             printf("Opción incorrecta\n");
             printf("  Por favor seleccione una opción: ");
-            validador = scanf("%i", &opcion);
-            while (getchar() != '\n')
-                ;
+            validador = scanf("%i", &opc1);
+            while (getchar() != '\n');
         }
-        switch (opcion)
+        switch (opc1)
         {
         case 2:
             while (!salir1)
             {
                 menu_punto2();
-                validador = scanf("%i", &opcion);
-                while (validador != 1 || opcion < 0 || opcion > 6)
+                validador = scanf("%i", &opc2);
+                while (validador != 1 || opc2 < 0 || opc2 > 6)
                 {
                     printf("Opción incorrecta\n");
                     printf("  Por favor seleccione una opción: ");
-                    while (getchar() != '\n')
-                        ;
-                    validador = scanf("%i", &opcion);
+                    while (getchar() != '\n');
+                    validador = scanf("%i", &opc2);
                 }
-                switch (opcion)
+                switch (opc2)
                 {
                 case 1:
                     //main_buscarElemento();
@@ -150,7 +193,7 @@ int main()
             // getch();
             break;
         case 5:
-            //main_divisores();
+            mainDivisores();
             getch();
             break;
         case 6:
