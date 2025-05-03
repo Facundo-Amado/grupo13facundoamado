@@ -256,8 +256,6 @@ int mainIguales(){
             printf("Las colas no son iguales");
         }
     }
-    c_mostrar(c1);
-    c_mostrar(c2);
     return 0;
 }
 

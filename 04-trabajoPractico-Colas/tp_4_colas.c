@@ -87,15 +87,15 @@ bool c_ej3_iguales(Cola c1, Cola c2){
     Cola aux = c_crear();
     bool sonIguales = true;
     TipoElemento elem1, elem2; 
-    while(!c_es_vacia(c1) && !c_es_vacia(c2) && sonIguales){
+    while(!c_es_vacia(c1) && !c_es_vacia(c2)){
         elem1 = c_desencolar(c1);
         elem2 = c_desencolar(c2);
-        c_encolar(aux, elem1);
-        c_encolar(aux, elem2);
         if(elem1->clave != elem2->clave)
         {
             sonIguales = false;
         }
+        c_encolar(aux, elem1);
+        c_encolar(aux, elem2);
     }
     while(!c_es_vacia(aux))
     {
