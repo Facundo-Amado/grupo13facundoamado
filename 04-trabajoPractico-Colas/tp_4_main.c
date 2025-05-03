@@ -31,6 +31,19 @@ int cargarTamano()
     return tamano;
 }
 
+int cargarTamanoej3()
+{
+    int tamano;
+    printf("ingrese la cantidad de elementos que desea ingresar a la cola(no mas de 5): "); //si ingresa mas de 5 la cola auxiliar de la funcion del ejercicio tendria mas elementos de los admitidos por la TAD
+    while (scanf("%d", &tamano) != 1 || (tamano <= 0 || tamano > 5))
+    {
+        printf("Dato invalido. Ingrese un numero entero entre 1 y 5: ");
+        limpiarBuffer();
+    }
+    tamano = (int)tamano;
+    return tamano;
+}
+
 void cargarCola(Cola c, int tamano)
 {
     int i = 0, elemento;
@@ -50,24 +63,44 @@ void cargarCola(Cola c, int tamano)
     }
 }
 
-void cargarColaej5(Cola c, int tamano)
+Cola cargarColaSinRepetidos(Cola cola, int tamano)
 {
-    int i = 0, elemento;
-    TipoElemento elem;
-    while (i< tamano)
+    int elemento, validador;
+    bool esRepetido = false;
+    limpiarBuffer();
+    for (int i = 0; i < tamano; i++)
     {
-        printf("ingrese un elemento de la cola. (solo se admiten numeros enteros mayores a 2): ");
-        while (scanf("%d", &elemento) != 1 || elemento < 2)
+        printf("Ingrese clave del elemento a cargar (mayor a 2 y sin repetir): ");
+        validador = scanf("%d", &elemento);
+        if (c_es_vacia(cola))
         {
-            printf("elemento invalido. ingrese un numero mayor a 2: ");
+            esRepetido = false;
+        }
+        else
+        {
+            esRepetido = c_ej2_existeclave(cola, elemento);
+        }
+        limpiarBuffer();
+        while (validador != 1 || elemento < 2 || esRepetido)
+        {
+            printf("elemento invalido. ingrese un numero mayor a 2 sin repetir: ");
+            scanf("%d", &elemento);
+            limpiarBuffer();
+            validador = scanf("%d", &elemento);
+            if (c_es_vacia(cola))
+                esRepetido = false;
+            else
+                esRepetido = c_ej2_existeclave(cola, elemento);
             limpiarBuffer();
         }
-        elemento = (int)elemento;
-        elem = te_crear(elemento);
-        c_encolar(c, elem);
-        i++;
+        TipoElemento x = te_crear(elemento);
+        c_encolar(cola, x);
     }
+    c_mostrar(cola); // muestro la cola como quedo cargada
+    printf("\n");
+    return cola;
 }
+
 void c_mostrar_con_valor(Cola cola)
 {
     if (c_es_vacia(cola)){
@@ -115,50 +148,79 @@ void c_mostrar_con_valortf(Cola cola)
     }
 }
 
-/*Cola cargarColaSinRepetidos(Cola cola, int *tamano)
-{
-    int elemento, validador;
-    bool esRepetido = false;
-    limpiarBuffer();
-    for (int i = 0; i < *tamano; i++)
-    {
-        printf("Ingrese clave del elemento a cargar (mayor a 2 y sin repetir): ");
-        validador = scanf("%d", &elemento);
-        if (c_es_vacia(cola))
-        {
-            esRepetido = false;
-        }
-        else
-        {
-            esRepetido = buscar(cola, elemento);
-        }
-        limpiarBuffer();
-        while (validador != 1 || elemento < 2 || esRepetido)
-        {
-            printf("elemento invalido. ingrese un numero mayor a 2: ");
-            scanf("%d", &elemento);
-            limpiarBuffer();
-            validador = scanf("%d", &elemento);
-            if (c_es_vacia(cola))
-                esRepetido = false;
-            else
-                esRepetido = buscar(cola, elemento);
-            limpiarBuffer();
-        }
-        TipoElemento x = te_crear(elemento);
-        c_encolar(cola, x);
-    }
-    c_mostrar(cola); // muestro la cola como quedo cargada
-    printf("\n");
-    return cola;
-}*/
 
 //Punto 2
+void crearCola(Cola c)
+{
+    printf("\n\t\t --- Carga de la cola --- \n");   
+    int tamano = cargarTamano(); 
+    cargarCola(c, tamano);
+    printf("Pulse enter para volver al menú");
+    return;
+}
 //item A
+int mainBuscarElemento(Cola c)
+{
+    int clave;
+    printf("ingrese la clave que busca: ");
+    while(scanf("%d", &clave) !=1)
+    {
+        printf("Dato invalido. Ingrese un numero entero: ");
+        limpiarBuffer();
+    }
+    if(c_ej2_existeclave(c, clave))
+    {
+        printf("la clave existe en la cola");
+    }
+    else
+    {
+        printf("la clave no existe en la cola");
+    }
+    printf("\n\nPulse enter para volver al menú");
+    return 0;
+}
 
 //item B
+int mainInsertar(Cola c)
+{
+    int posicion, clavetemp;
+    Cola c2 = c_crear();
+    TipoElemento clave;
+    printf("ingrese el elemento para agregar en la cola: ");
+    while ((scanf("%d", &clavetemp) != 1))
+    {
+        printf("dato invalido. ingrese un elemento valido: ");
+        limpiarBuffer();
+    }
+    clave = te_crear(clavetemp);
+    printf("ingrese la posicion en la que va a estar el elemento: ");
+    while ((scanf("%d", &posicion) != 1) || posicion < 0)
+    {
+        printf("dato invalido. ingrese una posicion valida: ");
+        limpiarBuffer();
+    }
+    c2 = c_ej2_colarelemento(c, posicion, clave);
+    c_mostrar(c2);
+    printf("\n\nPulse enter para volver al menú");
+    return 0;
+}
 
 //item C
+int mainEliminar(Cola c)
+{
+    int clave;
+    Cola c2 = c_crear();
+    printf("ingrese el elemento que desea eliminar: ");
+    while ((scanf("%d", &clave) != 1))
+    {
+        printf("dato invalido. ingrese un elemento valido: ");
+        limpiarBuffer();
+    }
+    c2 = c_ej2_sacarelemento(c, clave);    
+    c_mostrar(c2);
+    printf("\n\nPulse enter para volver al menú");
+    return 0;
+}
 
 //item D
 
@@ -168,7 +230,36 @@ void c_mostrar_con_valortf(Cola cola)
 
 
 //Punto 3
-
+int mainIguales(){
+    Cola c1 = c_crear();
+    Cola c2 = c_crear();
+    printf("\n\t\t --- tamaño de la cola 1 ---\n");
+    int tamc1 = cargarTamanoej3();
+    printf("\n\t\t --- tamaño de la cola 2 ---\n");
+    int tamc2 = cargarTamanoej3();
+    if (tamc2 != tamc1)
+    {
+        printf("Las colas son de distinta longitud. no pueden ser iguales");
+    }
+    else
+    {
+        printf("\n\t\t --- carga de la cola 1 ---\n");
+        cargarCola(c1, tamc1);
+        printf("\n\t\t --- carga de la cola 2 ---\n");
+        cargarCola(c2, tamc2);
+        if (c_ej3_iguales(c1, c2))
+        {
+            printf("Las colas son iguales");
+        }
+        else
+        {
+            printf("Las colas no son iguales");
+        }
+    }
+    c_mostrar(c1);
+    c_mostrar(c2);
+    return 0;
+}
 
 //Punto 4
 
@@ -180,7 +271,7 @@ int mainDivisores()
     Cola c2 = c_crear();
     printf("\n\t\t --- Carga de la cola --- \n");    
     int tamano = cargarTamano();
-    cargarColaej5(c1, tamano);
+    cargarColaSinRepetidos(c1, tamano);
     c2 = c_ej5_divisortotal(c1);
     c_mostrar_con_valortf(c2);
     printf("\n\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
@@ -223,15 +314,16 @@ void menu_punto2()
 {
     printf("\n");
     printf("  ============================================================================\n");
-    printf(" |                         2   Operaciones con pilas                         |\n");
+    printf(" |                         2   Operaciones con colas                         |\n");
     printf("  ============================================================================\n");
     printf("\n");
-    printf("  1   Buscar elemento\n");
-    printf("  2   Insertar elemento\n");
-    printf("  3   Eliminar elemento\n");
-    printf("  4   Contar los elementos\n");
-    printf("  5   Realizar una copia\n");
-    printf("  6   Invertir\n");
+    printf("  1   Cargar Cola\n");
+    printf("  2   Buscar elemento\n");
+    printf("  3   Insertar elemento\n");
+    printf("  4   Eliminar elemento\n");
+    printf("  5   Contar los elementos\n");
+    printf("  6   Realizar una copia\n");
+    printf("  7   Invertir\n");
     printf("\n");
     printf("  0   Salir\n");
     printf("\n");
@@ -242,8 +334,8 @@ void menu_punto2()
 
 int main()
 {
-    bool salir1 = false;
-    bool salir = false;
+    Cola c = c_crear();
+    bool colaCargada = false, salir1 = false, salir = false;
     int opc1, opc2;
     while (!salir)
     {
@@ -265,7 +357,7 @@ int main()
             {
                 menu_punto2();
                 validador = scanf("%i", &opc2);
-                while (validador != 1 || opc2 < 0 || opc2 > 6)
+                while (validador != 1 || opc2 < 0 || opc2 > 7)
                 {
                     printf("Opción incorrecta\n");
                     printf("  Por favor seleccione una opción: ");
@@ -275,28 +367,80 @@ int main()
                 switch (opc2)
                 {
                 case 1:
-                    //main_buscarElemento();
+                    crearCola(c);
+                    colaCargada = true;
                     getch();
                     break;
                 case 2:
-                    //main_insertar_en_cola();
+                    if(colaCargada)
+                    {
+                        mainBuscarElemento(c);
+                    }
+                    else
+                    {
+                        printf("Primero debe cargar la cola (opción 1).\n");
+                        printf("Pulse enter para volver al menú");
+                    }
                     getch();
                     break;
                 case 3:
-                    //main_eliminar_repeticiones();
-                    // main_borrar();
+                    if(colaCargada)
+                    {
+                        mainInsertar(c);
+                    }
+                    else
+                    {
+                        printf("Primero debe cargar la cola (opción 1).\n");
+                        printf("Pulse enter para volver al menú");
+                    }
                     getch();
                     break;
                 case 4:
-                    //main_contador();
+                    if(colaCargada)
+                    {
+                        mainEliminar(c);
+                    }
+                    else
+                    {
+                        printf("Primero debe cargar la cola (opción 1).\n");
+                        printf("Pulse enter para volver al menú");
+                    }
                     getch();
                     break;
                 case 5:
-                    //main_clonar();
+                    /*if(colaCargada)
+                    {
+                        mainContarElementos(c);
+                    }
+                    else
+                    {
+                        printf("Primero debe cargar la cola (opción 1).\n");
+                        printf("Pulse enter para volver al menú");
+                    }*/
                     getch();
                     break;
                 case 6:
-                    //main_invertida();
+                    /*if(colaCargada)
+                    {
+                        mainClonar(c);
+                    }
+                    else
+                    {
+                        printf("Primero debe cargar la cola (opción 1).\n");
+                        printf("Pulse enter para volver al menú");
+                    }*/
+                    getch();
+                    break;
+                case 7:
+                    /*if(colaCargada)
+                    {
+                        mainInvertir(c);
+                    }
+                    else
+                    {
+                        printf("Primero debe cargar la cola (opción 1).\n");
+                        printf("Pulse enter para volver al menú");
+                    }*/
                     getch();
                     break;
                 case 0:
@@ -306,8 +450,8 @@ int main()
             break;
             menu_principal();
         case 3:
-            //main_punto3();
-            // getch();
+            mainIguales();
+            getch();
             break;
         case 4:
             //main_punto4();
