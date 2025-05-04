@@ -254,7 +254,8 @@ Pila  p_ej5_invertir(Pila p){
     Pila aux = p_crear();
     while(!p_es_vacia(p)){
         TipoElemento elem = p_desapilar(p);
-        p_apilar(p_invertida, elem);
+        TipoElemento x = te_crear(elem->clave);
+        p_apilar(p_invertida, x);
         p_apilar(aux, elem);
     }
     while (!p_es_vacia(aux)){
