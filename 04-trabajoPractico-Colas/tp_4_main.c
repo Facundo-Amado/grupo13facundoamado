@@ -260,7 +260,18 @@ int mainIguales(){
 }
 
 //Punto 4
-
+int mainNoRepetidos() {
+    Cola c = c_crear();
+    int tam = cargarTamano();
+    cargarCola(c, tam);
+    Cola resultado = c_ej4_colanorepetidos(c);
+    printf("Cola sin elementos repetidos:\n");
+    c_mostrar(resultado);
+    printf("\n\t\t--- Complejidad algoritmica del ejercicio ---\n");
+    printf("La complejidad algoritmica es O(n^2) ya que la funcion utiliza 2 while anidados \nque dependen del tamaño de la cola principal del ejercicio.\n");
+    printf("\n\nPulse enter para volver al menú");
+    return 0;
+}
 
 //Punto 5
 int mainDivisores()
@@ -452,8 +463,8 @@ int main()
             getch();
             break;
         case 4:
-            //main_punto4();
-            // getch();
+            mainNoRepetidos();
+            getch();
             break;
         case 5:
             mainDivisores();
