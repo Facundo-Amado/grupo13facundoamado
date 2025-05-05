@@ -57,7 +57,6 @@ Cola c_ej2_colarelemento(Cola c, int pos, TipoElemento x)
     return c;
 }
 
-
 //item c
 Cola c_ej2_sacarelemento(Cola c, int clave)
 {
@@ -79,8 +78,68 @@ Cola c_ej2_sacarelemento(Cola c, int clave)
 }
 
 //item d
+int c_ej2_contarelementos(Cola c) 
+{
+    TipoElemento elem;
+    Cola aux = c_crear();
+    int resultado = 0;
+    while (!c_es_vacia(c)) {
+        elem = c_desencolar(c);
+        resultado++;
+        c_encolar(aux, elem);
+    }
+    while (!c_es_vacia(aux)) {
+        elem = c_desencolar(aux);
+        c_encolar(c, elem); // Restaura la cola original
+    }
+    return resultado; // Si esta vacia, no va a hacer el codigo de arriba y va a retornar 0.
+}
+
 //item e
+Cola c_ej2_copiar(Cola c) 
+{
+    Cola copia = c_crear();
+    Cola aux = c_crear();
+    TipoElemento elem;
+
+    // Desencolo elementos, copio y guardo en aux
+    while (!c_es_vacia(c)) {
+        elem = c_desencolar(c);
+        c_encolar(aux, elem);
+        c_encolar(copia, elem);
+    }
+    // Restauro los elementos en la cola original
+    while (!c_es_vacia(aux)) {
+        elem = c_desencolar(aux);
+        c_encolar(c, elem);
+    }
+    return copia;
+}
+
 //item f
+Cola c_ej2_invertir(Cola c) {
+    Cola resultado = c_crear();
+    Pila invertir = p_crear();
+    Cola aux = c_crear();
+    TipoElemento elem;
+    // Paso 1: Pasar elementos de la cola a la pila y a una auxiliar
+    while (!c_es_vacia(c)) {
+        elem = c_desencolar(c);
+        p_apilar(invertir, elem); // Guarda en orden inverso
+        c_encolar(aux, elem);     // Guarda para restaurar la original
+    }
+    // Paso 2: Pasar de la pila a una nueva cola (inversión)
+    while (!p_es_vacia(invertir)) {
+        elem = p_desapilar(invertir);
+        c_encolar(resultado, elem);
+    }
+    // Paso 3: Restaurar la cola original desde la auxiliar
+    while (!c_es_vacia(aux)) {
+        elem = c_desencolar(aux);
+        c_encolar(c, elem);
+    }
+    return resultado;
+}
 
 //Punto 3
 bool c_ej3_iguales(Cola c1, Cola c2){

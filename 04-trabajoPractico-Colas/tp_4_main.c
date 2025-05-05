@@ -223,11 +223,35 @@ int mainEliminar(Cola c)
 }
 
 //item D
+int mainContarElementos(Cola c)
+{
+    int cantidad = c_ej2_contarelementos(c);
+    printf("\nCantidad de elementos en la cola: %d\n", cantidad);
+    printf("\n\nPulse enter para volver al menú");
+    return 0;
+}
 
 //item E
+int mainClonar(Cola c)
+{
+    Cola aux = c_crear();
+    aux = c_ej2_copiar(c);
+    printf("\n\t\t --- Cola copiada ---");
+    c_mostrar(aux);
+    printf("\n\nPulse enter para volver al menú");
+    return 0;
+}
 
 //item F
-
+int mainInvertir(Cola c)
+{
+    Cola invertida = c_crear();
+    Cola invertida = c_ej2_invertir(c);
+    printf("Elementos en la cola invertida: ");
+    c_mostrar(invertida);
+    printf("\n\nPulse enter para volver al menú");
+    return 0;
+}
 
 //Punto 3
 int mainIguales(){
@@ -417,7 +441,7 @@ int main()
                     getch();
                     break;
                 case 5:
-                    /*if(colaCargada)
+                    if(colaCargada)
                     {
                         mainContarElementos(c);
                     }
@@ -425,11 +449,11 @@ int main()
                     {
                         printf("Primero debe cargar la cola (opción 1).\n");
                         printf("Pulse enter para volver al menú");
-                    }*/
+                    }
                     getch();
                     break;
                 case 6:
-                    /*if(colaCargada)
+                    if(colaCargada)
                     {
                         mainClonar(c);
                     }
@@ -437,11 +461,11 @@ int main()
                     {
                         printf("Primero debe cargar la cola (opción 1).\n");
                         printf("Pulse enter para volver al menú");
-                    }*/
+                    }
                     getch();
                     break;
                 case 7:
-                    /*if(colaCargada)
+                    if(colaCargada)
                     {
                         mainInvertir(c);
                     }
@@ -449,7 +473,7 @@ int main()
                     {
                         printf("Primero debe cargar la cola (opción 1).\n");
                         printf("Pulse enter para volver al menú");
-                    }*/
+                    }
                     getch();
                     break;
                 case 0:
