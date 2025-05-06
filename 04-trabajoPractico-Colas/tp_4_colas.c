@@ -128,7 +128,7 @@ Cola c_ej2_invertir(Cola c) {
         p_apilar(invertir, elem); // Guarda en orden inverso
         c_encolar(aux, elem);     // Guarda para restaurar la original
     }
-    // Paso 2: Pasar de la pila a una nueva cola (inversión)
+    // Paso 2: Pasar de la pila a una nueva cola (inversion)
     while (!p_es_vacia(invertir)) {
         elem = p_desapilar(invertir);
         c_encolar(resultado, elem);

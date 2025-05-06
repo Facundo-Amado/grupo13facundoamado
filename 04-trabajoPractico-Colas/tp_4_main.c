@@ -187,7 +187,7 @@ void crearCola(Cola c)
     printf("\n\t\t --- Carga de la cola --- \n");   
     int tamano = cargarTamano(); 
     cargarCola(c, tamano);
-    printf("Pulse enter para volver al menú");
+    printf("Pulse enter para volver al menu");
     return;
 }
 //item A
@@ -208,7 +208,7 @@ int mainBuscarElemento(Cola c)
     {
         printf("la clave no existe en la cola");
     }
-    printf("\n\nPulse enter para volver al menú");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -233,7 +233,7 @@ int mainInsertar(Cola c)
     }
     c2 = c_ej2_colarelemento(c, posicion, clave);
     c_mostrar(c2);
-    printf("\n\nPulse enter para volver al menú");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -250,7 +250,7 @@ int mainEliminar(Cola c)
     }
     c2 = c_ej2_sacarelemento(c, clave);    
     c_mostrar(c2);
-    printf("\n\nPulse enter para volver al menú");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -259,7 +259,7 @@ int mainContarElementos(Cola c)
 {
     int cantidad = c_ej2_contarelementos(c);
     printf("\nCantidad de elementos en la cola: %d\n", cantidad);
-    printf("\n\nPulse enter para volver al menú");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -270,7 +270,7 @@ int mainClonar(Cola c)
     aux = c_ej2_copiar(c);
     printf("\n\t\t --- Cola copiada ---");
     c_mostrar(aux);
-    printf("\n\nPulse enter para volver al menú");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -280,7 +280,7 @@ int mainInvertir(Cola c)
     Cola invertida = c_ej2_invertir(c);
     printf("Elementos en la cola invertida: ");
     c_mostrar(invertida);
-    printf("\n\nPulse enter para volver al menú");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -288,9 +288,9 @@ int mainInvertir(Cola c)
 int mainIguales(){
     Cola c1 = c_crear();
     Cola c2 = c_crear();
-    printf("\n\t\t --- tamaño de la cola 1 ---\n");
+    printf("\n\t\t --- tamano de la cola 1 ---\n");
     int tamc1 = cargarTamanoej3();
-    printf("\n\t\t --- tamaño de la cola 2 ---\n");
+    printf("\n\t\t --- tamano de la cola 2 ---\n");
     int tamc2 = cargarTamanoej3();
     if (tamc2 != tamc1)
     {
@@ -323,8 +323,8 @@ int mainNoRepetidos() {
     printf("Cola sin elementos repetidos:\n");
     c_mostrar(resultado);
     printf("\n\t\t--- Complejidad algoritmica del ejercicio ---\n");
-    printf("La complejidad algoritmica es O(n^2) ya que la funcion utiliza 2 while anidados \nque dependen del tamaño de la cola principal del ejercicio.\n");
-    printf("\n\nPulse enter para volver al menú");
+    printf("La complejidad algoritmica es O(n^2) ya que la funcion utiliza 2 while anidados \nque dependen del tamano de la cola principal del ejercicio.\n");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -339,8 +339,8 @@ int mainDivisores()
     c2 = c_ej5_divisortotal(c1);
     c_mostrar_con_valortf(c2);
     printf("\n\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
-    printf("La complejidad de la solución empleada es lineal O(n^2) porque hay varios ciclos que dependen de la cantidad de elementos \nde la cola, y ademas se encuentran anidados.");
-    printf("\n\nPulse enter para volver al menú");
+    printf("La complejidad de la solucion empleada es lineal O(n^2) porque hay varios ciclos que dependen de la cantidad de elementos \nde la cola, y ademas se encuentran anidados.");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -381,7 +381,7 @@ int mainAtenderClientes() {
         c_encolar(resultados, c_desencolar(resul_aux));
     }
 
-    printf("\n\nComplejidad algoritmica: O(n) = n, concretamente 6n, debido a la cantidad de bucles dependientes de la cantidad de elementos que hay en la función (todos en el mismo nivel jerarquico, ninguno anidado dentro de otro)\n\n");
+    printf("\n\nComplejidad algoritmica: O(n) = n, concretamente 6n, debido a la cantidad de bucles dependientes de la cantidad de elementos que hay en la funcion (todos en el mismo nivel jerarquico, ninguno anidado dentro de otro)\n\n");
 
     return 0;
 }
@@ -406,7 +406,7 @@ void menu_principal()
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("  Por favor seleccione una opción: ");
+    printf("  Por favor seleccione una opcion: ");
 }
 
 //Menu del Punto 2: Operaciones con cola
@@ -429,7 +429,7 @@ void menu_punto2()
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("  Por favor seleccione una opción: ");
+    printf("  Por favor seleccione una opcion: ");
 }
 
 int main()
@@ -445,8 +445,8 @@ int main()
         while (getchar() != '\n')            ;
         while (validador != 1 || opc1 < 0 || opc1 > 8 || opc1 == 1)
         {
-            printf("Opción incorrecta\n");
-            printf("  Por favor seleccione una opción: ");
+            printf("Opcion incorrecta\n");
+            printf("  Por favor seleccione una opcion: ");
             validador = scanf("%i", &opc1);
             while (getchar() != '\n');
         }
@@ -459,8 +459,8 @@ int main()
                 validador = scanf("%i", &opc2);
                 while (validador != 1 || opc2 < 0 || opc2 > 7)
                 {
-                    printf("Opción incorrecta\n");
-                    printf("  Por favor seleccione una opción: ");
+                    printf("Opcion incorrecta\n");
+                    printf("  Por favor seleccione una opcion: ");
                     while (getchar() != '\n');
                     validador = scanf("%i", &opc2);
                 }
@@ -478,8 +478,8 @@ int main()
                     }
                     else
                     {
-                        printf("Primero debe cargar la cola (opción 1).\n");
-                        printf("Pulse enter para volver al menú");
+                        printf("Primero debe cargar la cola (opcion 1).\n");
+                        printf("Pulse enter para volver al menu");
                     }
                     pausar();
                     break;
@@ -490,8 +490,8 @@ int main()
                     }
                     else
                     {
-                        printf("Primero debe cargar la cola (opción 1).\n");
-                        printf("Pulse enter para volver al menú");
+                        printf("Primero debe cargar la cola (opcion 1).\n");
+                        printf("Pulse enter para volver al menu");
                     }
                     pausar();
                     break;
@@ -502,8 +502,8 @@ int main()
                     }
                     else
                     {
-                        printf("Primero debe cargar la cola (opción 1).\n");
-                        printf("Pulse enter para volver al menú");
+                        printf("Primero debe cargar la cola (opcion 1).\n");
+                        printf("Pulse enter para volver al menu");
                     }
                     pausar();
                     break;
@@ -514,8 +514,8 @@ int main()
                     }
                     else
                     {
-                        printf("Primero debe cargar la cola (opción 1).\n");
-                        printf("Pulse enter para volver al menú");
+                        printf("Primero debe cargar la cola (opcion 1).\n");
+                        printf("Pulse enter para volver al menu");
                     }
                     pausar();
                     break;
@@ -526,8 +526,8 @@ int main()
                     }
                     else
                     {
-                        printf("Primero debe cargar la cola (opción 1).\n");
-                        printf("Pulse enter para volver al menú");
+                        printf("Primero debe cargar la cola (opcion 1).\n");
+                        printf("Pulse enter para volver al menu");
                     }
                     pausar();
                     break;
@@ -538,8 +538,8 @@ int main()
                     }
                     else
                     {
-                        printf("Primero debe cargar la cola (opción 1).\n");
-                        printf("Pulse enter para volver al menú");
+                        printf("Primero debe cargar la cola (opcion 1).\n");
+                        printf("Pulse enter para volver al menu");
                     }
                     pausar();
                     break;
