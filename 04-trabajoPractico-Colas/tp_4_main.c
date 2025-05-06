@@ -277,7 +277,6 @@ int mainClonar(Cola c)
 //item F
 int mainInvertir(Cola c)
 {
-    Cola invertida = c_crear();
     Cola invertida = c_ej2_invertir(c);
     printf("Elementos en la cola invertida: ");
     c_mostrar(invertida);
