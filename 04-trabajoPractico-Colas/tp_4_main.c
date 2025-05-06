@@ -351,11 +351,11 @@ int mainDivisores()
 int mainAtenderClientes() {
 
     Cola c1 = cargarColaPositivos();
+    printf("\n");
     Cola c2 = cargarColaPositivos();
+    printf("\n");
     Cola c3 = cargarColaPositivos();
-    c_mostrar(c1);
-    c_mostrar(c2);
-    c_mostrar(c3);
+    printf("\n");
 
     int q;
     printf("ingrese tiempo de atencion: ");
@@ -366,10 +366,7 @@ int mainAtenderClientes() {
     limpiarBuffer();
 
     Cola resultados = c_ej7_atenderclientes(c1, c2, c3, q);
-    printf("\nValores de las colas despues del proceso: \n");
-    c_mostrar(c1);
-    c_mostrar(c2);
-    c_mostrar(c3);
+    printf("\n\nResultados: \n");
 
     Cola resul_aux = c_crear();
     TipoElemento temp;
@@ -377,16 +374,14 @@ int mainAtenderClientes() {
         temp = c_desencolar(resultados);
         char *resul_texto;
         resul_texto = (char*) temp->valor;
-        printf("Clave: %d Valor: %s\n", temp->clave, resul_texto);
+        printf("Clave: %d\tValor: %s\n", temp->clave, resul_texto);
         c_encolar(resul_aux, temp);
     }
     while(!c_es_vacia(resul_aux)) {
         c_encolar(resultados, c_desencolar(resul_aux));
     }
-    c_mostrar(resultados);
 
-
-    system("pause");
+    printf("\n\nComplejidad algoritmica: O(n) = n, concretamente 6n, debido a la cantidad de bucles dependientes de la cantidad de elementos que hay en la función (todos en el mismo nivel jerarquico, ninguno anidado dentro de otro)\n\n");
 
     return 0;
 }
@@ -571,8 +566,8 @@ int main()
             // pausar();
             break;
         case 7:
-            //main_ventanillas();
-            // pausar();
+            mainAtenderClientes();
+            pausar();
             break;
         case 0:
             salir = true;

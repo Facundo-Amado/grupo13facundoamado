@@ -379,6 +379,6 @@ Cola c_ej7_atenderclientes(Cola c1, Cola c2, Cola c3, int tiempoatencion) {
     free(c1aux);
     free(c2aux);
     free(c3aux);
-    printf("Complejidad algoritmica: O(n) = n, concretamente 6n, debido a la cantidad de bucles dependientes de la cantidad de elementos que hay en la función (todos en el mismo nivel jerarquico, ninguno anidado dentro de otro)");
+    
     return resultados;
 }
