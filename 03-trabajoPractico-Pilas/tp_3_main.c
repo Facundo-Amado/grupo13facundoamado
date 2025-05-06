@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <conio.h>
 #include <math.h>
 #include "../libs/tipoElemento/headers/tipo_elemento.h"
 #include "../libs/pila/headers/pilas.h"
@@ -14,6 +13,12 @@ void limpiarBuffer()
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }  
+
+void pausar()
+{
+    limpiarBuffer();
+    while (getchar() != '\n');
+}
 
 void cargarpila(Pila p)
 {
@@ -507,7 +512,7 @@ int main()
                 case 1:
                     crearpila(p);
                     pilaCargada = true;
-                    getch();
+                    pausar();
                     break;
                 case 2:
                     if (pilaCargada)
@@ -519,7 +524,7 @@ int main()
                         printf("Primero debe cargar las pilas (opción 1).\n");
                         printf("Pulse enter para volver al menú");
                     }
-                    getch();
+                    pausar();
                     break;
                 case 3:
                     if (pilaCargada)
@@ -531,7 +536,7 @@ int main()
                         printf("Primero debe cargar las pilas (opción 1).\n");
                         printf("Pulse enter para volver al menú");
                     }
-                    getch();
+                    pausar();
                     break;
                 case 4:
                     if (pilaCargada)
@@ -543,7 +548,7 @@ int main()
                         printf("Primero debe cargar las pilas (opción 1).\n");
                         printf("Pulse enter para volver al menú");
                     }
-                    getch();
+                    pausar();
                     break;
                 case 5:
                     if (pilaCargada)
@@ -555,7 +560,7 @@ int main()
                         printf("Primero debe cargar las pilas (opción 1).\n");
                         printf("Pulse enter para volver al menú");
                     }
-                    getch();
+                    pausar();
                     break;
                 case 6:
                     if (pilaCargada)
@@ -567,7 +572,7 @@ int main()
                         printf("Primero debe cargar las pilas (opción 1).\n");
                         printf("Pulse enter para volver al menú");
                     }
-                    getch();
+                    pausar();
                     break;
                 case 7:
                     if (pilaCargada)
@@ -579,7 +584,7 @@ int main()
                         printf("Primero debe cargar las pilas (opción 1).\n");
                         printf("Pulse enter para volver al menú");
                     }
-                    getch();
+                    pausar();
                     break;
                 case 0:
                     salir1 = true;
@@ -589,15 +594,15 @@ int main()
             menu_principal();
         case 3:
             mainComparaPilas();
-            getch();
+            pausar();
             break;
         case 4:
             mainConversorBases();
-            getch();
+            pausar();
             break;
         case 5:
             mainInvertida();
-            getch();
+            pausar();
             break;
         case 6:
         while (!salir2)
@@ -614,11 +619,11 @@ int main()
             {
             case 1:
                 mainEliminarIterativo();
-                getch();
+                pausar();
                 break;
             case 2:
                 mainEliminarRecursivo();
-                getch();
+                pausar();
                 break;
             case 0:
                 salir2 = true;
@@ -628,11 +633,11 @@ int main()
         menu_principal();
         case 7:
             mainElementosComunes();
-            getch();
+            pausar();
             break;
         case 8:
             mainContadorValores();
-            getch();
+            pausar();
             break;
         case 0:
             salir = true;

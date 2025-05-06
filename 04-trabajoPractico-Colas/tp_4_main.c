@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <conio.h>
 #include <math.h>
 #include "../libs/tipoElemento/headers/tipo_elemento.h"
 #include "../libs/cola/headers/colas.h"
@@ -17,6 +16,13 @@ void limpiarBuffer()
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }  
+
+void pausar()
+{
+    limpiarBuffer();
+    printf("\nPresione Enter para continuar...");
+    while (getchar() != '\n');
+}
 
 int cargarTamano()
 {
@@ -370,12 +376,12 @@ int main()
     Cola c = c_crear();
     bool colaCargada = false, salir1 = false, salir = false;
     int opc1, opc2;
+    int validador;
     while (!salir)
     {
         menu_principal();
-        int validador = scanf("%i", &opc1);
-        while (getchar() != '\n')
-            ;
+        validador = scanf("%i", &opc1);
+        while (getchar() != '\n')            ;
         while (validador != 1 || opc1 < 0 || opc1 > 8 || opc1 == 1)
         {
             printf("Opción incorrecta\n");
@@ -402,7 +408,7 @@ int main()
                 case 1:
                     crearCola(c);
                     colaCargada = true;
-                    getch();
+                    pausar();
                     break;
                 case 2:
                     if(colaCargada)
@@ -414,7 +420,7 @@ int main()
                         printf("Primero debe cargar la cola (opción 1).\n");
                         printf("Pulse enter para volver al menú");
                     }
-                    getch();
+                    pausar();
                     break;
                 case 3:
                     if(colaCargada)
@@ -426,7 +432,7 @@ int main()
                         printf("Primero debe cargar la cola (opción 1).\n");
                         printf("Pulse enter para volver al menú");
                     }
-                    getch();
+                    pausar();
                     break;
                 case 4:
                     if(colaCargada)
@@ -438,7 +444,7 @@ int main()
                         printf("Primero debe cargar la cola (opción 1).\n");
                         printf("Pulse enter para volver al menú");
                     }
-                    getch();
+                    pausar();
                     break;
                 case 5:
                     if(colaCargada)
@@ -450,7 +456,7 @@ int main()
                         printf("Primero debe cargar la cola (opción 1).\n");
                         printf("Pulse enter para volver al menú");
                     }
-                    getch();
+                    pausar();
                     break;
                 case 6:
                     if(colaCargada)
@@ -462,7 +468,7 @@ int main()
                         printf("Primero debe cargar la cola (opción 1).\n");
                         printf("Pulse enter para volver al menú");
                     }
-                    getch();
+                    pausar();
                     break;
                 case 7:
                     if(colaCargada)
@@ -474,7 +480,7 @@ int main()
                         printf("Primero debe cargar la cola (opción 1).\n");
                         printf("Pulse enter para volver al menú");
                     }
-                    getch();
+                    pausar();
                     break;
                 case 0:
                     salir1 = true;
@@ -484,23 +490,23 @@ int main()
             menu_principal();
         case 3:
             mainIguales();
-            getch();
+            pausar();
             break;
         case 4:
             mainNoRepetidos();
-            getch();
+            pausar();
             break;
         case 5:
             mainDivisores();
-            getch();
+            pausar();
             break;
         case 6:
             //main_valores_comunes();
-            // getch();
+            // pausar();
             break;
         case 7:
             //main_ventanillas();
-            // getch();
+            // pausar();
             break;
         case 0:
             salir = true;

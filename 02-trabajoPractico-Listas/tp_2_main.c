@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <conio.h>
 #include <math.h>
 #include <time.h>
 #include "..\libs\tipoElemento\headers\tipo_elemento.h"
@@ -14,6 +13,13 @@ void limpiarBuffer()
 {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
+}
+
+void pausar()
+{
+    limpiarBuffer();
+    printf("\nPresione Enter para continuar...");
+    while (getchar() != '\n');
 }
 
 Lista cargarLista(Lista l)
@@ -420,7 +426,7 @@ int main()
                 case 1:
                     crearlistas(l1, l2);
                     listasCargadas = true;
-                    getch();
+                    pausar();
                     break;
                 case 2:
                     if (listasCargadas) 
@@ -432,7 +438,7 @@ int main()
                         printf("Primero debe cargar las listas (opción 1).\n");
                         printf("Pulse enter para volver al menú");
                     }
-                    getch();
+                    pausar();
                     break;
                 case 3:
                     if (listasCargadas) 
@@ -444,7 +450,7 @@ int main()
                         printf("Primero debe cargar las listas (opción 1).\n");
                         printf("Pulse enter para volver al menú");
                     }
-                    getch();
+                    pausar();
                     break;
                 case 4:
                     if (listasCargadas) 
@@ -456,7 +462,7 @@ int main()
                         printf("Primero debe cargar las listas (opción 1).\n");
                         printf("Pulse enter para volver al menú");
                     }
-                    getch();
+                    pausar();
                     break;
                 case 5:
                     if (listasCargadas) 
@@ -468,7 +474,7 @@ int main()
                         printf("Primero debe cargar las listas (opción 1).\n");
                         printf("Pulse enter para volver al menú");
                     }
-                    getch();
+                    pausar();
                     break;
                 case 0:
                     salir1 = true;
@@ -478,19 +484,19 @@ int main()
             menuPrincipal();
         case 3:
             mainMultiplo();
-            getch();
+            pausar();
             break;
         case 4:
             mainComparar();
-            getch();
+            pausar();
             break;
         case 5:
             mainPolinomio();
-            getch();
+            pausar();
             break;
         case 6:
             mainSublista();
-            getch();
+            pausar();
             break;
         case 0:
             salir = true;
