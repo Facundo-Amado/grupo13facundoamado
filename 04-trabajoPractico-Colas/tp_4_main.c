@@ -154,6 +154,32 @@ void c_mostrar_con_valortf(Cola cola)
     }
 }
 
+Cola cargarColaPositivos() {
+    Cola resultante = c_crear();
+
+    int tamano;
+    printf("ingrese tamano de la cola: ");
+    while(scanf("%d", &tamano) != 1 || tamano < 1 || tamano > 10) {
+        limpiarBuffer();
+        printf("invalido. ingrese numero entre 1 y 10: ");
+    }
+    limpiarBuffer();
+
+    int dato;
+    for(int i = 1; i <= tamano; i++) {
+        printf("ingrese numero: ");
+        while(scanf("%d", &dato) != 1 || dato < 1) {
+            limpiarBuffer();
+            printf("invalido, debe ser un numero, y mayor a cero: ");
+        }
+        limpiarBuffer();
+        c_encolar(resultante, te_crear(dato));
+    }
+
+    return resultante;
+}
+
+
 
 //Punto 2
 void crearCola(Cola c)
@@ -323,7 +349,48 @@ int mainDivisores()
 
 
 //Punto 7
+int mainAtenderClientes() {
 
+    Cola c1 = cargarColaPositivos();
+    Cola c2 = cargarColaPositivos();
+    Cola c3 = cargarColaPositivos();
+    c_mostrar(c1);
+    c_mostrar(c2);
+    c_mostrar(c3);
+
+    int q;
+    printf("ingrese tiempo de atencion: ");
+    while(scanf("%d", &q) != 1 || q < 1) {
+        limpiarBuffer();
+        printf("Invalido. debe ser un numero, y mayor a cero: ");
+    }
+    limpiarBuffer();
+
+    Cola resultados = c_ej7_atenderclientes(c1, c2, c3, q);
+    printf("\nValores de las colas despues del proceso: \n");
+    c_mostrar(c1);
+    c_mostrar(c2);
+    c_mostrar(c3);
+
+    Cola resul_aux = c_crear();
+    TipoElemento temp;
+    while(!c_es_vacia(resultados)) {
+        temp = c_desencolar(resultados);
+        char *resul_texto;
+        resul_texto = (char*) temp->valor;
+        printf("Clave: %d Valor: %s\n", temp->clave, resul_texto);
+        c_encolar(resul_aux, temp);
+    }
+    while(!c_es_vacia(resul_aux)) {
+        c_encolar(resultados, c_desencolar(resul_aux));
+    }
+    c_mostrar(resultados);
+
+
+    system("pause");
+
+    return 0;
+}
 
 
 //menu

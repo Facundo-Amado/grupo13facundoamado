@@ -269,3 +269,116 @@ Cola c_ej5_divisortotal(Cola c)
 
 
 //Punto 7
+Cola c_ej7_atenderclientes(Cola c1, Cola c2, Cola c3, int tiempoatencion) {
+    if(c_es_vacia(c1) || c_es_vacia(c2) || c_es_vacia(c3)) {
+        printf("\nUna o mas colas estan vacias, se retorna cola vacia\n");
+        return c_crear();
+    }
+    if(tiempoatencion < 1) {
+        printf("\nTiempo de atencion menor a 1 (0 o negativo), se retorna cola vacia\n");
+        return c_crear();
+    }
+
+    Cola resultados = c_crear();
+    int c1Len = 0;
+    int c2Len = 0;
+    int c3Len = 0;
+ 
+    TipoElemento temp;
+    Cola c1aux = c_crear();
+    Cola c1contenedor = c_crear();
+    while(!c_es_vacia(c1)) {
+        c1Len++;
+        temp = c_desencolar(c1);
+        c_encolar(c1aux, te_crear(temp->clave));
+        c_encolar(c1contenedor, temp);
+    }
+    while(!c_es_vacia(c1contenedor)) {
+        c_encolar(c1, c_desencolar(c1contenedor));
+    }
+
+    Cola c2aux = c_crear();
+    Cola c2contenedor = c_crear();
+    while(!c_es_vacia(c2)) {
+        c2Len++;
+        temp = c_desencolar(c2);
+        c_encolar(c2aux, te_crear(temp->clave));
+        c_encolar(c2contenedor, temp);
+    }
+    while(!c_es_vacia(c2contenedor)) {
+        c_encolar(c2, c_desencolar(c2contenedor));
+    }
+
+    Cola c3aux = c_crear();
+    Cola c3contenedor = c_crear();
+    while(!c_es_vacia(c3)) {
+        c3Len++;
+        temp = c_desencolar(c3);
+        c_encolar(c3aux, te_crear(temp->clave));
+        c_encolar(c3contenedor, temp);
+    }
+    while(!c_es_vacia(c3contenedor)) {
+        c_encolar(c3, c_desencolar(c3contenedor));
+    }
+    free(c1contenedor);
+    free(c2contenedor);
+    free(c3contenedor);
+
+    TipoElemento temp2, temp3;
+    int c1pos = 0;
+    int c2pos = 0;
+    int c3pos = 0;
+    temp = c_recuperar(c1aux);
+    temp2 = c_recuperar(c2aux);
+    temp3 = c_recuperar(c3aux);
+
+    while(c1Len >= 1 || c2Len >= 1 || c3Len >= 1) {
+
+        temp->clave = temp->clave - tiempoatencion;
+        if(temp->clave <= 0 && c1Len >= 1) {
+            
+            c1pos++;
+            c1Len--;
+            char *c1texto = (char*) malloc(sizeof(char) * 25);
+            sprintf(c1texto, "Cliente %d Cola 1", c1pos);
+            c_encolar(resultados, te_crear_con_valor(1, c1texto));
+
+            c_encolar(c1aux, temp);
+            temp = c_desencolar(c1aux);
+        }
+
+        temp2->clave = temp2->clave - tiempoatencion;
+        if(temp2->clave <= 0 && c2Len >= 1) {
+            
+            c2Len--;
+            c2pos++;
+            char *c2texto = (char*) malloc(sizeof(char) * 25);
+            sprintf(c2texto, "Cliente %d Cola 2", c2pos);
+            c_encolar(resultados, te_crear_con_valor(2, c2texto));
+
+            c_encolar(c2aux, temp2);
+            temp2 = c_desencolar(c2aux);
+        }
+
+
+        temp3->clave = temp3->clave - tiempoatencion;
+        if(temp3->clave <= 0 && c3Len >= 1) {
+
+            c3Len--;
+            c3pos++;
+            char *c3texto = (char*) malloc(sizeof(char) * 25);
+            sprintf(c3texto, "Cliente %d Cola 3", c3pos);
+            c_encolar(resultados, te_crear_con_valor(3, c3texto));
+
+            c_encolar(c3aux, temp3);
+            temp3 = c_desencolar(c3aux);
+        }
+
+    }
+
+    free(c1aux);
+    free(c2aux);
+    free(c3aux);
+    printf("Complejidad algoritmica: O(n) = n, concretamente 6n, debido a la cantidad de bucles dependientes de la cantidad de elementos que hay en la función (todos en el mismo nivel jerarquico, ninguno anidado dentro de otro)");
+    return resultados;
+}
