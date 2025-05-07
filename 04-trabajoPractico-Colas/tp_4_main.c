@@ -122,29 +122,6 @@ void l_mostrar_con_valor(Lista l)
     printf("\n");
 }
 
-void c_mostrar_con_valor(Cola cola)
-{
-    if (c_es_vacia(cola)){
-
-        printf("COLA VACIA! \n");
-        return;
-    }
-    Pila paux = p_crear();
-    TipoElemento x = te_crear(0);
-    printf ("\nContenido de la cola: ");
-    while (!c_es_vacia(cola)) 
-    {
-        x = c_desencolar(cola);
-        p_apilar(paux, x);
-    }
-    while (!p_es_vacia(paux)){
-
-        x = p_desapilar(paux);
-        int val = * (int*)x->valor;
-        printf("{%d:%d},", x->clave, val);
-        c_encolar(cola, x);
-    }
-}
 void c_mostrar_con_valortf(Cola cola)
 {
     int valor;
