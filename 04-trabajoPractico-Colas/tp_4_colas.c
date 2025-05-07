@@ -266,7 +266,50 @@ Cola c_ej5_divisortotal(Cola c)
 
 
 //Punto 6
+Lista c_ej6_comunesapilaycola(Pila p, Cola c) {
+    Lista l = l_crear();
 
+    Pila p_aux = p_crear();
+    Cola c_aux = c_crear();
+
+    TipoElemento pila_array[100];
+    TipoElemento cola_array[100];
+    int tamanio_p = 0;
+    int tamanio_c = 0;
+
+    while (!p_es_vacia(p)) {
+        TipoElemento e = p_desapilar(p);
+        p_apilar(p_aux, e);
+        pila_array[tamanio_p++] = e;
+    }
+
+    for (int i = 0; i < tamanio_p; i++) {
+        p_apilar(p, pila_array[i]);
+    }
+
+    while (!c_es_vacia(c)) {
+        TipoElemento e = c_desencolar(c);
+        c_encolar(c_aux, e);
+        cola_array[tamanio_c++] = e;
+    }
+
+    for (int i = 0; i < tamanio_c; i++) {
+        c_encolar(c, cola_array[i]);
+    }
+
+    for (int i = 0; i < tamanio_p; i++) {
+        for (int j = 0; j < tamanio_c; j++) {
+            if (pila_array[i]->clave == cola_array[j]->clave) {
+                char* valor = (char*)malloc(20 * sizeof(char));
+                snprintf(valor, 20, "%d:%d:%d", pila_array[i]->clave, i + 1, j + 1);
+                TipoElemento nuevo = te_crear_con_valor(pila_array[i]->clave, valor);
+                l_insertar(l, nuevo, l_longitud(l) + 1);
+            }
+        }
+    }
+
+    return l;
+}
 
 //Punto 7
 Cola c_ej7_atenderclientes(Cola c1, Cola c2, Cola c3, int tiempoatencion) {

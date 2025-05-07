@@ -369,8 +369,60 @@ int mainDivisores()
     return 0;
 }
 
-//Punto 6
 
+void cargarPilaEjercicio6(Pila p) {
+    int clave;
+    printf("Ingrese valores para la pila (orden base a cima), -1 para terminar:\n");
+    int valores[100];
+    int n = 0;
+
+    while (1) {
+        printf("Valor %d: ", n + 1);
+        scanf("%d", &clave);
+        if (clave == -1) break;
+        valores[n++] = clave;
+    }
+
+    for (int i = n - 1; i >= 0; i--) {
+        p_apilar(p, te_crear(valores[i]));
+    }
+}
+
+void cargarColaEjercicio6(Cola c) {
+    int clave;
+    printf("Ingrese valores para la cola (orden frente a final), -1 para terminar:\n");
+
+    int i = 0;
+    while (1) {
+        printf("Valor %d: ", i + 1);
+        scanf("%d", &clave);
+        if (clave == -1) break;
+        c_encolar(c, te_crear(clave));
+        i++;
+    }
+}
+
+//Punto 6
+int mainEjercicio6() {
+    Pila p = p_crear();
+    Cola c = c_crear();
+
+    cargarPilaEjercicio6(p);
+    cargarColaEjercicio6(c);
+
+    Lista l = c_ej6_comunesapilaycola(p, c);
+
+    printf("Valores comunes entre pila y cola:\n");
+    Iterador it = iterador(l);
+    while (hay_siguiente(it)) {
+        TipoElemento e = siguiente(it);
+        printf("(%s)\n", (char*)e->valor);
+    }
+    printf("\n\n--- Complejidad algorítmica del ejercicio ---\n");
+    printf("La complejidad de la solución es O(n * m), ya que se realizan ciclos anidados para comparar cada elemento de la pila (n)\n");
+    printf("con cada elemento de la cola (m). Lo que genera una complejidad cuadrática.\n");
+    return 0;
+}
 
 //Punto 7
 int mainAtenderClientes() {
@@ -587,8 +639,8 @@ int main()
             pausar();
             break;
         case 6:
-            //main_valores_comunes();
-            // pausar();
+            mainEjercicio6();
+            pausar();
             break;
         case 7:
             mainAtenderClientes();
