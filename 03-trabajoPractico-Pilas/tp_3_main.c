@@ -393,7 +393,8 @@ void p_mostrar_con_valor(Pila pila){
     while (p_es_vacia(Paux2) != true){
 
         X = p_desapilar(Paux2);
-        printf("{%d:%lld},", X->clave, (intptr_t)X->valor);
+        int r = *(int*) X->valor;
+        printf("{%d:%d},", X->clave, r);
         p_apilar(Paux, X);
     }
     while (p_es_vacia(Paux) != true) 
@@ -487,7 +488,7 @@ int main()
     while (!salir)
     {
         menu_principal();
-        while (scanf("%i", &opc) != 1 || opc < 1 || opc > 8)
+        while (scanf("%i", &opc) != 1 || opc < 0 || opc > 8)
         {
             printf("Opcion incorrecta\n");
             printf("Por favor seleccione una opcion: ");
