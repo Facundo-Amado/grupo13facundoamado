@@ -488,7 +488,7 @@ int main()
     while (!salir)
     {
         menu_principal();
-        while (scanf("%i", &opc) != 1 || opc < 1 || opc > 8)
+        while (scanf("%i", &opc) != 1 || opc < 0 || opc > 8)
         {
             printf("Opcion incorrecta\n");
             printf("Por favor seleccione una opcion: ");
