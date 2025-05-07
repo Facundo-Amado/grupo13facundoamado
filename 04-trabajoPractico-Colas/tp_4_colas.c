@@ -168,13 +168,13 @@ bool c_ej3_iguales(Cola c1, Cola c2){
 Cola c_ej4_colanorepetidos(Cola c) 
 {  
     Cola aux = c_crear(), aux2 = c_crear(), sinRepetidos = c_crear();
-    Pila paux = p_crear();
     TipoElemento x1, x2;
     bool repetido;
     while (!c_es_vacia(c)) 
     {
         x1 = c_desencolar(c);
         repetido = false;
+
         while (!c_es_vacia(c)) 
         {
             x2 = c_desencolar(c);
@@ -183,23 +183,18 @@ Cola c_ej4_colanorepetidos(Cola c)
             }
             c_encolar(aux2, x2);
         }
+
         if (!repetido) 
         {
-            c_encolar(sinRepetidos, x2);
+            c_encolar(sinRepetidos, x1);  
         }
+
         c_encolar(aux, x1);
+
         while (!c_es_vacia(aux2)) 
         {
             c_encolar(c, c_desencolar(aux2));
         }
-    }
-    while(!c_es_vacia(sinRepetidos))
-    {
-        p_apilar(paux, c_desencolar(sinRepetidos));
-    }
-    while(!p_es_vacia(paux))
-    {
-        c_encolar(sinRepetidos, p_desapilar(paux));
     }
     while (!c_es_vacia(aux)) {
         c_encolar(c, c_desencolar(aux));
