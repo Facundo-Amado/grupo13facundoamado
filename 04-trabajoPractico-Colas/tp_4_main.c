@@ -20,7 +20,6 @@ void limpiarBuffer()
 void pausar()
 {
     limpiarBuffer();
-    printf("\nPresione Enter para continuar...");
     while (getchar() != '\n');
 }
 
@@ -59,7 +58,7 @@ void cargarCola(Cola c, int tamano)
         printf("ingrese un elemento de la cola. (solo se admiten numeros enteros): ");
         while (scanf("%d", &elemento) != 1)
         {
-            printf("elemento invalido. ingrese un elemento de la cola: ");
+            printf("elemento invalido. ingrese un numero entero positivo: ");
             limpiarBuffer();
         }
         elemento = (int)elemento;
@@ -179,7 +178,33 @@ Cola cargarColaPositivos() {
     return resultante;
 }
 
-
+void cargarpila(Pila p)
+{
+    int i = 0, tamano, elemento;
+    TipoElemento elem;
+    printf("ingrese la cantidad de elementos que desea ingresar a la pila: ");
+    while (scanf("%d", &tamano) != 1 || (tamano <= 0 || tamano > 10))
+    {
+        printf("Dato invalido. Ingrese un numero entero entre 1 y 10: ");
+        scanf("%d", &tamano);
+        limpiarBuffer();
+    }
+    tamano = (int)tamano;
+    while (i< tamano)
+    {
+        printf("ingrese un elemento de la pila. (solo se admiten numeros enteros): ");
+        while (scanf("%d", &elemento) != 1)
+        {
+            printf("elemento invalido. ingrese un elemento de la pila: ");
+            scanf("%d", &elemento);
+            limpiarBuffer();
+        }
+        elemento = (int)elemento;
+        elem = te_crear(elemento);
+        p_apilar(p, elem);
+        i++;
+    }
+}
 
 //Punto 2
 void crearCola(Cola c)
