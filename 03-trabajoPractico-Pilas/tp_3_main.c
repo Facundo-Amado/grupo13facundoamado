@@ -53,7 +53,7 @@ void crearpila(Pila p)
 {
     printf("\n\t\t --- Carga de la pila --- \n");    
     cargarpila(p);
-    printf("Pulse enter para volver al menú");
+    printf("Pulse enter para volver al menu");
     return;
 }
 
@@ -78,7 +78,7 @@ int mainBuscarClave(Pila p)
     {
         printf("La clave no existe en la pila");
     }
-    printf("\n\nPulse enter para volver al menú");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -107,7 +107,7 @@ int mainInsertarEnPila(Pila p)
     }
     aux = p_ej2_colocarelemento(p, pos, clave);
     p_mostrar(aux);
-    printf("\n\nPulse enter para volver al menú");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -127,7 +127,7 @@ int mainEliminarPorClave(Pila p)
     }
     aux = p_ej2_eliminarclave(p, clave);
     p_mostrar(aux);
-    printf("\n\nPulse enter para volver al menú");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -154,7 +154,7 @@ int mainIntercambiar(Pila p)
     }
     aux = p_ej2_intercambiarposiciones(p, pos1, pos2);
     p_mostrar(aux);
-    printf("\n\nPulse enter para volver al menú");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -166,7 +166,7 @@ int mainDuplicarPila(Pila p)
     } 
     aux = p_ej2_duplicar(p);
     p_mostrar(aux);
-    printf("\n\nPulse enter para volver al menú");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -178,7 +178,7 @@ int mainContador(Pila p)
     } 
     cant = p_ej2_cantidadelementos(p);
     printf("La cantidad de elementos de la pila es: %d", cant);
-    printf("\n\nPulse enter para volver al menú");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -239,7 +239,7 @@ int mainComparaPilas() {
         printf("\nLas pilas NO son iguales.\n");
     }
     printf("\n\t\t--- Complejidad algoritmica del ejercicio ---\n");
-    printf("la complejidad es de O(n), donde n es el número de elementos en la pila.");
+    printf("la complejidad es de O(n), donde n es el numero de elementos en la pila.");
     return 0;
 }
 
@@ -255,21 +255,21 @@ int mainConversorBases() {
     int numero;
     int base;
 
-    printf("Ingrese el número decimal que desea convertir: ");
+    printf("Ingrese el numero decimal que desea convertir: ");
     if (scanf("%d", &numero) != 1) {
-        printf("Error: Entrada inválida para número.\n");
+        printf("Error: Entrada invalida para numero.\n");
         return 0;
     }
 
     printf("Ingrese la base de destino (entre 2 y 16): ");
     if (scanf("%d", &base) != 1) {
-        printf("Error: Entrada inválida para base.\n");
+        printf("Error: Entrada invalida para base.\n");
         return 0;
     }
 
     char* resultado = p_ej4_cambiarbase(numero, base);
 
-    printf("El número %d convertido a base %d es: %s\n", numero, base, resultado);
+    printf("El numero %d convertido a base %d es: %s\n", numero, base, resultado);
     mostrarComplejidadEj4();
 
     free(resultado);
@@ -290,8 +290,8 @@ int mainInvertida(){
     printf("\n\nPila original sin modificar: \n");
     p_mostrar(p);
     printf("\n\t\t--- Complejidad algoritmica ---\n");
-    printf("el ejercicio tiene complejidad algoritmica O(2n) en el peor de los casos, ya que contiene \ndos ciclos while separados que recorren la pila de tamaño n.\n");
-    printf("\n\nPulse enter para volver al menú");
+    printf("el ejercicio tiene complejidad algoritmica O(2n) en el peor de los casos, ya que contiene \ndos ciclos while separados que recorren la pila de tamano n.\n");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -322,7 +322,7 @@ int mainEliminarIterativo() {
     p_mostrar(nueva_pila);
     printf("\n\t\t\t--- Complejidad algoritmica ---\n");
     printf("La complejidad algoritima es lineal, en este caso 3n, ya que hay tres ciclos while consecutivos \nque dependen de la cantidad de elementos (a mas elementos, mas tardaran los tres, a menos elementos, \nseran mas rapidos)\n");
-    printf("\n\nPulse enter para volver al menú");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -340,7 +340,7 @@ int mainEliminarRecursivo()
     p_mostrar(nueva_pila);
     printf("\n\t\t\t--- Complejidad algoritmica ---\n");
     printf("La complejidad algoritmica es lineal, en este caso 5n, ya que hay cuatro ciclos while en la funcion \nprincipal, y luego la funcion auxiliar recursiva realiza un proceso equivalente a otro ciclo while \ndependiente de la cantidad de elementos\n");
-    printf("\n\nPulse enter para volver al menú");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -363,8 +363,8 @@ int mainElementosComunes()
     printf("\n\nPila 2 original sin modificar: \n");
     p_mostrar(p2);
     printf("\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
-    printf("el ejercicio es de complejidad cuadratica (O(n*m)) ya que tiene 2 ciclos iterativos que recoren 2 pilas cuyos tamaños \npueden ser iguales o no, pero la complejidad aumenta dependiendo del tamaño de las pilas. \n");
-    printf("\n\nPulse enter para volver al menú");
+    printf("el ejercicio es de complejidad cuadratica (O(n*m)) ya que tiene 2 ciclos iterativos que recoren 2 pilas cuyos tamanos \npueden ser iguales o no, pero la complejidad aumenta dependiendo del tamano de las pilas. \n");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -412,8 +412,8 @@ int mainContadorValores(){
     p2 = p_ej8_sacarrepetidos(P1);
     p_mostrar_con_valor(p2);
     printf("\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
-    printf("La complejidad algorítmica O(n^2), donde n es el número total de elementos en la pila original p. La complejidad es \nla misma tanto para la implementación con punteros que para la implementación con arreglos. \n");
-    printf("\n\nPulse enter para volver al menú");
+    printf("La complejidad algoritmica O(n^2), donde n es el numero total de elementos en la pila original p. La complejidad es \nla misma tanto para la implementacion con punteros que para la implementacion con arreglos. \n");
+    printf("\n\nPulse enter para volver al menu");
     return 0;
 }
 
@@ -521,8 +521,8 @@ int main()
                     }
                     else
                     {
-                        printf("Primero debe cargar las pilas (opción 1).\n");
-                        printf("Pulse enter para volver al menú");
+                        printf("Primero debe cargar las pilas (opcion 1).\n");
+                        printf("Pulse enter para volver al menu");
                     }
                     pausar();
                     break;
@@ -533,8 +533,8 @@ int main()
                     }
                     else
                     {
-                        printf("Primero debe cargar las pilas (opción 1).\n");
-                        printf("Pulse enter para volver al menú");
+                        printf("Primero debe cargar las pilas (opcion 1).\n");
+                        printf("Pulse enter para volver al menu");
                     }
                     pausar();
                     break;
@@ -545,8 +545,8 @@ int main()
                     }
                     else
                     {
-                        printf("Primero debe cargar las pilas (opción 1).\n");
-                        printf("Pulse enter para volver al menú");
+                        printf("Primero debe cargar las pilas (opcion 1).\n");
+                        printf("Pulse enter para volver al menu");
                     }
                     pausar();
                     break;
@@ -557,8 +557,8 @@ int main()
                     }
                     else
                     {
-                        printf("Primero debe cargar las pilas (opción 1).\n");
-                        printf("Pulse enter para volver al menú");
+                        printf("Primero debe cargar las pilas (opcion 1).\n");
+                        printf("Pulse enter para volver al menu");
                     }
                     pausar();
                     break;
@@ -569,8 +569,8 @@ int main()
                     }
                     else
                     {
-                        printf("Primero debe cargar las pilas (opción 1).\n");
-                        printf("Pulse enter para volver al menú");
+                        printf("Primero debe cargar las pilas (opcion 1).\n");
+                        printf("Pulse enter para volver al menu");
                     }
                     pausar();
                     break;
@@ -581,8 +581,8 @@ int main()
                     }
                     else
                     {
-                        printf("Primero debe cargar las pilas (opción 1).\n");
-                        printf("Pulse enter para volver al menú");
+                        printf("Primero debe cargar las pilas (opcion 1).\n");
+                        printf("Pulse enter para volver al menu");
                     }
                     pausar();
                     break;
