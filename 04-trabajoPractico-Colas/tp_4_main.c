@@ -418,9 +418,9 @@ int mainEjercicio6() {
         TipoElemento e = siguiente(it);
         printf("(%s)\n", (char*)e->valor);
     }
-    printf("\n\n--- Complejidad algorítmica del ejercicio ---\n");
-    printf("La complejidad de la solución es O(n * m), ya que se realizan ciclos anidados para comparar cada elemento de la pila (n)\n");
-    printf("con cada elemento de la cola (m). Lo que genera una complejidad cuadrática.\n");
+    printf("\n\n--- Complejidad algoritmica del ejercicio ---\n");
+    printf("La complejidad de la solucion es O(n * m), ya que se realizan ciclos anidados para comparar cada elemento de la pila (n)\n");
+    printf("con cada elemento de la cola (m). Lo que genera una complejidad cuadratica.\n");
     return 0;
 }
 
