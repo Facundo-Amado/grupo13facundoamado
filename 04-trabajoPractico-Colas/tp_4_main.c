@@ -106,6 +106,22 @@ Cola cargarColaSinRepetidos(Cola cola, int tamano)
     return cola;
 }
 
+void l_mostrar_con_valor(Lista l)
+{
+    if (l_es_vacia(l)){
+
+        printf("LISTA VACIA! \n");
+        return;
+    }
+    printf("Contenido de la lista: ");
+    for (int i = 1; i < l_longitud(l); i++) 
+    {
+        TipoElemento elem = l_recuperar(l, i);
+        printf("%d:%s ", elem->clave, (char*)elem->valor);
+    }
+    printf("\n");
+}
+
 void c_mostrar_con_valor(Cola cola)
 {
     if (c_es_vacia(cola)){
@@ -124,7 +140,8 @@ void c_mostrar_con_valor(Cola cola)
     while (!p_es_vacia(paux)){
 
         x = p_desapilar(paux);
-        printf("{%d:%lld},", x->clave, (intptr_t)x->valor);
+        int val = * (int*)x->valor;
+        printf("{%d:%d},", x->clave, val);
         c_encolar(cola, x);
     }
 }
@@ -403,21 +420,22 @@ void cargarColaEjercicio6(Cola c) {
 }
 
 //Punto 6
-int mainEjercicio6() {
-    Pila p = p_crear();
+int mainValoresComunes()
+{
     Cola c = c_crear();
-
-    cargarPilaEjercicio6(p);
-    cargarColaEjercicio6(c);
-
-    Lista l = c_ej6_comunesapilaycola(p, c);
-
-    printf("Valores comunes entre pila y cola:\n");
-    Iterador it = iterador(l);
-    while (hay_siguiente(it)) {
-        TipoElemento e = siguiente(it);
-        printf("(%s)\n", (char*)e->valor);
-    }
+    Pila p = p_crear();
+    Lista valComunes = l_crear();
+    printf("\n\t\t --- Carga de la cola --- \n");    
+    int tamano = cargarTamano();
+    cargarCola(c, tamano);
+    printf("\n\t\t --- Carga de la pila --- \n");    
+    cargarpila(p);
+    valComunes = c_ej6_comunesapilaycola(p, c);
+    l_mostrar_con_valor(valComunes);
+    printf("\n\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
+    printf("La complejidad de la solucion empleada es lineal O(n^2) porque se necesita recorrer tanto la pila como la cola mediante \nciclos anidados, porlo que seria n * m que se puede interpretar como O(n^2). n siendo la longitud de la pila y m la longitud \nde la cola o viceversa.");
+    printf("\n\nPulse enter para volver al menu");
+    
     printf("\n\n--- Complejidad algoritmica del ejercicio ---\n");
     printf("La complejidad de la solucion es O(n * m), ya que se realizan ciclos anidados para comparar cada elemento de la pila (n)\n");
     printf("con cada elemento de la cola (m). Lo que genera una complejidad cuadratica.\n");
@@ -639,7 +657,7 @@ int main()
             pausar();
             break;
         case 6:
-            mainEjercicio6();
+            mainValoresComunes();
             pausar();
             break;
         case 7:

@@ -169,7 +169,7 @@ Cola c_ej4_colanorepetidos(Cola c)
 {  
     Cola aux = c_crear(), aux2 = c_crear(), sinRepetidos = c_crear();
     Pila paux = p_crear();
-    TipoElemento x, x1, x2;
+    TipoElemento x1, x2;
     bool repetido;
     while (!c_es_vacia(c)) 
     {
@@ -266,49 +266,46 @@ Cola c_ej5_divisortotal(Cola c)
 
 
 //Punto 6
-Lista c_ej6_comunesapilaycola(Pila p, Cola c) {
-    Lista l = l_crear();
-
-    Pila p_aux = p_crear();
-    Cola c_aux = c_crear();
-
-    TipoElemento pila_array[100];
-    TipoElemento cola_array[100];
-    int tamanio_p = 0;
-    int tamanio_c = 0;
-
-    while (!p_es_vacia(p)) {
-        TipoElemento e = p_desapilar(p);
-        p_apilar(p_aux, e);
-        pila_array[tamanio_p++] = e;
+Lista c_ej6_comunesapilaycola(Pila p, Cola c)
+{
+    Cola caux = c_crear();
+    Pila paux = p_crear();
+    Lista comunes = l_crear();
+    TipoElemento cx, px, elem;
+    int ci, pi = 1;
+    if(p_es_vacia(p) || c_es_vacia(c))
+    {
+        return comunes;
     }
-
-    for (int i = 0; i < tamanio_p; i++) {
-        p_apilar(p, pila_array[i]);
-    }
-
-    while (!c_es_vacia(c)) {
-        TipoElemento e = c_desencolar(c);
-        c_encolar(c_aux, e);
-        cola_array[tamanio_c++] = e;
-    }
-
-    for (int i = 0; i < tamanio_c; i++) {
-        c_encolar(c, cola_array[i]);
-    }
-
-    for (int i = 0; i < tamanio_p; i++) {
-        for (int j = 0; j < tamanio_c; j++) {
-            if (pila_array[i]->clave == cola_array[j]->clave) {
-                char* valor = (char*)malloc(20 * sizeof(char));
-                snprintf(valor, 20, "%d:%d:%d", pila_array[i]->clave, i + 1, j + 1);
-                TipoElemento nuevo = te_crear_con_valor(pila_array[i]->clave, valor);
-                l_insertar(l, nuevo, l_longitud(l) + 1);
+    while (!p_es_vacia(p))
+    {
+        ci = 1;
+        px = p_desapilar(p);
+        while (!c_es_vacia(c))
+        {
+            cx = c_desencolar(c);
+            if((cx->clave == px->clave))
+            {
+                char* descripcion = malloc(25);
+                snprintf(descripcion, 25, "%d:%d", pi, ci);
+                elem = te_crear_con_valor(px->clave, (void*)descripcion); 
+                l_agregar(comunes, elem);
             }
+            c_encolar(caux, cx);
+            ci++;
+        }
+        p_apilar(paux, px);
+        pi++;
+        while (!c_es_vacia(caux))
+        {
+            c_encolar(c, c_desencolar(caux));
         }
     }
-
-    return l;
+    while (!p_es_vacia(paux))
+    {
+        p_apilar(p, p_desapilar(paux));
+    }
+    return comunes;
 }
 
 //Punto 7
@@ -382,8 +379,8 @@ Cola c_ej7_atenderclientes(Cola c1, Cola c2, Cola c3, int tiempoatencion) {
             
             c1pos++;
             c1Len--;
-            char *c1texto = (char*) malloc(sizeof(char) * 25);
-            sprintf(c1texto, "Cliente %d Cola 1", c1pos);
+            char *c1texto = (char*) malloc(sizeof(char) * 35);
+            snprintf(c1texto, 35, "Cliente %d Cola 1", c1pos);
             c_encolar(resultados, te_crear_con_valor(1, c1texto));
 
             c_encolar(c1aux, temp);
@@ -395,8 +392,8 @@ Cola c_ej7_atenderclientes(Cola c1, Cola c2, Cola c3, int tiempoatencion) {
             
             c2Len--;
             c2pos++;
-            char *c2texto = (char*) malloc(sizeof(char) * 25);
-            sprintf(c2texto, "Cliente %d Cola 2", c2pos);
+            char *c2texto = (char*) malloc(sizeof(char) * 35);
+            snprintf(c2texto, 35, "Cliente %d Cola 2", c2pos);
             c_encolar(resultados, te_crear_con_valor(2, c2texto));
 
             c_encolar(c2aux, temp2);
@@ -409,8 +406,8 @@ Cola c_ej7_atenderclientes(Cola c1, Cola c2, Cola c3, int tiempoatencion) {
 
             c3Len--;
             c3pos++;
-            char *c3texto = (char*) malloc(sizeof(char) * 25);
-            sprintf(c3texto, "Cliente %d Cola 3", c3pos);
+            char *c3texto = (char*) malloc(sizeof(char) * 35);
+            snprintf(c3texto, 35, "Cliente %d Cola 3", c3pos);
             c_encolar(resultados, te_crear_con_valor(3, c3texto));
 
             c_encolar(c3aux, temp3);
