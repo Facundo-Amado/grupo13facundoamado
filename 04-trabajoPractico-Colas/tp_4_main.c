@@ -432,10 +432,6 @@ int mainValoresComunes()
     cargarpila(p);
     valComunes = c_ej6_comunesapilaycola(p, c);
     l_mostrar_con_valor(valComunes);
-    printf("\n\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
-    printf("La complejidad de la solucion empleada es lineal O(n^2) porque se necesita recorrer tanto la pila como la cola mediante \nciclos anidados, porlo que seria n * m que se puede interpretar como O(n^2). n siendo la longitud de la pila y m la longitud \nde la cola o viceversa.");
-    printf("\n\nPulse enter para volver al menu");
-    
     printf("\n\n--- Complejidad algoritmica del ejercicio ---\n");
     printf("La complejidad de la solucion es O(n * m), ya que se realizan ciclos anidados para comparar cada elemento de la pila (n)\n");
     printf("con cada elemento de la cola (m). Lo que genera una complejidad cuadratica.\n");
