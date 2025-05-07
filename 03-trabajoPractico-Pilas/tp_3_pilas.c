@@ -378,7 +378,9 @@ Pila p_ej8_sacarrepetidos(Pila p){
                 p_apilar(aux2, teaux);
             }
         }
-        nuevo_elemento = te_crear_con_valor(te->clave, (void *)(intptr_t)contelemento);
+        int* result = (int*) malloc(sizeof(int));
+        *result = contelemento;
+        nuevo_elemento = te_crear_con_valor(te->clave, result);
         p_apilar(PR, nuevo_elemento);
         while (!p_es_vacia(aux2)) 
         {
