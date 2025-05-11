@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
+#include "../libs/validaciones/FuncionesAuxiliares.h"
 #include "../libs/tipoElemento/headers/tipo_elemento.h"
 #include "../libs/cola/headers/colas.h"
 #include "../libs/pila/headers/pilas.h"
@@ -13,7 +14,6 @@
 #include "../libs/arboles/headers/tp_arboles.h"
 //#include "arbol-avl.h"
 //#include "arbol-binario-busqueda.h"
-#include "../libs/validaciones/FuncionesAuxiliares.h"
 
 //punto 2
 

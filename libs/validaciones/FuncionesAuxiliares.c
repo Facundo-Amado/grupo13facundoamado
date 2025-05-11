@@ -97,6 +97,27 @@ void cargarCola(Cola c, int tamano)
     }
 }
 
+bool buscarElemCola(Cola c, int clave)
+{
+    TipoElemento x;
+    Cola caux = c_crear();
+    bool encontrado = false;
+    while (!c_es_vacia(c) && !encontrado)
+    {
+        x = c_desencolar(c);
+        if (clave == x->clave)
+        {
+            encontrado = true;
+        }
+        c_encolar(caux, x);
+    }
+    while(!c_es_vacia(caux))
+    {
+        c_encolar(c, c_desencolar(caux));
+    }
+    return encontrado;
+}
+
 Cola cargarColaSinRepetidos(Cola cola, int tamano)
 {
     int elemento, validador;
@@ -112,7 +133,7 @@ Cola cargarColaSinRepetidos(Cola cola, int tamano)
         }
         else
         {
-            esRepetido = c_ej2_existeclave(cola, elemento);
+            esRepetido = buscarElemCola(cola, elemento);
         }
         limpiarBuffer();
         while (validador != 1 || elemento < 2 || esRepetido)
@@ -124,7 +145,7 @@ Cola cargarColaSinRepetidos(Cola cola, int tamano)
             if (c_es_vacia(cola))
                 esRepetido = false;
             else
-                esRepetido = c_ej2_existeclave(cola, elemento);
+                esRepetido = buscarElemCola(cola, elemento);
             limpiarBuffer();
         }
         TipoElemento x = te_crear(elemento);
