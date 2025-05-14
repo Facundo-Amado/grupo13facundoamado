@@ -172,7 +172,7 @@ int mainDivisores()
     c2 = c_ej5_divisortotal(c1);
     c_mostrar_con_valortf(c2);
     printf("\n\n\t\t\t--- Complejidad algoritmica del ejercicio ---\n");
-    printf("La complejidad de la solucion empleada es lineal O(n^2) porque hay varios ciclos que dependen de la cantidad de elementos \nde la cola, y ademas se encuentran anidados.");
+    printf("La complejidad de la solucion empleada es cuadratica O(n^2) porque hay varios ciclos que dependen de la cantidad de elementos \nde la cola, y ademas se encuentran anidados.");
     printf("\n\nPulse enter para volver al menu");
     return 0;
 }

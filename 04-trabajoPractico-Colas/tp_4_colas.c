@@ -205,65 +205,63 @@ Cola c_ej4_colanorepetidos(Cola c)
 //Punto 5
 Cola c_ej5_divisortotal(Cola c)
 {
-    int contDiv = 0, tamano = 0;
-    TipoElemento x, x2, elemtot, elemparcial;
-    Cola aux = c_crear(), aux2 = c_crear(), temp = c_crear(), divTotales = c_crear(), divParciales = c_crear(), copia = c_crear();
-    bool divTotal, divParcial;
-    if (c_es_vacia(c))
-    {
-        return c;
+    Cola resultado = c_crear();
+    Cola aux = c_crear();
+
+    TipoElemento temp;
+    int longitudC = 0;
+    while(!c_es_vacia(c)) {
+        longitudC++;
+
+        temp = c_desencolar(c);
+        c_encolar(aux, te_crear(temp->clave));
+        c_encolar(resultado, temp);
     }
-    while (!c_es_vacia(c))
-    {
-        x = c_desencolar(c);
-        c_encolar(aux, x);
-        c_encolar(aux2, x);
-        c_encolar(copia, x);
-        tamano ++;
+    while(!c_es_vacia(resultado)) {
+        c_encolar(c, c_desencolar(resultado));
     }
-    while (!c_es_vacia(aux))
-    {
-        divTotal = false; 
-        divParcial = false;
-        contDiv = 0;
-        x = c_desencolar(aux);
-        while (!c_es_vacia(aux2))
-        {
-            x2 = c_desencolar(aux2);
-            if (x2->clave % x->clave == 0)
-            {
-                contDiv ++;
-            }
-            c_encolar(temp, x2);
+
+    Cola contenedor = c_crear();
+    TipoElemento temp2;
+    int totalOParcial;
+    while(!c_es_vacia(aux)) {
+        totalOParcial = 0;
+        temp = c_desencolar(aux);
+        while(!c_es_vacia(c)) {
+
+            temp2 = c_desencolar(c);
+            if(temp2->clave % temp->clave == 0) {totalOParcial++;}
+            c_encolar(contenedor, temp2);
         }
-        while (!c_es_vacia(temp))
-        {
-            c_encolar(aux2, c_desencolar(temp));
+        
+        // para tomar un numero mas en caso de longitud imparcial (la mitad de 5 la toma como 3 en lugar de 2)
+        int longitudAdaptada;
+        if(longitudC % 2 == 1) {longitudAdaptada = (longitudC / 2) + 1;}
+        else {longitudAdaptada = longitudC / 2;}
+
+        if(totalOParcial == longitudC) {
+            bool *t = (bool*) malloc(sizeof(bool));
+            *t = true;
+            temp->valor = t;
+            c_encolar(resultado, temp);
         }
-        if (contDiv == tamano)
-        {
-            divTotal = true;
-        }
-        else if (contDiv >= tamano/2)
-        {
-            divParcial = true;
+        else if (totalOParcial >= longitudAdaptada) {
+            bool *p = (bool*) malloc(sizeof(bool));
+            *p = false;
+            temp->valor = p;
+            c_encolar(resultado, temp);
         }
 
-        bool *divTotalptr = (bool*) malloc(sizeof(bool));
-        *divTotalptr = divTotal;
-        elemtot = te_crear_con_valor(x->clave, divTotalptr);
+        while(!c_es_vacia(contenedor)) {
+            c_encolar(c, c_desencolar(contenedor));
+        }
+    }
 
-        bool *divParcialptr = (bool*) malloc(sizeof(bool));
-        *divParcialptr = divParcial;
-        elemparcial = te_crear_con_valor(x->clave, divParcialptr);
-        c_encolar(divTotales, elemtot);
-        c_encolar(divParciales, elemparcial);
-    }
-    while (!c_es_vacia(copia)) {
-        c_encolar(c, c_desencolar(copia));
-    }
-    return divTotales;
-}
+    free(aux);
+    free(contenedor);
+    return resultado;
+} // COMPLEJIDAD ALGORITMICA: o(n) = 2n^2 + 2n
+
 
 
 //Punto 6
