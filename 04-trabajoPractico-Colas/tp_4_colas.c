@@ -119,6 +119,11 @@ Cola c_ej2_copiar(Cola c)
 //item f
 Cola c_ej2_invertir(Cola c) {
     Cola resultado = c_crear();
+    if (c_es_vacia(c)) {
+        printf("\n\nCola vacia, retorna una vacia tambien.\n\n");
+        return resultado;
+    }
+    
     Pila invertir = p_crear();
     Cola aux = c_crear();
     TipoElemento elem;
