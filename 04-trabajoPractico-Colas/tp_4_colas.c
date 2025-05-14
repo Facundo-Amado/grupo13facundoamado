@@ -248,8 +248,14 @@ Cola c_ej5_divisortotal(Cola c)
         {
             divParcial = true;
         }
-        elemtot = te_crear_con_valor(x->clave, (void*)(intptr_t)divTotal);
-        elemparcial = te_crear_con_valor(x->clave, (void*)(intptr_t)divParcial);
+
+        bool *divTotalptr = (bool*) malloc(sizeof(bool));
+        *divTotalptr = divTotal;
+        elemtot = te_crear_con_valor(x->clave, divTotalptr);
+
+        bool *divParcialptr = (bool*) malloc(sizeof(bool));
+        *divParcialptr = divParcial;
+        elemparcial = te_crear_con_valor(x->clave, divParcialptr);
         c_encolar(divTotales, elemtot);
         c_encolar(divParciales, elemparcial);
     }

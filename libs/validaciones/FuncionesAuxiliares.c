@@ -202,7 +202,7 @@ void l_mostrar_con_valor(Lista l)
 
 void c_mostrar_con_valortf(Cola cola)
 {
-    int valor;
+    bool valor;
     Pila paux = p_crear();
     TipoElemento x = te_crear(0);
     if (c_es_vacia(cola)){
@@ -219,7 +219,7 @@ void c_mostrar_con_valortf(Cola cola)
     while (!p_es_vacia(paux)){
 
         x = p_desapilar(paux);
-        valor = (int)(intptr_t)(x->valor);
+        valor = *(bool*) x->valor;
         printf("{%d: %s},", x->clave, (valor ? "true" : "false"));
         c_encolar(cola, x);
     }
