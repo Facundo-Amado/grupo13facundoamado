@@ -142,7 +142,7 @@ int mainIguales(){
         }
     }
     printf("\n\t\t--- Complejidad algoritmica del ejercicio ---\n");
-    printf("el ejercicio tiene complejidad algoritmica O(n) en el peor de los casos, ya que contiene dos ciclos while separados.\nEn el segundo ciclo recorre el doble del tamaño del problema que el primer ciclo porque contiene las dos colas del mismo tamaño.\n");
+    printf("el ejercicio tiene complejidad algoritmica O(n) en el peor de los casos, ya que contiene dos ciclos while separados.\nEn el segundo ciclo recorre el doble del tamano del problema que el primer ciclo porque contiene las dos colas del mismo tamano.\n");
     printf("\n\nPulse enter para volver al menu");
     return 0;
 }
