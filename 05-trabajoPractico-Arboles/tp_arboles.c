@@ -11,8 +11,8 @@
 #include "../libs/arboles/headers/arbol-binario.h"
 #include "../libs/arboles/headers/nodo.h"
 #include "../libs/arboles/headers/tp_arboles.h"
-//#include "../lib/arboles/headers/arbol-avl.h"
-//#include "../lib/arboles/headers/arbol-binario-busqueda.h"
+#include "../libs/arboles/headers/arbol-avl.h"
+#include "../libs/arboles/headers/arbol-binario-busqueda.h"
 
 
 //punto 2

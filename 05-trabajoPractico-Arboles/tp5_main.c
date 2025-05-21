@@ -12,14 +12,48 @@
 #include "../libs/arboles/headers/arbol-binario.h"
 #include "../libs/arboles/headers/nodo.h"
 #include "../libs/arboles/headers/tp_arboles.h"
-//#include "arbol-avl.h"
-//#include "arbol-binario-busqueda.h"
+#include "../libs/arboles/headers/arbol-avl.h"
+#include "../libs/arboles/headers/arbol-binario-busqueda.h"
 
 //punto 2
 
 //punto 3
 
 //punto 4
+//a
+int mainAnchoArbol()
+{
+    
+    return 0;
+}
+
+//b
+int mainCantHojas()
+{
+
+    return 0;
+}
+
+//c
+int mainArbolSimilar()
+{
+
+    return 0;
+}
+
+//d
+int mainPadreNodo()
+{
+
+    return 0;
+}
+
+//e
+int mainHermanosNodo()
+{
+
+    return 0;
+}
 
 //punto 7
 
@@ -177,19 +211,19 @@ int main()
                 switch (opc4)
                 {
                 case 1:
-                    //main_anchura_nario();
+                    mainAnchoArbol();
                     break;
                 case 2:
-                    //main_cantidad_hojas();
+                    mainCantHojas();
                     break;
                 case 3:
-                    //main_arboles_similares();
+                    mainArbolSimilar();
                     break;
                 case 4:
-                    //main_padre_nario();
+                    mainPadreNodo();
                     break;
                 case 5:
-                    //main_hermanos_nario();
+                    mainHermanosNodo();
                     break;
                 }
                 break;

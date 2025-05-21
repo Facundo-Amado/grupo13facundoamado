@@ -9,6 +9,11 @@
 #include "../cola/headers/tp_4_colas.h"
 #include "../pila/headers/pilas.h"
 #include "../listas/headers/listas.h"
+#include "../arboles/headers/arbol-binario.h"
+#include "../arboles/headers/nodo.h"
+#include "../arboles/headers/arbol-avl.h"
+#include "../arboles/headers/arbol-binario-busqueda.h"
+
 
 void limpiarBuffer()
 {
@@ -181,8 +186,51 @@ Cola cargarColaPositivos() {
     return resultante;
 }
 
-//funciones para mostrar
+bool ingresoEntero(int* n){
+    char s[10];
+    bool resultado = true;
+    *n=0;
+    printf("Ingrese una clave numérica o '.' para nulo: ");
+    scanf("%s", s);
+    if (s[0]=='.'){
+        resultado = false;
+    }else{
+        for (int i = 0; s[i] != '\0'; i++) {
+            if ((s[i]>='0')&&(s[i]<='9')){
+                *n = *n * 10 + (s[i] - 48);}
+        }
+    }
+    return resultado;
+}
 
+void Cargar_SubArbol(ArbolBinario A, NodoArbol N, int sa){
+    TipoElemento X;
+    NodoArbol N1;
+    int n;
+    bool b;
+    if(!a_es_lleno(A)){
+        b= ingresoEntero(&n);
+        if (b){
+            X= te_crear(n);
+            
+            if(sa == -1) N1 = a_conectar_hi(A, N, X);
+            else if(sa == 1) N1 = a_conectar_hd(A, N, X);
+            else N1 = a_establecer_raiz(A, X);
+
+            Cargar_SubArbol(A, N1, -1);
+            Cargar_SubArbol(A, N1, 1);
+        }
+    }    
+}
+
+/*Función que recibe el árbol a ser cargado y llama a la función recursiva que realiza
+la carga nodo por nodo*/
+void cargar_arbol_binario(ArbolBinario A){
+    Cargar_SubArbol(A, NULL, 0);
+}
+
+
+//funciones para mostrar
 
 void l_mostrar_con_valor(Lista l)
 {
@@ -223,4 +271,72 @@ void c_mostrar_con_valortf(Cola cola)
         printf("{%d: %s},", x->clave, (valor ? "true" : "false"));
         c_encolar(cola, x);
     }
+}
+
+//Muestra el arbol a partir de un nodo (de ahi hacia abajo)
+void pre_orden(NodoArbol N){
+    TipoElemento x;
+    if (N == NULL) {
+        printf(".");
+    }
+    else {
+        x = n_recuperar(N);
+        printf(" %d", x->clave);
+        //x->clave= x->clave * 2;//borrar
+        pre_orden(n_hijoizquierdo(N));
+        pre_orden(n_hijoderecho(N));
+    }
+}
+
+//Muestra el arbol a partir de un nodo (de ahi hacia abajo)
+void in_orden(NodoArbol N){
+    TipoElemento x;
+    if (N == NULL) {
+        printf(".");
+    }
+    else {
+        in_orden(n_hijoizquierdo(N));
+        x = n_recuperar(N);
+        printf(" %d", x->clave);
+        in_orden(n_hijoderecho(N));
+    }
+}
+
+//Muestra el arbol a partir de un nodo (de ahi hacia abajo)
+void post_orden(NodoArbol N){
+    TipoElemento x;
+    if (N == NULL) {
+        printf(".");
+    }
+    else {
+        post_orden(n_hijoizquierdo(N));
+        post_orden(n_hijoderecho(N));
+        x = n_recuperar(N);
+        printf(" %d", x->clave);
+    }
+}
+
+//funciones auxiliares
+/*Función recursiva que recibe un NodoArbol (inicialmente la raíz), la clave buscada,
+ un apuntador a entero para poder devolver el nivel de la clave (si la encuentra) y 
+ el nivel del NodoArbol Q*/
+void nivelint(NodoArbol Q, int Cbuscada, int *h, int c){
+    TipoElemento X;
+    if (Q != NULL) {
+        X= n_recuperar(Q);
+        if (X->clave == Cbuscada) {
+            *h = c;
+        }else{
+            nivelint(n_hijoizquierdo(Q), Cbuscada, h, c+1);
+            nivelint(n_hijoderecho(Q), Cbuscada, h, c+1);
+        }
+    }
+}
+
+// Funcion que devuelve el nivel de una clave o -1 si esta no se encuentra en el árbol.
+// Llama a la función recursiva que busca la clave y proporciona su nivel.
+int nivel_nodo(ArbolBinario A, int N){
+    int nivel = -1;
+    nivelint(a_raiz(A), N, &nivel, 0);
+    return nivel;
 }
