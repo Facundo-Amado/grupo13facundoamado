@@ -15,45 +15,12 @@
 #include "../libs/arboles/headers/arbol-avl.h"
 #include "../libs/arboles/headers/arbol-binario-busqueda.h"
 
+
 //punto 2
 
 //punto 3
 
 //punto 4
-//a
-int mainAnchoArbol()
-{
-    
-    return 0;
-}
-
-//b
-int mainCantHojas()
-{
-
-    return 0;
-}
-
-//c
-int mainArbolSimilar()
-{
-
-    return 0;
-}
-
-//d
-int mainPadreNodo()
-{
-
-    return 0;
-}
-
-//e
-int mainHermanosNodo()
-{
-
-    return 0;
-}
 
 //punto 7
 

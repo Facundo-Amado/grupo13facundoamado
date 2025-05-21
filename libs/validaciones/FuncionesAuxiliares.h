@@ -29,7 +29,6 @@ Cola cargarColaPositivos();
 
 void cargar_arbol_binario(ArbolBinario A);
 
-
 //funciones de mostrar
 void l_mostrar_con_valor(Lista l);
 
