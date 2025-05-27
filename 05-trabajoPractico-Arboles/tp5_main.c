@@ -478,7 +478,7 @@ int main()
                 switch (opc3)
                 {
                 case 1:
-                    cargarArbol(A3);
+                    cargarArbol_sinrep(A3);
                     arbolCargadoej3 = true;
                     pausar();
                     break;
