@@ -27,6 +27,179 @@ d. Determinar la complejidad algorítmica de los puntos “a”, “b”, “c�
 //punto 2
 
 //punto 3
+//A
+int main() {
+    ArbolBinario a1 = a_crear();
+    int clave;
+
+    printf("Ingrese la clave del nodo al que se buscara el padre (hijo): ");
+    while (scanf("%d", &clave) != 1) {
+        printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
+        while (getchar() != '\n');
+    }
+    while (getchar() != '\n');
+
+    printf("Carga de arbol binario:\n");
+    cargar_arbol_binario_NoRepetidos(a1);
+    printf("\nArbol:");
+    pre_orden_recursivo(a_raiz(a1));
+
+    int res = a_ej3_clavepadre(a1, clave);
+    if (res == clave) {
+        printf("\nEl nodo %d no tiene padre (es la raiz o no existe el nodo en el arbol) o el arbol es vacio.\n", clave);
+    } else {
+        printf("\nEl padre de %d es %d\n", clave, res);
+    }
+
+    printf("Presione Enter para continuar...");
+    getchar();
+
+    return 0;
+}
+//B
+int main() {
+    ArbolBinario a1 = a_crear();
+    int clave;
+
+    printf("Ingrese la clave del nodo al que se le buscaran los hijos (padre): ");
+    while (scanf("%d", &clave) != 1) {
+        printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
+        while (getchar() != '\n');
+    }
+    while (getchar() != '\n');
+
+    printf("Carga de arbol binario:\n");
+    cargar_arbol_binario_NoRepetidos(a1);
+    printf("\nArbol:");
+    pre_orden_recursivo(a_raiz(a1));
+
+    Lista hijos = a_ej3_hijos(a1, clave);
+    if (l_es_vacia(hijos)) {
+        printf("\nEl nodo buscado no tiene hijos o el arbol es vacio.\n");
+        }
+    else{
+        printf("\nLos hijos del nodo con clave %d son:\n", clave);
+        l_mostrar(hijos);
+    }
+
+
+    printf("Presione Enter para continuar...");
+    getchar();
+}
+//C
+int main() {
+    ArbolBinario a1 = a_crear();
+    int clave;
+
+    printf("Ingrese la clave del nodo al que se le buscara el hermano: ");
+    while (scanf("%d", &clave) != 1) {
+        printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
+        while (getchar() != '\n');
+    }
+    while (getchar() != '\n');
+
+    printf("Carga de arbol binario:\n");
+    cargar_arbol_binario_NoRepetidos(a1);
+    printf("\nArbol:");
+    pre_orden_recursivo(a_raiz(a1));
+
+    int res = a_ej3_hermano(a1, clave);
+    if (res == clave) {
+        printf("\nEl nodo %d no tiene hermano (es la raiz o no existe el nodo en el arbol) o el arbol es vacio.\n", clave);
+    } else {
+        printf("\nEl hermano del nodo con clave %d es %d\n", clave, res);
+    }
+
+    printf("Presione Enter para continuar...");
+    getchar();
+
+    return 0;
+}
+//D
+int main() {
+    ArbolBinario a1 = a_crear();
+    int clave;
+
+    printf("Ingrese la clave del nodo al que se le buscara el nivel: ");
+    while (scanf("%d", &clave) != 1) {
+        printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
+        while (getchar() != '\n');
+    }
+    while (getchar() != '\n');
+
+    printf("Carga de arbol binario:\n");
+    cargar_arbol_binario_NoRepetidos(a1);
+    printf("\nArbol:");
+    pre_orden_recursivo(a_raiz(a1));
+
+    int res = a_ej3_nivel(a1, clave);
+    if(res == -1){
+        printf("\nNo se encontro en el arbol la clave solicitada\n");
+    }else{
+        printf("\nEl nivel (se inicializa en 0) en que se encuentra la clave %d es %d\n", clave, res);
+    }
+
+    printf("Presione Enter para continuar...");
+    getchar();
+}
+//E
+int main() {
+    ArbolBinario a1 = a_crear();
+    int clave;
+
+    printf("Ingrese la clave del nodo al que se le buscara la altura de su rama: ");
+    while (scanf("%d", &clave) != 1) {
+        printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
+        while (getchar() != '\n');
+    }
+    while (getchar() != '\n');
+
+    printf("Carga de arbol binario:\n");
+    cargar_arbol_binario_NoRepetidos(a1);
+    printf("\nArbol:");
+    pre_orden_recursivo(a_raiz(a1));
+
+    int res = a_ej3_alturarama(a1, clave);
+    if(res == -1){
+        printf("\nNo se encontro en el arbol la clave solicitada\n");
+    }else{
+        printf("\nLa altura (se inicializa en 1) de la rama del nodo con la clave %d es %d\n", clave, res);
+    }
+
+    printf("Presione Enter para continuar...");
+    getchar();
+}
+//F
+int main() {
+    ArbolBinario a1 = a_crear();
+    int nivel;
+
+    printf("Ingrese el nivel: ");
+    while (scanf("%d", &nivel) != 1) {
+        printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
+        while (getchar() != '\n');
+    }
+    while (getchar() != '\n');
+
+    printf("Carga de arbol binario:\n");
+    cargar_arbol_binario_NoRepetidos(a1);
+    printf("\nArbol:");
+    pre_orden_recursivo(a_raiz(a1));
+
+    Lista mismonivel = a_ej3_clavesmismonivel(a1, nivel);
+    if (l_es_vacia(mismonivel)) {
+        printf("\nEl arbol no tiene nodos en el nivel %d o es vacio.\n", nivel);
+    } else {
+        printf("\nLos nodos que estan en el nivel %d son:\n", nivel);
+        l_mostrar(mismonivel);
+    }
+
+    printf("Presione Enter para continuar...");
+    getchar();
+
+    return 0;
+}
+
 
 //punto 4
 
