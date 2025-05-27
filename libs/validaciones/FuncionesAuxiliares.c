@@ -190,7 +190,7 @@ bool ingresoEntero(int* n){
     char s[10];
     bool resultado = true;
     *n=0;
-    printf("Ingrese una clave numérica o '.' para nulo: ");
+    printf("Ingrese una clave numerica o '.' para nulo: ");
     scanf("%s", s);
     if (s[0]=='.'){
         resultado = false;
@@ -223,7 +223,7 @@ void Cargar_SubArbol(ArbolBinario A, NodoArbol N, int sa){
     }    
 }
 
-/*Función que recibe el árbol a ser cargado y llama a la función recursiva que realiza
+/*Funcion que recibe el arbol a ser cargado y llama a la funcion recursiva que realiza
 la carga nodo por nodo*/
 void cargar_arbol_binario(ArbolBinario A){
     Cargar_SubArbol(A, NULL, 0);
@@ -364,7 +364,7 @@ void post_orden(NodoArbol N){
 }
 
 //funciones auxiliares
-/*Función recursiva que recibe un NodoArbol (inicialmente la raíz), la clave buscada,
+/*Funcion recursiva que recibe un NodoArbol (inicialmente la raiz), la clave buscada,
  un apuntador a entero para poder devolver el nivel de la clave (si la encuentra) y 
  el nivel del NodoArbol Q*/
 void nivelint(NodoArbol Q, int Cbuscada, int *h, int c){
@@ -380,8 +380,8 @@ void nivelint(NodoArbol Q, int Cbuscada, int *h, int c){
     }
 }
 
-// Funcion que devuelve el nivel de una clave o -1 si esta no se encuentra en el árbol.
-// Llama a la función recursiva que busca la clave y proporciona su nivel.
+// Funcion que devuelve el nivel de una clave o -1 si esta no se encuentra en el arbol.
+// Llama a la funcion recursiva que busca la clave y proporciona su nivel.
 int nivel_nodo(ArbolBinario A, int N){
     int nivel = -1;
     nivelint(a_raiz(A), N, &nivel, 0);

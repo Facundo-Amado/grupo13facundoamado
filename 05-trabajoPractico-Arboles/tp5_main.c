@@ -16,13 +16,13 @@
 #include "../libs/arboles/headers/arbol-binario-busqueda.h"
 
 
-/*2. Dado un árbol binario no vacío determinar:
+/*2. Dado un arbol binario no vacio determinar:
 a. Retornar una lista con todos los nodos hojas.
 b. Retornar en una estructura todos los nodos interiores (los que no son ni 
-hojas ni raíz)
-c. Buscar todas las ocurrencias de una clave dentro del árbol. Retornar la
-posición de cada ocurrencia (puntero al nodo).
-d. Determinar la complejidad algorítmica de los puntos “a”, “b”, “c”. */
+hojas ni raiz)
+c. Buscar todas las ocurrencias de una clave dentro del arbol. Retornar la
+posicion de cada ocurrencia (puntero al nodo).
+d. Determinar la complejidad algoritmica de los puntos “a”, “b”, “c”. */
 
 //punto 2
 
@@ -277,7 +277,7 @@ int main_punto9() {
 
     int diferenciaAltura = a_ej9_diferenciaalturas(A, AB);
     printf("Diferencia de altura entre ambos arboles: %d\n\n", diferenciaAltura);
-    printf("Complejidad algoritmica: 2n, teniendo en cuenta que cada una de las dos funciones principales sería n (la funcion que hace el arbol binario de busqueda balanceado, y la que calcula la altura de un arbol), ya que dependen de la cantidad de elementos, y van a recorrer todos los nodos una vez.\n\n");
+    printf("Complejidad algoritmica: 2n, teniendo en cuenta que cada una de las dos funciones principales seria n (la funcion que hace el arbol binario de busqueda balanceado, y la que calcula la altura de un arbol), ya que dependen de la cantidad de elementos, y van a recorrer todos los nodos una vez.\n\n");
 
     return 0;
 }
@@ -298,7 +298,7 @@ int main_punto10() {
     scanf("%d", &cantidad);
 
     if (cantidad > valormax - valormin + 1) {
-        printf("Error: No se pueden generar tantas claves únicas con el rango dado.\n");
+        printf("Error: No se pueden generar tantas claves unicas con el rango dado.\n");
         return 1;
     }
 
@@ -323,13 +323,13 @@ void menu_principal()
     printf("  7   Arboles binarios equivalentes\n");
     printf("  8   Operaciones con un arbol n-ario\n");
     printf("  9   Convertir Arbol binario a arbol AVL\n");
-    printf("  10  Alturas arbol binario de búsqueda vs AVL\n");
+    printf("  10  Alturas arbol binario de busqueda vs AVL\n");
     printf("\n");
     printf("  0   Salir\n");
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("  Por favor seleccione una opción: ");
+    printf("  Por favor seleccione una opcion: ");
 }
 
 /// @brief Menu del Punto 2: Operaciones con un arbol binario
@@ -343,13 +343,13 @@ void menu_punto2()
     printf("  1   Cargar Arbol\n");
     printf("  2   Mostrar nodos terminales u hojas\n");
     printf("  3   Nodos interiores\n");
-    printf("  4   Buscar todas las ocurrencias de una clave con su posición\n");
+    printf("  4   Buscar todas las ocurrencias de una clave con su posicion\n");
     printf("\n");
     printf("  0   Salir\n");
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("  Por favor seleccione una opción: ");
+    printf("  Por favor seleccione una opcion: ");
 }
 
 /// @brief Menu del Punto 3
@@ -365,14 +365,14 @@ void menu_punto3()
     printf("  3   Listar los hijos\n");
     printf("  4   Listar el hermano\n");
     printf("  5   Calcular el nivel en el que se encuentra\n");
-    printf("  6   Calcular la altura de su rama (Altura del Subárbol)\n");
-    printf("  7   Listar todos los nodos que están en el mismo nivel (solo la clave)\n");
+    printf("  6   Calcular la altura de su rama (Altura del Subarbol)\n");
+    printf("  7   Listar todos los nodos que estan en el mismo nivel (solo la clave)\n");
     printf("\n");
     printf("  0   Salir\n");
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("  Por favor seleccione una opción: ");
+    printf("  Por favor seleccione una opcion: ");
 }
 
 /// @brief Menu del Punto 4
@@ -394,7 +394,7 @@ void menu_punto4()
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("  Por favor seleccione una opción: ");
+    printf("  Por favor seleccione una opcion: ");
 }
 
 void menu_punto8()
@@ -414,7 +414,7 @@ void menu_punto8()
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("  Por favor seleccione una opción: ");
+    printf("  Por favor seleccione una opcion: ");
 }
 
 int main()
@@ -429,8 +429,8 @@ int main()
         limpiarBuffer();
         while (validador != 1 || opc < 0 || opc > 10 || opc == 1 || opc == 5 || opc == 6)
         {
-            printf("Opción incorrecta\n");
-            printf("Seleccione una opción: ");
+            printf("opcion incorrecta\n");
+            printf("Seleccione una opcion: ");
             validador = scanf("%i", &opc);
             limpiarBuffer();
 
@@ -445,8 +445,8 @@ int main()
                 validador = scanf("%i", &opc2);
                 while (validador != 1 || opc2 < 0 || opc2 > 4)
                 {
-                    printf("Opción incorrecta\n");
-                    printf("Seleccione una opción: ");
+                    printf("opcion incorrecta\n");
+                    printf("Seleccione una opcion: ");
                     limpiarBuffer();
                     validador = scanf("%i", &opc2);
                 }
@@ -494,8 +494,8 @@ int main()
                 validador = scanf("%i", &opc3);
                 while (validador != 1 || opc3 < 0 || opc3 > 7)
                 {
-                    printf("Opción incorrecta\n");
-                    printf("Seleccione una opción: ");
+                    printf("opcion incorrecta\n");
+                    printf("Seleccione una opcion: ");
                     limpiarBuffer();
                     validador = scanf("%i", &opc3);
                 }
@@ -567,8 +567,8 @@ int main()
                 validador = scanf("%i", &opc4);
                 while (validador != 1 || opc4 < 0 || opc4 > 6)
                 {
-                    printf("Opción incorrecta\n");
-                    printf("Seleccione una opción: ");
+                    printf("opcion incorrecta\n");
+                    printf("Seleccione una opcion: ");
                     limpiarBuffer();
                     validador = scanf("%i", &opc4);
                 }
@@ -635,8 +635,8 @@ int main()
                 validador = scanf("%i", &opc8);
                 while (validador != 1 || opc8 < 0 || opc8 > 5)
                 {
-                    printf("Opción incorrecta\n");
-                    printf("Seleccione una opción: ");
+                    printf("Opcion incorrecta\n");
+                    printf("Seleccione una opcion: ");
                     limpiarBuffer();
                     validador = scanf("%i", &opc8);
                 }
