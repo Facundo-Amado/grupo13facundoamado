@@ -28,8 +28,7 @@ d. Determinar la complejidad algorítmica de los puntos “a”, “b”, “c�
 
 //punto 3
 //A
-int main() {
-    ArbolBinario a1 = a_crear();
+int main_punto3A(ArbolBinario a3) {
     int clave;
 
     printf("Ingrese la clave del nodo al que se buscara el padre (hijo): ");
@@ -39,12 +38,7 @@ int main() {
     }
     while (getchar() != '\n');
 
-    printf("Carga de arbol binario:\n");
-    cargar_arbol_binario_NoRepetidos(a1);
-    printf("\nArbol:");
-    pre_orden_recursivo(a_raiz(a1));
-
-    int res = a_ej3_clavepadre(a1, clave);
+    int res = a_ej3_clavepadre(a3, clave);
     if (res == clave) {
         printf("\nEl nodo %d no tiene padre (es la raiz o no existe el nodo en el arbol) o el arbol es vacio.\n", clave);
     } else {
@@ -57,8 +51,7 @@ int main() {
     return 0;
 }
 //B
-int main() {
-    ArbolBinario a1 = a_crear();
+int main_punto3B(ArbolBinario a3) {
     int clave;
 
     printf("Ingrese la clave del nodo al que se le buscaran los hijos (padre): ");
@@ -68,14 +61,9 @@ int main() {
     }
     while (getchar() != '\n');
 
-    printf("Carga de arbol binario:\n");
-    cargar_arbol_binario_NoRepetidos(a1);
-    printf("\nArbol:");
-    pre_orden_recursivo(a_raiz(a1));
-
-    Lista hijos = a_ej3_hijos(a1, clave);
+    Lista hijos = a_ej3_hijos(a3, clave);
     if (l_es_vacia(hijos)) {
-        printf("\nEl nodo buscado no tiene hijos o el arbol es vacio.\n");
+        printf("\nEl nodo buscado no tiene hijos, no esta, o el arbol es vacio.\n");
         }
     else{
         printf("\nLos hijos del nodo con clave %d son:\n", clave);
@@ -87,8 +75,7 @@ int main() {
     getchar();
 }
 //C
-int main() {
-    ArbolBinario a1 = a_crear();
+int main_punto3C(ArbolBinario a3) {
     int clave;
 
     printf("Ingrese la clave del nodo al que se le buscara el hermano: ");
@@ -98,12 +85,7 @@ int main() {
     }
     while (getchar() != '\n');
 
-    printf("Carga de arbol binario:\n");
-    cargar_arbol_binario_NoRepetidos(a1);
-    printf("\nArbol:");
-    pre_orden_recursivo(a_raiz(a1));
-
-    int res = a_ej3_hermano(a1, clave);
+    int res = a_ej3_hermano(a3, clave);
     if (res == clave) {
         printf("\nEl nodo %d no tiene hermano (es la raiz o no existe el nodo en el arbol) o el arbol es vacio.\n", clave);
     } else {
@@ -116,8 +98,7 @@ int main() {
     return 0;
 }
 //D
-int main() {
-    ArbolBinario a1 = a_crear();
+int main_punto3D(ArbolBinario a3) {
     int clave;
 
     printf("Ingrese la clave del nodo al que se le buscara el nivel: ");
@@ -127,12 +108,7 @@ int main() {
     }
     while (getchar() != '\n');
 
-    printf("Carga de arbol binario:\n");
-    cargar_arbol_binario_NoRepetidos(a1);
-    printf("\nArbol:");
-    pre_orden_recursivo(a_raiz(a1));
-
-    int res = a_ej3_nivel(a1, clave);
+    int res = a_ej3_nivel(a3, clave);
     if(res == -1){
         printf("\nNo se encontro en el arbol la clave solicitada\n");
     }else{
@@ -143,8 +119,7 @@ int main() {
     getchar();
 }
 //E
-int main() {
-    ArbolBinario a1 = a_crear();
+int main_punto3E(ArbolBinario a3) {
     int clave;
 
     printf("Ingrese la clave del nodo al que se le buscara la altura de su rama: ");
@@ -154,12 +129,7 @@ int main() {
     }
     while (getchar() != '\n');
 
-    printf("Carga de arbol binario:\n");
-    cargar_arbol_binario_NoRepetidos(a1);
-    printf("\nArbol:");
-    pre_orden_recursivo(a_raiz(a1));
-
-    int res = a_ej3_alturarama(a1, clave);
+    int res = a_ej3_alturarama(a3, clave);
     if(res == -1){
         printf("\nNo se encontro en el arbol la clave solicitada\n");
     }else{
@@ -170,23 +140,17 @@ int main() {
     getchar();
 }
 //F
-int main() {
-    ArbolBinario a1 = a_crear();
+int main_punto3F(ArbolBinario a3) {
     int nivel;
 
-    printf("Ingrese el nivel: ");
+    printf("Ingrese el nivel (se empieza a contar en 0): ");
     while (scanf("%d", &nivel) != 1) {
         printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
         while (getchar() != '\n');
     }
     while (getchar() != '\n');
 
-    printf("Carga de arbol binario:\n");
-    cargar_arbol_binario_NoRepetidos(a1);
-    printf("\nArbol:");
-    pre_orden_recursivo(a_raiz(a1));
-
-    Lista mismonivel = a_ej3_clavesmismonivel(a1, nivel);
+    Lista mismonivel = a_ej3_clavesmismonivel(a3, nivel);
     if (l_es_vacia(mismonivel)) {
         printf("\nEl arbol no tiene nodos en el nivel %d o es vacio.\n", nivel);
     } else {
@@ -199,6 +163,7 @@ int main() {
 
     return 0;
 }
+
 
 
 //punto 4
@@ -385,6 +350,29 @@ void menu_punto2()
     printf("  Por favor seleccione una opción: ");
 }
 
+/// @brief Menu del Punto 3
+void menu_punto3()
+{
+    printf("\n");
+    printf("  ============================================================================\n");
+    printf(" |                           3   Operaciones con nodos                       |\n");
+    printf("  ============================================================================\n");
+    printf("\n");
+    printf("  1   Cargar Arbol\n");
+    printf("  2   Indicar el nombre del nodo padre (clave)\n");
+    printf("  3   Listar los hijos\n");
+    printf("  4   Listar el hermano\n");
+    printf("  5   Calcular el nivel en el que se encuentra\n");
+    printf("  6   Calcular la altura de su rama (Altura del Subárbol)\n");
+    printf("  7   Listar todos los nodos que están en el mismo nivel (solo la clave)\n");
+    printf("\n");
+    printf("  0   Salir\n");
+    printf("\n");
+    printf(" ------------------------------------------------------------------------------\n");
+    printf("\n");
+    printf("  Por favor seleccione una opción: ");
+}
+
 /// @brief Menu del Punto 4
 void menu_punto4()
 {
@@ -429,9 +417,9 @@ void menu_punto8()
 
 int main()
 {
-    bool salir = false, salir_p2 = false, salir_p4 = false, salir_p8 = false, arbolCargadoej2 = false, arbolCargadoej4 = false, arbolCargadoej8 = false;
-    int opc, opc2, opc4, opc8;
-    ArbolBinario A2 = a_crear(), A4 = a_crear(), A8 = a_crear();
+    bool salir = false, salir_p2 = false, salir_p3 = false, salir_p4 = false, salir_p8 = false, arbolCargadoej2 = false, arbolCargadoej3 = false, arbolCargadoej4 = false, arbolCargadoej8 = false;
+    int opc, opc2, opc3, opc4, opc8;
+    ArbolBinario A2 = a_crear(), A3 = a_crear(), A4 = a_crear(), A8 = a_crear();
     while (!salir)
     {
         menu_principal();
@@ -497,7 +485,77 @@ int main()
             }
             break;
         case 3:
-            //main_nodo_binario();
+            salir_p3 = false;
+            while (!salir_p3)
+            {
+                menu_punto3();
+                validador = scanf("%i", &opc3);
+                while (validador != 1 || opc3 < 0 || opc3 > 7)
+                {
+                    printf("Opción incorrecta\n");
+                    printf("Seleccione una opción: ");
+                    limpiarBuffer();
+                    validador = scanf("%i", &opc3);
+                }
+                switch (opc3)
+                {
+                case 1:
+                    cargarArbol(A3);
+                    arbolCargadoej3 = true;
+                    pausar();
+                    break;
+                case 2:
+                    if(arbolCargadoej3)
+                    {
+                        main_punto3A(A3);
+                    }
+                    else printf("Primero debe cargar el arbol (opcion 1).\n");
+                    pausar();
+                    break;
+                case 3:
+                    if(arbolCargadoej3)
+                    {
+                        main_punto3B(A3);
+                    }
+                    else printf("Primero debe cargar el arbol (opcion 1).\n");
+                    pausar();
+                    break;
+                case 4:
+                    if(arbolCargadoej3)
+                    {
+                        main_punto3C(A3);
+                    }
+                    else printf("Primero debe cargar el arbol (opcion 1).\n");                    
+                    pausar();
+                    break;
+                case 5:
+                    if(arbolCargadoej3)
+                    {
+                        main_punto3D(A3);
+                    }
+                    else printf("Primero debe cargar el arbol (opcion 1).\n");                    
+                    pausar();
+                    break;
+                case 6:
+                    if(arbolCargadoej3)
+                    {
+                        main_punto3E(A3);
+                    }
+                    else printf("Primero debe cargar el arbol (opcion 1).\n");                    
+                    pausar();
+                    break;
+                case 7:
+                    if(arbolCargadoej3)
+                    {
+                        main_punto3F(A3);
+                    }
+                    else printf("Primero debe cargar el arbol (opcion 1).\n");                    
+                    pausar();
+                    break;
+                case 0:
+                    salir_p3 = true;
+                }
+            }
             break;
         case 4:
             salir_p4 = false;
