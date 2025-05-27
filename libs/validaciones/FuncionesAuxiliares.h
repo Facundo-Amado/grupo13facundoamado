@@ -29,6 +29,8 @@ Cola cargarColaPositivos();
 
 void cargar_arbol_binario(ArbolBinario A);
 
+void cargar_arbol_binario_NoRepetidos(ArbolBinario A);
+
 //funciones de mostrar
 void l_mostrar_con_valor(Lista l);
 
@@ -46,6 +48,8 @@ void limpiarBuffer();
 void pausar();
 
 int nivel_nodo(ArbolBinario A, int N);
+
+int a_altura(ArbolBinario arbol);
 
 
 

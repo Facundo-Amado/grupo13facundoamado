@@ -97,11 +97,11 @@ bool a_ej8_hojasmismonivel(ArbolBinario A);
 	Comparar las alturas de ambos árboles. Determinar la complejidad algorítmica.
  */
 // Primero llamamos para construir el AVL
-//ArbolAVL a_ej9_construiravl(ArbolBinario A);
+ArbolAVL a_ej9_construiravl(ArbolBinario A);
 
 // Luego con el resultado de la funcion anterior llamamos a una funcion para que nos retorne la diferencia de las alturas 
 // comparadas como Altura(ArbolBinario) - Altura(ArbolAVL).
-//int a_ej9_diferenciaalturas(ArbolBinario A, ArbolAVL AVL);
+int a_ej9_diferenciaalturas(ArbolBinario A, ArbolAVL AVL);
 
 
 /**

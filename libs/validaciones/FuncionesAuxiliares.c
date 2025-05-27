@@ -229,6 +229,53 @@ void cargar_arbol_binario(ArbolBinario A){
     Cargar_SubArbol(A, NULL, 0);
 }
 
+int repetidos(NodoArbol raiz, int clave) {
+    if (raiz == NULL) {
+        return 0;
+    }
+
+    if (raiz->datos->clave == clave) {
+        return 1;
+    }
+
+    int encontradoI = repetidos(raiz->hi, clave);
+
+    if (encontradoI) {
+        return 1;
+    }
+
+    return repetidos(raiz->hd, clave);
+}
+
+void Cargar_SubArbol_NoRepetidos(ArbolBinario A, NodoArbol N, int sa) {
+    TipoElemento X;
+    NodoArbol N1;
+    int n;
+    bool b;
+    if (!a_es_lleno(A)) {
+        do {
+            b = ingresoEntero(&n);
+            if (!b) return;
+            if (repetidos(a_raiz(A), n)) {
+                printf("ERROR: Clave repetida. Ingrese una clave diferente.\n\n");
+            }
+        } while (repetidos(a_raiz(A), n));
+
+        if (b) {
+            X = te_crear(n);
+            if (sa == -1) N1 = a_conectar_hi(A, N, X);
+            else if (sa == 1) N1 = a_conectar_hd(A, N, X);
+            else N1 = a_establecer_raiz(A, X);
+
+            Cargar_SubArbol_NoRepetidos(A, N1, -1);
+            Cargar_SubArbol_NoRepetidos(A, N1, 1);
+        }
+    }
+}
+
+void cargar_arbol_binario_NoRepetidos(ArbolBinario A) {
+    Cargar_SubArbol_NoRepetidos(A, NULL, 0);
+}
 
 //funciones para mostrar
 
@@ -339,4 +386,20 @@ int nivel_nodo(ArbolBinario A, int N){
     int nivel = -1;
     nivelint(a_raiz(A), N, &nivel, 0);
     return nivel;
+}
+
+void alturaSub(ArbolBinario arbol, NodoArbol nodo, int *altura, int cantidad){
+    if(nodo==NULL){
+        if(cantidad>*altura){            *altura=cantidad;}       
+    }    else{        
+        alturaSub(arbol,n_hijoizquierdo(nodo),altura,cantidad+1);        
+        alturaSub(arbol,n_hijoderecho(nodo),altura,cantidad+1);    
+    }
+
+}
+
+int a_altura(ArbolBinario arbol){
+    int altura=0;    
+    alturaSub(arbol,a_raiz(arbol),&altura,0);    
+    return altura;
 }
