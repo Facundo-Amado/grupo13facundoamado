@@ -266,10 +266,12 @@ int main_punto9() {
 
     ArbolBinario A = a_crear();
     cargarArbol(A);
+    printf("\n\nArbol ingresado (pre orden): ");
     pre_orden(a_raiz(A));
+    printf("\n\n");
 
     ArbolAVL AB = a_ej9_construiravl(A);
-    printf("\n\n");
+    printf("Arbol convertido a binario de busqueda balanceado (in orden): ");
     in_orden(avl_raiz(AB));
     printf("\n\n");
 
