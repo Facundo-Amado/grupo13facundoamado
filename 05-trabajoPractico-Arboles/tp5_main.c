@@ -126,7 +126,32 @@ int mainHermanosNodo(ArbolBinario A)
 //punto 9
 
 //punto 10
+int main_punto10() {
+    int N, valormin, valormax, cantidad;
 
+    printf("Comparacion de alturas entre ABB y AVL\n");
+    printf("Ingrese cantidad de repeticiones (N): ");
+    scanf("%d", &N);
+
+    printf("Ingrese el valor minimo de las claves: ");
+    scanf("%d", &valormin);
+    printf("Ingrese el valor maximo de las claves: ");
+    scanf("%d", &valormax);
+    printf("Ingrese la cantidad de claves a generar: ");
+    scanf("%d", &cantidad);
+
+    if (cantidad > valormax - valormin + 1) {
+        printf("Error: No se pueden generar tantas claves únicas con el rango dado.\n");
+        return 1;
+    }
+
+    Lista diferencias = a_ej10_comparacionarboles(N, valormin, valormax, cantidad);
+
+    printf("\nSe puede concluir que un arbol AVL, al estar balanceado automaticamente\n");
+    printf("mantiene alturas menores o iguales que un ABB, lo que garantiza un rendimiento\n");
+    printf("mas eficiente en operaciones de busqueda, insercion y eliminacion a medida que la cantidad de datos crece.\n");
+    return 0;
+}
 
 void menu_principal()
 {
@@ -413,7 +438,8 @@ int main()
             //main_punto9();
             break;
         case 10:
-            //main_punto10();
+            main_punto10();
+            pausar();
             break;
         case 0:
             salir = true;

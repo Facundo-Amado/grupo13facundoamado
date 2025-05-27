@@ -232,22 +232,85 @@ int a_ej9_diferenciaalturas(ArbolBinario A, ArbolAVL AVL){
 
 
 //punto 10
-Lista a_ej10_generarlistaclaves(int cantidadclavesagenerar, int valorminimo, int valormaximo){
+bool clave_existente(Lista L, int clave) {
+    Iterador it = iterador(L);
+    while (hay_siguiente(it)) {
+        TipoElemento te = siguiente(it);
+        if (te->clave == clave) return true;
+    }
+    return false;
+}
 
+Lista a_ej10_generarlistaclaves(int cantidadclavesagenerar, int valorminimo, int valormaximo){
+    Lista L = l_crear();
+    for (int i = 0; i < cantidadclavesagenerar; i++) {
+        int clave = rand() % (valormaximo - valorminimo + 1) + valorminimo;
+        if (clave_existente(L, clave)) {
+            i--;
+            continue;
+        }
+        TipoElemento te = te_crear_con_valor(clave, NULL);
+        l_agregar(L, te);
+    }
+    
+    return L;
 }
 
 ArbolBinarioBusqueda a_ej10_crearABB(Lista L){
+    ArbolBinarioBusqueda abb = abb_crear();
+    Iterador it = iterador(L);
+    while (hay_siguiente(it)) {
+        TipoElemento te_lista = siguiente(it);
+        int clave = te_lista->clave;
+        TipoElemento te = te_crear(clave);
+        abb_insertar(abb, te);
+    }
 
+    return abb;
 }
 
 ArbolAVL a_ej10_crearAVL(Lista L){
+    ArbolAVL avl = avl_crear();
+    Iterador it = iterador(L);
+    while (hay_siguiente(it)) {
+        TipoElemento te_lista = siguiente(it);
+        int clave = te_lista->clave;
+        TipoElemento te = te_crear(clave);
+        avl_insertar(avl, te);
+    }
 
+    return avl;
+}
+
+int altura(NodoArbol nodo) {
+    if (nodo == NULL) return -1;
+    int hi = altura(n_hijoizquierdo(nodo));
+    int hd = altura(n_hijoderecho(nodo));
+    return 1 + (hi > hd ? hi : hd);
 }
 
 int a_ej10_difalturas(ArbolBinarioBusqueda ABB, ArbolAVL AVL){
-
+    int alturaABB = altura(abb_raiz(ABB));
+    int alturaAVL = altura(avl_raiz(AVL));
+    return alturaABB - alturaAVL;
 }
 
 Lista a_ej10_comparacionarboles(int N_repeticiones, int valorminimo, int valormaximo, int cantidaclavesagenerar){
+    Lista diferencias = l_crear();
+    for (int i = 0; i < N_repeticiones; i++) {
+        Lista claves = a_ej10_generarlistaclaves(cantidaclavesagenerar, valorminimo, valormaximo);
+        ArbolBinarioBusqueda abb = a_ej10_crearABB(claves);
+        ArbolAVL avl = a_ej10_crearAVL(claves);
+        int diferencia = a_ej10_difalturas(abb, avl);
 
+        printf("\nRepeticion %d:\n", i + 1);
+        printf("  Altura ABB: %d\n", altura(abb_raiz(abb)));
+        printf("  Altura AVL: %d\n", altura(avl_raiz(avl)));
+        printf("  Diferencia (ABB - AVL): %d\n", diferencia);
+
+        TipoElemento te = te_crear(diferencia);
+        l_agregar(diferencias, te);
+    }
+
+    return diferencias;
 }
