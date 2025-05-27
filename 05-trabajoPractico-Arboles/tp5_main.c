@@ -15,39 +15,34 @@
 #include "../libs/arboles/headers/arbol-avl.h"
 #include "../libs/arboles/headers/arbol-binario-busqueda.h"
 
-
-/*2. Dado un arbol binario no vacio determinar:
-a. Retornar una lista con todos los nodos hojas.
-b. Retornar en una estructura todos los nodos interiores (los que no son ni 
-hojas ni raiz)
-c. Buscar todas las ocurrencias de una clave dentro del arbol. Retornar la
-posicion de cada ocurrencia (puntero al nodo).
-d. Determinar la complejidad algoritmica de los puntos “a”, “b”, “c”. */
-
 //punto 2
 
 //punto 3
+void cargarArbol_sinrep(ArbolBinario A)
+{
+    printf("\n\t --- Carga del arbol sin repetidos---\n");
+    cargar_arbol_binario_NoRepetidos(A);
+    printf("\nArbol:");
+    pre_orden(a_raiz(A));
+    printf("Pulse enter para volver al menu");
+    return;
+}
+
 //A
 int main_punto3A(ArbolBinario a3) {
     int clave;
-
     printf("Ingrese la clave del nodo al que se buscara el padre (hijo): ");
     while (scanf("%d", &clave) != 1) {
         printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
-        while (getchar() != '\n');
+        limpiarBuffer();
     }
-    while (getchar() != '\n');
-
+    limpiarBuffer();
     int res = a_ej3_clavepadre(a3, clave);
     if (res == clave) {
         printf("\nEl nodo %d no tiene padre (es la raiz o no existe el nodo en el arbol) o el arbol es vacio.\n", clave);
     } else {
         printf("\nEl padre de %d es %d\n", clave, res);
     }
-
-    printf("Presione Enter para continuar...");
-    getchar();
-
     return 0;
 }
 //B
@@ -57,23 +52,20 @@ int main_punto3B(ArbolBinario a3) {
     printf("Ingrese la clave del nodo al que se le buscaran los hijos (padre): ");
     while (scanf("%d", &clave) != 1) {
         printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
-        while (getchar() != '\n');
+        limpiarBuffer();
     }
-    while (getchar() != '\n');
-
+    limpiarBuffer();
     Lista hijos = a_ej3_hijos(a3, clave);
     if (l_es_vacia(hijos)) {
         printf("\nEl nodo buscado no tiene hijos, no esta, o el arbol es vacio.\n");
-        }
+    }
     else{
         printf("\nLos hijos del nodo con clave %d son:\n", clave);
         l_mostrar(hijos);
     }
-
-
-    printf("Presione Enter para continuar...");
-    getchar();
+    return 0;
 }
+
 //C
 int main_punto3C(ArbolBinario a3) {
     int clave;
@@ -81,22 +73,18 @@ int main_punto3C(ArbolBinario a3) {
     printf("Ingrese la clave del nodo al que se le buscara el hermano: ");
     while (scanf("%d", &clave) != 1) {
         printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
-        while (getchar() != '\n');
+        limpiarBuffer();
     }
-    while (getchar() != '\n');
-
+    limpiarBuffer();
     int res = a_ej3_hermano(a3, clave);
     if (res == clave) {
         printf("\nEl nodo %d no tiene hermano (es la raiz o no existe el nodo en el arbol) o el arbol es vacio.\n", clave);
     } else {
         printf("\nEl hermano del nodo con clave %d es %d\n", clave, res);
     }
-
-    printf("Presione Enter para continuar...");
-    getchar();
-
     return 0;
 }
+
 //D
 int main_punto3D(ArbolBinario a3) {
     int clave;
@@ -104,41 +92,36 @@ int main_punto3D(ArbolBinario a3) {
     printf("Ingrese la clave del nodo al que se le buscara el nivel: ");
     while (scanf("%d", &clave) != 1) {
         printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
-        while (getchar() != '\n');
+        limpiarBuffer();
     }
-    while (getchar() != '\n');
-
+    limpiarBuffer();
     int res = a_ej3_nivel(a3, clave);
     if(res == -1){
         printf("\nNo se encontro en el arbol la clave solicitada\n");
     }else{
         printf("\nEl nivel (se inicializa en 0) en que se encuentra la clave %d es %d\n", clave, res);
     }
-
-    printf("Presione Enter para continuar...");
-    getchar();
+    return 0;
 }
+
 //E
 int main_punto3E(ArbolBinario a3) {
     int clave;
-
     printf("Ingrese la clave del nodo al que se le buscara la altura de su rama: ");
     while (scanf("%d", &clave) != 1) {
         printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
-        while (getchar() != '\n');
+        limpiarBuffer();
     }
-    while (getchar() != '\n');
-
+    limpiarBuffer();
     int res = a_ej3_alturarama(a3, clave);
     if(res == -1){
         printf("\nNo se encontro en el arbol la clave solicitada\n");
     }else{
         printf("\nLa altura (se inicializa en 1) de la rama del nodo con la clave %d es %d\n", clave, res);
     }
-
-    printf("Presione Enter para continuar...");
-    getchar();
+    return 0;
 }
+
 //F
 int main_punto3F(ArbolBinario a3) {
     int nivel;
@@ -146,10 +129,9 @@ int main_punto3F(ArbolBinario a3) {
     printf("Ingrese el nivel (se empieza a contar en 0): ");
     while (scanf("%d", &nivel) != 1) {
         printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
-        while (getchar() != '\n');
+        limpiarBuffer();
     }
-    while (getchar() != '\n');
-
+    limpiarBuffer();
     Lista mismonivel = a_ej3_clavesmismonivel(a3, nivel);
     if (l_es_vacia(mismonivel)) {
         printf("\nEl arbol no tiene nodos en el nivel %d o es vacio.\n", nivel);
@@ -157,14 +139,8 @@ int main_punto3F(ArbolBinario a3) {
         printf("\nLos nodos que estan en el nivel %d son:\n", nivel);
         l_mostrar(mismonivel);
     }
-
-    printf("Presione Enter para continuar...");
-    getchar();
-
     return 0;
 }
-
-
 
 //punto 4
 
@@ -172,6 +148,8 @@ void cargarArbol(ArbolBinario A)
 {
     printf("\n\t --- Carga del arbol ---\n");
     cargar_arbol_binario(A);
+    printf("\nArbol:");
+    pre_orden(a_raiz(A));
     printf("Pulse enter para volver al menu");
     return;
 }
@@ -266,18 +244,16 @@ int main_punto9() {
 
     ArbolBinario A = a_crear();
     cargarArbol(A);
-    printf("\n\nArbol ingresado (pre orden): ");
     pre_orden(a_raiz(A));
-    printf("\n\n");
 
     ArbolAVL AB = a_ej9_construiravl(A);
-    printf("Arbol convertido a binario de busqueda balanceado (in orden): ");
+    printf("\n\n");
     in_orden(avl_raiz(AB));
     printf("\n\n");
 
     int diferenciaAltura = a_ej9_diferenciaalturas(A, AB);
     printf("Diferencia de altura entre ambos arboles: %d\n\n", diferenciaAltura);
-    printf("Complejidad algoritmica: 2n, teniendo en cuenta que cada una de las dos funciones principales seria n (la funcion que hace el arbol binario de busqueda balanceado, y la que calcula la altura de un arbol), ya que dependen de la cantidad de elementos, y van a recorrer todos los nodos una vez.\n\n");
+    printf("Complejidad algoritmica: 2n, teniendo en cuenta que cada una de las dos funciones principales sería n (la funcion que hace el arbol binario de busqueda balanceado, y la que calcula la altura de un arbol), ya que dependen de la cantidad de elementos, y van a recorrer todos los nodos una vez.\n\n");
 
     return 0;
 }
@@ -298,7 +274,7 @@ int main_punto10() {
     scanf("%d", &cantidad);
 
     if (cantidad > valormax - valormin + 1) {
-        printf("Error: No se pueden generar tantas claves unicas con el rango dado.\n");
+        printf("Error: No se pueden generar tantas claves únicas con el rango dado.\n");
         return 1;
     }
 
@@ -323,13 +299,13 @@ void menu_principal()
     printf("  7   Arboles binarios equivalentes\n");
     printf("  8   Operaciones con un arbol n-ario\n");
     printf("  9   Convertir Arbol binario a arbol AVL\n");
-    printf("  10  Alturas arbol binario de busqueda vs AVL\n");
+    printf("  10  Alturas arbol binario de búsqueda vs AVL\n");
     printf("\n");
     printf("  0   Salir\n");
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("  Por favor seleccione una opcion: ");
+    printf("  Por favor seleccione una opción: ");
 }
 
 /// @brief Menu del Punto 2: Operaciones con un arbol binario
@@ -343,13 +319,13 @@ void menu_punto2()
     printf("  1   Cargar Arbol\n");
     printf("  2   Mostrar nodos terminales u hojas\n");
     printf("  3   Nodos interiores\n");
-    printf("  4   Buscar todas las ocurrencias de una clave con su posicion\n");
+    printf("  4   Buscar todas las ocurrencias de una clave con su posición\n");
     printf("\n");
     printf("  0   Salir\n");
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("  Por favor seleccione una opcion: ");
+    printf("  Por favor seleccione una opción: ");
 }
 
 /// @brief Menu del Punto 3
@@ -365,14 +341,14 @@ void menu_punto3()
     printf("  3   Listar los hijos\n");
     printf("  4   Listar el hermano\n");
     printf("  5   Calcular el nivel en el que se encuentra\n");
-    printf("  6   Calcular la altura de su rama (Altura del Subarbol)\n");
-    printf("  7   Listar todos los nodos que estan en el mismo nivel (solo la clave)\n");
+    printf("  6   Calcular la altura de su rama (Altura del Subárbol)\n");
+    printf("  7   Listar todos los nodos que están en el mismo nivel (solo la clave)\n");
     printf("\n");
     printf("  0   Salir\n");
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("  Por favor seleccione una opcion: ");
+    printf("  Por favor seleccione una opción: ");
 }
 
 /// @brief Menu del Punto 4
@@ -394,7 +370,7 @@ void menu_punto4()
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("  Por favor seleccione una opcion: ");
+    printf("  Por favor seleccione una opción: ");
 }
 
 void menu_punto8()
@@ -414,7 +390,7 @@ void menu_punto8()
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("  Por favor seleccione una opcion: ");
+    printf("  Por favor seleccione una opción: ");
 }
 
 int main()
@@ -429,8 +405,8 @@ int main()
         limpiarBuffer();
         while (validador != 1 || opc < 0 || opc > 10 || opc == 1 || opc == 5 || opc == 6)
         {
-            printf("opcion incorrecta\n");
-            printf("Seleccione una opcion: ");
+            printf("Opción incorrecta\n");
+            printf("Seleccione una opción: ");
             validador = scanf("%i", &opc);
             limpiarBuffer();
 
@@ -445,8 +421,8 @@ int main()
                 validador = scanf("%i", &opc2);
                 while (validador != 1 || opc2 < 0 || opc2 > 4)
                 {
-                    printf("opcion incorrecta\n");
-                    printf("Seleccione una opcion: ");
+                    printf("Opción incorrecta\n");
+                    printf("Seleccione una opción: ");
                     limpiarBuffer();
                     validador = scanf("%i", &opc2);
                 }
@@ -494,8 +470,8 @@ int main()
                 validador = scanf("%i", &opc3);
                 while (validador != 1 || opc3 < 0 || opc3 > 7)
                 {
-                    printf("opcion incorrecta\n");
-                    printf("Seleccione una opcion: ");
+                    printf("Opción incorrecta\n");
+                    printf("Seleccione una opción: ");
                     limpiarBuffer();
                     validador = scanf("%i", &opc3);
                 }
@@ -567,8 +543,8 @@ int main()
                 validador = scanf("%i", &opc4);
                 while (validador != 1 || opc4 < 0 || opc4 > 6)
                 {
-                    printf("opcion incorrecta\n");
-                    printf("Seleccione una opcion: ");
+                    printf("Opción incorrecta\n");
+                    printf("Seleccione una opción: ");
                     limpiarBuffer();
                     validador = scanf("%i", &opc4);
                 }
@@ -635,8 +611,8 @@ int main()
                 validador = scanf("%i", &opc8);
                 while (validador != 1 || opc8 < 0 || opc8 > 5)
                 {
-                    printf("Opcion incorrecta\n");
-                    printf("Seleccione una opcion: ");
+                    printf("Opción incorrecta\n");
+                    printf("Seleccione una opción: ");
                     limpiarBuffer();
                     validador = scanf("%i", &opc8);
                 }

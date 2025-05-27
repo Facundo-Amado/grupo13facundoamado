@@ -31,6 +31,7 @@ Lista a_ej2_buscarclave(ArbolBinario A, int clave){
 
 
 //punto 3
+//a
 int buscar_padre(NodoArbol nodo, int clavehijo) {
     if (nodo == NULL) {
         return clavehijo;
@@ -49,54 +50,6 @@ int buscar_padre(NodoArbol nodo, int clavehijo) {
 
     return clavehijo;
 }
-void pre_orden_recursivo(NodoArbol N) {
-    if (N == NULL) {
-        printf(".");
-    } else {
-        printf(" %d", N->datos->clave);
-        pre_orden_recursivo(n_hijoizquierdo(N));
-        pre_orden_recursivo(n_hijoderecho(N));
-    }
-}
-
-bool validarEntero(char* cadena) {
-    int i = 0;
-    int longitud = strlen(cadena);
-
-    if (cadena[0] == '-') i = 1;
-
-    for (; i < longitud; i++) {
-        if (cadena[i] < '0' || cadena[i] > '9') {
-            return false;
-        }
-    }
-    return true;
-}
-
-/*
-bool ingresoEntero(int* n) {
-    char s[10];
-    while (true) {
-        printf("Ingrese una clave numerica o '.' para nulo: ");
-        if (fgets(s, sizeof(s), stdin) != NULL) {
-            size_t len = strlen(s);
-            if (len > 0 && s[len-1] == '\n') {
-                s[len-1] = '\0';
-            }
-
-            if (validarEntero(s)) {
-                *n = atoi(s);
-                return true;
-            } else if (s[0] == '.' && strlen(s) == 1) {
-                return false;
-            } else {
-                printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
-            }
-        }
-    }
-}
-*/
-
 
 int a_ej3_clavepadre(ArbolBinario A, int clavehijo) {
     NodoArbol nodo = a_raiz(A);
@@ -108,6 +61,8 @@ int a_ej3_clavepadre(ArbolBinario A, int clavehijo) {
     }
     return buscar_padre(nodo, clavehijo);
 }
+
+//b
 void buscar_hijos(NodoArbol nodo, int clavepadre, Lista hijos) {
     if (nodo == NULL) {
         return;
@@ -128,14 +83,13 @@ void buscar_hijos(NodoArbol nodo, int clavepadre, Lista hijos) {
 }
 
 
-
-
 Lista a_ej3_hijos(ArbolBinario A, int clavepadre) {
     Lista hijos = l_crear();
     buscar_hijos(a_raiz(A), clavepadre, hijos);
     return hijos;
 }
 
+//c
 NodoArbol buscar_padre_ejc(NodoArbol nodo, int clavehijo) {
     if (nodo == NULL) {
         return NULL;
@@ -184,6 +138,7 @@ int a_ej3_hermano(ArbolBinario A, int clave) {
     return clave_hermano;
 }
 
+//d
 int nivelInt(NodoArbol nodo, int clave, int cont){
 
     if(nodo == NULL){
@@ -204,13 +159,13 @@ int nivelInt(NodoArbol nodo, int clave, int cont){
     return -1;
 }
 
-
-
 int a_ej3_nivel(ArbolBinario A, int clave){
     int cont= 0;
     int nivel = nivelInt(a_raiz(A), clave, cont);
     return nivel;
 }
+
+//e
 int calcular_altura(NodoArbol nodo) {
     if (nodo == NULL) {
         return 0;
@@ -242,7 +197,7 @@ int a_ej3_alturarama(ArbolBinario A, int clave) {
     return altura_subarbol(a_raiz(A), clave);
 }
 
-
+//f
 void clavesnivel(NodoArbol nodo, int nivel, int cont, Lista claves) {
     if (nodo == NULL) {
         return;
@@ -255,7 +210,6 @@ void clavesnivel(NodoArbol nodo, int nivel, int cont, Lista claves) {
     clavesnivel(n_hijoizquierdo(nodo), nivel, cont + 1, claves);
     clavesnivel(n_hijoderecho(nodo), nivel, cont + 1, claves);
 }
-
 
 Lista a_ej3_clavesmismonivel(ArbolBinario A, int nivel) {
     Lista claves = l_crear();
