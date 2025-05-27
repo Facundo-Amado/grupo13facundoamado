@@ -8,7 +8,7 @@
 #include "nodo.h"
 #include "arbol-binario.h"
 #include "arbol-avl.h"
-//#include "arbol-binario-busqueda.h"
+#include "arbol-binario-busqueda.h"
 
 
 /**
@@ -115,11 +115,10 @@ int a_ej9_diferenciaalturas(ArbolBinario A, ArbolAVL AVL);
 Lista a_ej10_generarlistaclaves(int cantidadclavesagenerar, int valorminimo, int valormaximo);
 
 // Ahora se la paso a la funcion que crea los 2 arboles
-//ArbolBinarioBusqueda a_ej10_crearABB(Lista L);
-//ArbolAVL a_ej10_crearAVL(Lista L);
+//ArbolBinarioBusqueda a_ej10_crearABB(Lista L);ArbolAVL a_ej10_crearAVL(Lista L);
 
 // Ahora llamos a la funcion que compara las alturas.  La comparacion es Altura(ABB) - Altura(AVL).
-//int a_ej10_difalturas(ArbolBinarioBusqueda ABB, ArbolAVL AVL);
+int a_ej10_difalturas(ArbolBinarioBusqueda ABB, ArbolAVL AVL);
 
 // Este proceso se debera repetir N veces  (N se debera poder tomar por teclado).
 
