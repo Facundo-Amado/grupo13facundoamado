@@ -96,53 +96,7 @@ bool ingresoEntero(int* n) {
     }
 }
 */
-int repetidos(NodoArbol raiz, int clave) {
-    if (raiz == NULL) {
-        return 0;
-    }
 
-    if (raiz->datos->clave == clave) {
-        return 1;
-    }
-
-    int encontradoI = repetidos(raiz->hi, clave);
-
-    if (encontradoI) {
-        return 1;
-    }
-
-    return repetidos(raiz->hd, clave);
-}
-
-void Cargar_SubArbol_NoRepetidos(ArbolBinario A, NodoArbol N, int sa) {
-    TipoElemento X;
-    NodoArbol N1;
-    int n;
-    bool b;
-    if (!a_es_lleno(A)) {
-        do {
-            b = ingresoEntero(&n);
-            if (!b) return;
-            if (repetidos(a_raiz(A), n)) {
-                printf("ERROR: Clave repetida. Ingrese una clave diferente.\n\n");
-            }
-        } while (repetidos(a_raiz(A), n));
-
-        if (b) {
-            X = te_crear(n);
-            if (sa == -1) N1 = a_conectar_hi(A, N, X);
-            else if (sa == 1) N1 = a_conectar_hd(A, N, X);
-            else N1 = a_establecer_raiz(A, X);
-
-            Cargar_SubArbol_NoRepetidos(A, N1, -1);
-            Cargar_SubArbol_NoRepetidos(A, N1, 1);
-        }
-    }
-}
-
-void cargar_arbol_binario_NoRepetidos(ArbolBinario A) {
-    Cargar_SubArbol_NoRepetidos(A, NULL, 0);
-}
 
 int a_ej3_clavepadre(ArbolBinario A, int clavehijo) {
     NodoArbol nodo = a_raiz(A);
