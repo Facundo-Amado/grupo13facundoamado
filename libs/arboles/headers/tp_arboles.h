@@ -7,7 +7,7 @@
 #include "../../pila/headers/pilas.h"
 #include "nodo.h"
 #include "arbol-binario.h"
-//#include "arbol-avl.h"
+#include "arbol-avl.h"
 //#include "arbol-binario-busqueda.h"
 
 

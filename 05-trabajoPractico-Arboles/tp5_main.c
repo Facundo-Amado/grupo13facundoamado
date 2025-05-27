@@ -297,6 +297,23 @@ int mainHermanosNodo(ArbolBinario A)
 //punto 8
 
 //punto 9
+int main_punto9() {
+
+    ArbolBinario A = a_crear();
+    cargarArbol(A);
+    pre_orden(a_raiz(A));
+
+    ArbolAVL AB = a_ej9_construiravl(A);
+    printf("\n\n");
+    in_orden(avl_raiz(AB));
+    printf("\n\n");
+
+    int diferenciaAltura = a_ej9_diferenciaalturas(A, AB);
+    printf("Diferencia de altura entre ambos arboles: %d\n\n", diferenciaAltura);
+    printf("Complejidad algoritmica: 2n, teniendo en cuenta que cada una de las dos funciones principales sería n (la funcion que hace el arbol binario de busqueda balanceado, y la que calcula la altura de un arbol), ya que dependen de la cantidad de elementos, y van a recorrer todos los nodos una vez.\n\n");
+
+    return 0;
+}
 
 //punto 10
 int main_punto10() {
@@ -608,7 +625,8 @@ int main()
             }
             break;
         case 9:
-            //main_punto9();
+            main_punto9();
+            pausar();
             break;
         case 10:
             main_punto10();

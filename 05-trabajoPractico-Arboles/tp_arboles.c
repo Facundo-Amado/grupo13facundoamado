@@ -936,12 +936,50 @@ bool a_ej8_hojasmismonivel(ArbolBinario A)
 
 
 //punto 9
-ArbolAVL a_ej9_construiravl(ArbolBinario A){
+void a_ej9_construiravlAUX(ArbolAVL AB, NodoArbol n) {
+    if (!a_es_rama_nula(n)) {
+
+        TipoElemento temp = n_recuperar(n);
+        TipoElemento x = te_crear(temp->clave);
+        avl_insertar(AB, x);
+
+        a_ej9_construiravlAUX(AB, n_hijoizquierdo(n));
+        a_ej9_construiravlAUX(AB, n_hijoderecho(n));
+    }
 
 }
 
-int a_ej9_diferenciaalturas(ArbolBinario A, ArbolAVL AVL){
+ArbolAVL a_ej9_construiravl(ArbolBinario A) {
+    ArbolAVL AB = avl_crear();
+    NodoArbol n = a_raiz(A);
+    a_ej9_construiravlAUX(AB, n);
 
+    return AB;
+}
+
+
+
+void alturaArbol(NodoArbol n, int *altura_final, int c) {
+
+    if (n != NULL) {
+        alturaArbol(n_hijoizquierdo(n), altura_final, c+1);
+        alturaArbol(n_hijoderecho(n), altura_final, c+1);
+    }
+    else {
+        if (c > *altura_final) {
+            *altura_final = c;
+        }
+    }
+}
+
+int a_ej9_diferenciaalturas(ArbolBinario A, ArbolAVL AVL) {
+
+    int altura_A = -1;
+    int altura_AVL = -1;
+    alturaArbol(a_raiz(A), &altura_A, 0);
+    alturaArbol(avl_raiz(AVL), &altura_AVL, 0);
+
+    return altura_A - altura_AVL;
 }
 
 
