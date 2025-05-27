@@ -30,28 +30,742 @@ Lista a_ej2_buscarclave(ArbolBinario A, int clave){
 
 
 //punto 3
-int a_ej3_clavepadre(ArbolBinario A, int clavehijo){
+int buscar_padre(NodoArbol nodo, int clavehijo) {
+    if (nodo == NULL) {
+        return clavehijo;
+    }
 
+    if ((nodo->hi != NULL && nodo->hi->datos->clave == clavehijo) ||
+        (nodo->hd != NULL && nodo->hd->datos->clave == clavehijo)) {
+        return nodo->datos->clave;
+    }
+
+    int izq = buscar_padre(n_hijoizquierdo(nodo), clavehijo);
+    if (izq != clavehijo) return izq;
+
+    int der = buscar_padre(n_hijoderecho(nodo), clavehijo);
+    if (der != clavehijo) return der;
+
+    return clavehijo;
+}
+void pre_orden_recursivo(NodoArbol N) {
+    if (N == NULL) {
+        printf(".");
+    } else {
+        printf(" %d", N->datos->clave);
+        pre_orden_recursivo(n_hijoizquierdo(N));
+        pre_orden_recursivo(n_hijoderecho(N));
+    }
 }
 
-Lista a_ej3_hijos(ArbolBinario A, int clavepadre){
+bool validarEntero(char* cadena) {
+    int i = 0;
+    int longitud = strlen(cadena);
 
+    if (cadena[0] == '-') i = 1;
+
+    for (; i < longitud; i++) {
+        if (cadena[i] < '0' || cadena[i] > '9') {
+            return false;
+        }
+    }
+    return true;
 }
 
-int a_ej3_hermano(ArbolBinario A, int clave){
+bool ingresoEntero(int* n) {
+    char s[10];
+    while (true) {
+        printf("Ingrese una clave numerica o '.' para nulo: ");
+        if (fgets(s, sizeof(s), stdin) != NULL) {
+            size_t len = strlen(s);
+            if (len > 0 && s[len-1] == '\n') {
+                s[len-1] = '\0';
+            }
 
+            if (validarEntero(s)) {
+                *n = atoi(s);
+                return true;
+            } else if (s[0] == '.' && strlen(s) == 1) {
+                return false;
+            } else {
+                printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
+            }
+        }
+    }
+}
+
+int repetidos(NodoArbol raiz, int clave) {
+    if (raiz == NULL) {
+        return 0;
+    }
+
+    if (raiz->datos->clave == clave) {
+        return 1;
+    }
+
+    int encontradoI = repetidos(raiz->hi, clave);
+
+    if (encontradoI) {
+        return 1;
+    }
+
+    return repetidos(raiz->hd, clave);
+}
+
+void Cargar_SubArbol_NoRepetidos(ArbolBinario A, NodoArbol N, int sa) {
+    TipoElemento X;
+    NodoArbol N1;
+    int n;
+    bool b;
+    if (!a_es_lleno(A)) {
+        do {
+            b = ingresoEntero(&n);
+            if (!b) return;
+            if (repetidos(a_raiz(A), n)) {
+                printf("ERROR: Clave repetida. Ingrese una clave diferente.\n\n");
+            }
+        } while (repetidos(a_raiz(A), n));
+
+        if (b) {
+            X = te_crear(n);
+            if (sa == -1) N1 = a_conectar_hi(A, N, X);
+            else if (sa == 1) N1 = a_conectar_hd(A, N, X);
+            else N1 = a_establecer_raiz(A, X);
+
+            Cargar_SubArbol_NoRepetidos(A, N1, -1);
+            Cargar_SubArbol_NoRepetidos(A, N1, 1);
+        }
+    }
+}
+
+void cargar_arbol_binario_NoRepetidos(ArbolBinario A) {
+    Cargar_SubArbol_NoRepetidos(A, NULL, 0);
+}
+
+int a_ej3_clavepadre(ArbolBinario A, int clavehijo) {
+    NodoArbol nodo = a_raiz(A);
+    if (nodo == NULL) {
+        return clavehijo;
+    }
+    if (nodo->datos->clave == clavehijo) {
+        return clavehijo;
+    }
+    return buscar_padre(nodo, clavehijo);
+}
+void buscar_hijos(NodoArbol nodo, int clavepadre, Lista hijos) {
+    if (nodo == NULL) {
+        return;
+    }
+
+    if (nodo->datos->clave == clavepadre) {
+        if (nodo->hi != NULL) {
+            l_agregar(hijos, nodo->hi->datos);
+        }
+        if (nodo->hd != NULL) {
+            l_agregar(hijos, nodo->hd->datos);
+        }
+        return;
+    }
+
+    buscar_hijos(n_hijoizquierdo(nodo), clavepadre, hijos);
+    buscar_hijos(n_hijoderecho(nodo), clavepadre, hijos);
+}
+void pre_orden_recursivo(NodoArbol N) {
+    if (N == NULL) {
+        printf(" .");
+    } else {
+        printf(" %d", N->datos->clave);
+        pre_orden_recursivo(n_hijoizquierdo(N));
+        pre_orden_recursivo(n_hijoderecho(N));
+    }
+}
+
+bool validarEntero(char* cadena) {
+    int i = 0;
+    if (cadena[0] == '-') i = 1;
+
+    for (; cadena[i] != '\0'; i++) {
+        if (cadena[i] < '0' || cadena[i] > '9') {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool ingresoEntero(int* n) {
+    char s[10];
+    while (true) {
+        printf("Ingrese una clave numerica o '.' para nulo: ");
+        if (fgets(s, sizeof(s), stdin) != NULL) {
+            size_t len = strlen(s);
+            if (len > 0 && s[len - 1] == '\n') {
+                s[len - 1] = '\0';
+            }
+
+            if (validarEntero(s)) {
+                *n = atoi(s);
+                return true;
+            } else if (s[0] == '.' && strlen(s) == 1) {
+                return false;
+            } else {
+                printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
+            }
+        }
+    }
+}
+
+int repetidos(NodoArbol raiz, int clave) {
+    if (raiz == NULL) {
+        return 0;
+    }
+
+    if (raiz->datos->clave == clave) {
+        return 1;
+    }
+
+    int encontradoI = repetidos(raiz->hi, clave);
+
+    if (encontradoI) {
+        return 1;
+    }
+
+    return repetidos(raiz->hd, clave);
+}
+
+void Cargar_SubArbol_NoRepetidos(ArbolBinario A, NodoArbol N, int sa) {
+    TipoElemento X;
+    NodoArbol N1;
+    int n;
+    bool b;
+    if (!a_es_lleno(A)) {
+        do {
+            b = ingresoEntero(&n);
+            if (!b) return;
+            if (repetidos(a_raiz(A), n)) {
+                printf("ERROR: Clave repetida. Ingrese una clave diferente.\n\n");
+            }
+        } while (repetidos(a_raiz(A), n));
+
+        if (b) {
+            X = te_crear(n);
+            if (sa == -1) N1 = a_conectar_hi(A, N, X);
+            else if (sa == 1) N1 = a_conectar_hd(A, N, X);
+            else N1 = a_establecer_raiz(A, X);
+
+            Cargar_SubArbol_NoRepetidos(A, N1, -1);
+            Cargar_SubArbol_NoRepetidos(A, N1, 1);
+        }
+    }
+}
+
+void cargar_arbol_binario_NoRepetidos(ArbolBinario A) {
+    Cargar_SubArbol_NoRepetidos(A, NULL, 0);
+}
+Lista a_ej3_hijos(ArbolBinario A, int clavepadre) {
+    Lista hijos = l_crear();
+    buscar_hijos(a_raiz(A), clavepadre, hijos);
+    return hijos;
+}
+
+NodoArbol buscar_padre_ejc(NodoArbol nodo, int clavehijo) {
+    if (nodo == NULL) {
+        return NULL;
+    }
+
+    if (n_hijoizquierdo(nodo) != NULL && n_recuperar(n_hijoizquierdo(nodo))->clave == clavehijo) {
+        return nodo;
+    }
+
+    if (n_hijoderecho(nodo) != NULL && n_recuperar(n_hijoderecho(nodo))->clave == clavehijo) {
+        return nodo;
+    }
+
+    NodoArbol izquierdo = buscar_padre_ejc(n_hijoizquierdo(nodo), clavehijo);
+    if (izquierdo != NULL) {
+        return izquierdo;
+    }
+
+    NodoArbol derecho = buscar_padre_ejc(n_hijoderecho(nodo), clavehijo);
+    if (derecho != NULL) {
+        return derecho;
+    }
+    return NULL;
+}
+
+int buscar_hermano(NodoArbol nodo, int clave) {
+    NodoArbol padre = buscar_padre_ejc(nodo, clave);
+    if (padre == NULL) {
+        return clave;
+    }
+
+    if (n_hijoizquierdo(padre) != NULL && n_recuperar(n_hijoizquierdo(padre))->clave == clave) {
+        if (n_hijoderecho(padre) != NULL) {
+            return n_recuperar(n_hijoderecho(padre))->clave;
+        }
+    } else {
+        if (n_hijoizquierdo(padre) != NULL) {
+            return n_recuperar(n_hijoizquierdo(padre))->clave;
+        }
+    }
+    return clave;
+}
+
+int a_ej3_hermano(ArbolBinario A, int clave) {
+    int clave_hermano = buscar_hermano(a_raiz(A), clave);
+    return clave_hermano;
+}
+
+void pre_orden_recursivo(NodoArbol N) {
+    if (N == NULL) {
+        printf(" .");
+    } else {
+        printf(" %d", N->datos->clave);
+        pre_orden_recursivo(n_hijoizquierdo(N));
+        pre_orden_recursivo(n_hijoderecho(N));
+    }
+}
+
+bool validarEntero(char* cadena) {
+    int i = 0;
+    if (cadena[0] == '-') i = 1;
+
+    for (; cadena[i] != '\0'; i++) {
+        if (cadena[i] < '0' || cadena[i] > '9') {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool ingresoEntero(int* n) {
+    char s[10];
+    while (true) {
+        printf("Ingrese una clave numerica o '.' para nulo: ");
+        if (fgets(s, sizeof(s), stdin) != NULL) {
+            size_t len = strlen(s);
+            if (len > 0 && s[len - 1] == '\n') {
+                s[len - 1] = '\0';
+            }
+
+            if (validarEntero(s)) {
+                *n = atoi(s);
+                return true;
+            } else if (s[0] == '.' && strlen(s) == 1) {
+                return false;
+            } else {
+                printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
+            }
+        }
+    }
+}
+
+int repetidos(NodoArbol raiz, int clave) {
+    if (raiz == NULL) {
+        return 0;
+    }
+
+    if (raiz->datos->clave == clave) {
+        return 1;
+    }
+
+    int encontradoI = repetidos(raiz->hi, clave);
+
+    if (encontradoI) {
+        return 1;
+    }
+
+    return repetidos(raiz->hd, clave);
+}
+
+void Cargar_SubArbol_NoRepetidos(ArbolBinario A, NodoArbol N, int sa) {
+    TipoElemento X;
+    NodoArbol N1;
+    int n;
+    bool b;
+    if (!a_es_lleno(A)) {
+        do {
+            b = ingresoEntero(&n);
+            if (!b) return;
+            if (repetidos(a_raiz(A), n)) {
+                printf("ERROR: Clave repetida. Ingrese una clave diferente.\n\n");
+            }
+        } while (repetidos(a_raiz(A), n));
+
+        if (b) {
+            X = te_crear(n);
+            if (sa == -1) N1 = a_conectar_hi(A, N, X);
+            else if (sa == 1) N1 = a_conectar_hd(A, N, X);
+            else N1 = a_establecer_raiz(A, X);
+
+            Cargar_SubArbol_NoRepetidos(A, N1, -1);
+            Cargar_SubArbol_NoRepetidos(A, N1, 1);
+        }
+    }
+}
+
+void cargar_arbol_binario_NoRepetidos(ArbolBinario A) {
+    Cargar_SubArbol_NoRepetidos(A, NULL, 0);
+}
+
+int a_ej3_hermano(ArbolBinario A, int clave) {
+    int clave_hermano = buscar_hermano(a_raiz(A), clave);
+    return clave_hermano;
+}
+int nivelInt(NodoArbol nodo, int clave, int cont){
+
+    if(nodo == NULL){
+
+        return -1;
+    }
+    if(n_recuperar(nodo)->clave == clave){
+        return cont;
+    }
+    int izq = nivelInt(n_hijoizquierdo(nodo), clave, cont+1);
+    if(izq != -1){
+        return izq;
+    }
+    int der = nivelInt(n_hijoderecho(nodo), clave, cont+1);
+    if(der != -1){
+        return der;
+    }
+    return -1;
+}
+
+
+
+void pre_orden_recursivo(NodoArbol N) {
+    if (N == NULL) {
+        printf(" .");
+    } else {
+        printf(" %d", N->datos->clave);
+        pre_orden_recursivo(n_hijoizquierdo(N));
+        pre_orden_recursivo(n_hijoderecho(N));
+    }
+}
+
+bool validarEntero(char* cadena) {
+    int i = 0;
+    if (cadena[0] == '-') i = 1;
+
+    for (; cadena[i] != '\0'; i++) {
+        if (cadena[i] < '0' || cadena[i] > '9') {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool ingresoEntero(int* n) {
+    char s[10];
+    while (true) {
+        printf("Ingrese una clave numerica o '.' para nulo: ");
+        if (fgets(s, sizeof(s), stdin) != NULL) {
+            size_t len = strlen(s);
+            if (len > 0 && s[len - 1] == '\n') {
+                s[len - 1] = '\0';
+            }
+
+            if (validarEntero(s)) {
+                *n = atoi(s);
+                return true;
+            } else if (s[0] == '.' && strlen(s) == 1) {
+                return false;
+            } else {
+                printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
+            }
+        }
+    }
+}
+
+int repetidos(NodoArbol raiz, int clave) {
+    if (raiz == NULL) {
+        return 0;
+    }
+
+    if (raiz->datos->clave == clave) {
+        return 1;
+    }
+
+    int encontradoI = repetidos(raiz->hi, clave);
+
+    if (encontradoI) {
+        return 1;
+    }
+
+    return repetidos(raiz->hd, clave);
+}
+
+void Cargar_SubArbol_NoRepetidos(ArbolBinario A, NodoArbol N, int sa) {
+    TipoElemento X;
+    NodoArbol N1;
+    int n;
+    bool b;
+    if (!a_es_lleno(A)) {
+        do {
+            b = ingresoEntero(&n);
+            if (!b) return;
+            if (repetidos(a_raiz(A), n)) {
+                printf("ERROR: Clave repetida. Ingrese una clave diferente.\n\n");
+            }
+        } while (repetidos(a_raiz(A), n));
+
+        if (b) {
+            X = te_crear(n);
+            if (sa == -1) N1 = a_conectar_hi(A, N, X);
+            else if (sa == 1) N1 = a_conectar_hd(A, N, X);
+            else N1 = a_establecer_raiz(A, X);
+
+            Cargar_SubArbol_NoRepetidos(A, N1, -1);
+            Cargar_SubArbol_NoRepetidos(A, N1, 1);
+        }
+    }
+}
+
+void cargar_arbol_binario_NoRepetidos(ArbolBinario A) {
+    Cargar_SubArbol_NoRepetidos(A, NULL, 0);
 }
 
 int a_ej3_nivel(ArbolBinario A, int clave){
-
+    int cont= 0;
+    int nivel = nivelInt(a_raiz(A), clave, cont);
+    return nivel;
+}
+int calcular_altura(NodoArbol nodo) {
+    if (nodo == NULL) {
+        return 0;
+    } else {
+        int altura_izquierda = calcular_altura(n_hijoizquierdo(nodo));
+        int altura_derecha = calcular_altura(n_hijoderecho(nodo));
+        return (altura_izquierda > altura_derecha ? altura_izquierda : altura_derecha) + 1;
+    }
 }
 
-int a_ej3_alturarama(ArbolBinario A, int clave){
+int altura_subarbol(NodoArbol nodo, int clave) {
+    if (nodo == NULL) {
+        return -1;
+    }
 
+    if (n_recuperar(nodo)->clave == clave) {
+        return calcular_altura(nodo);
+    }
+
+    int altura_izquierda = altura_subarbol(n_hijoizquierdo(nodo), clave);
+    if (altura_izquierda != -1) {
+        return altura_izquierda;
+    }
+
+    return altura_subarbol(n_hijoderecho(nodo), clave);
 }
 
-Lista a_ej3_clavesmismonivel(ArbolBinario A, int nivel){
+int a_ej3_alturarama(ArbolBinario A, int clave) {
+    return altura_subarbol(a_raiz(A), clave);
+}
 
+void pre_orden_recursivo(NodoArbol N) {
+    if (N == NULL) {
+        printf(" .");
+    } else {
+        printf(" %d", N->datos->clave);
+        pre_orden_recursivo(n_hijoizquierdo(N));
+        pre_orden_recursivo(n_hijoderecho(N));
+    }
+}
+
+bool validarEntero(char* cadena) {
+    int i = 0;
+    if (cadena[0] == '-') i = 1;
+
+    for (; cadena[i] != '\0'; i++) {
+        if (cadena[i] < '0' || cadena[i] > '9') {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool ingresoEntero(int* n) {
+    char s[10];
+    while (true) {
+        printf("Ingrese una clave numerica o '.' para nulo: ");
+        if (fgets(s, sizeof(s), stdin) != NULL) {
+            size_t len = strlen(s);
+            if (len > 0 && s[len - 1] == '\n') {
+                s[len - 1] = '\0';
+            }
+
+            if (validarEntero(s)) {
+                *n = atoi(s);
+                return true;
+            } else if (s[0] == '.' && strlen(s) == 1) {
+                return false;
+            } else {
+                printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
+            }
+        }
+    }
+}
+
+int repetidos(NodoArbol raiz, int clave) {
+    if (raiz == NULL) {
+        return 0;
+    }
+
+    if (raiz->datos->clave == clave) {
+        return 1;
+    }
+
+    int encontradoI = repetidos(raiz->hi, clave);
+
+    if (encontradoI) {
+        return 1;
+    }
+
+    return repetidos(raiz->hd, clave);
+}
+
+void Cargar_SubArbol_NoRepetidos(ArbolBinario A, NodoArbol N, int sa) {
+    TipoElemento X;
+    NodoArbol N1;
+    int n;
+    bool b;
+    if (!a_es_lleno(A)) {
+        do {
+            b = ingresoEntero(&n);
+            if (!b) return;
+            if (repetidos(a_raiz(A), n)) {
+                printf("ERROR: Clave repetida. Ingrese una clave diferente.\n\n");
+            }
+        } while (repetidos(a_raiz(A), n));
+
+        if (b) {
+            X = te_crear(n);
+            if (sa == -1) N1 = a_conectar_hi(A, N, X);
+            else if (sa == 1) N1 = a_conectar_hd(A, N, X);
+            else N1 = a_establecer_raiz(A, X);
+
+            Cargar_SubArbol_NoRepetidos(A, N1, -1);
+            Cargar_SubArbol_NoRepetidos(A, N1, 1);
+        }
+    }
+}
+
+void cargar_arbol_binario_NoRepetidos(ArbolBinario A) {
+    Cargar_SubArbol_NoRepetidos(A, NULL, 0);
+}
+int a_ej3_alturarama(ArbolBinario A, int clave) {
+    return altura_subarbol(a_raiz(A), clave);
+}
+
+void clavesnivel(NodoArbol nodo, int nivel, int cont, Lista claves) {
+    if (nodo == NULL) {
+        return;
+    }
+
+    if (cont == nivel) {
+        l_agregar(claves, nodo->datos);
+    }
+
+    clavesnivel(n_hijoizquierdo(nodo), nivel, cont + 1, claves);
+    clavesnivel(n_hijoderecho(nodo), nivel, cont + 1, claves);
+}
+
+
+
+void pre_orden_recursivo(NodoArbol N) {
+    if (N == NULL) {
+        printf(" .");
+    } else {
+        printf(" %d", N->datos->clave);
+        pre_orden_recursivo(n_hijoizquierdo(N));
+        pre_orden_recursivo(n_hijoderecho(N));
+    }
+}
+
+bool validarEntero(char* cadena) {
+    int i = 0;
+    if (cadena[0] == '-') i = 1;
+
+    for (; cadena[i] != '\0'; i++) {
+        if (cadena[i] < '0' || cadena[i] > '9') {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool ingresoEntero(int* n) {
+    char s[10];
+    while (true) {
+        printf("Ingrese una clave numerica o '.' para nulo: ");
+        if (fgets(s, sizeof(s), stdin) != NULL) {
+            size_t len = strlen(s);
+            if (len > 0 && s[len - 1] == '\n') {
+                s[len - 1] = '\0';
+            }
+
+            if (validarEntero(s)) {
+                *n = atoi(s);
+                return true;
+            } else if (s[0] == '.' && strlen(s) == 1) {
+                return false;
+            } else {
+                printf("SOLO SE ACEPTAN NUMEROS ENTEROS\n");
+            }
+        }
+    }
+}
+
+int repetidos(NodoArbol raiz, int clave) {
+    if (raiz == NULL) {
+        return 0;
+    }
+
+    if (raiz->datos->clave == clave) {
+        return 1;
+    }
+
+    int encontradoI = repetidos(raiz->hi, clave);
+
+    if (encontradoI) {
+        return 1;
+    }
+
+    return repetidos(raiz->hd, clave);
+}
+
+void Cargar_SubArbol_NoRepetidos(ArbolBinario A, NodoArbol N, int sa) {
+    TipoElemento X;
+    NodoArbol N1;
+    int n;
+    bool b;
+    if (!a_es_lleno(A)) {
+        do {
+            b = ingresoEntero(&n);
+            if (!b) return;
+            if (repetidos(a_raiz(A), n)) {
+                printf("ERROR: Clave repetida. Ingrese una clave diferente.\n\n");
+            }
+        } while (repetidos(a_raiz(A), n));
+
+        if (b) {
+            X = te_crear(n);
+            if (sa == -1) N1 = a_conectar_hi(A, N, X);
+            else if (sa == 1) N1 = a_conectar_hd(A, N, X);
+            else N1 = a_establecer_raiz(A, X);
+
+            Cargar_SubArbol_NoRepetidos(A, N1, -1);
+            Cargar_SubArbol_NoRepetidos(A, N1, 1);
+        }
+    }
+}
+
+void cargar_arbol_binario_NoRepetidos(ArbolBinario A) {
+    Cargar_SubArbol_NoRepetidos(A, NULL, 0);
+}
+Lista a_ej3_clavesmismonivel(ArbolBinario A, int nivel) {
+    Lista claves = l_crear();
+    clavesnivel(a_raiz(A), nivel, 0, claves);
+    return claves;
 }
 
 
