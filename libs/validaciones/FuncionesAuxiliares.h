@@ -47,7 +47,7 @@ void limpiarBuffer();
 
 void pausar();
 
-int nivel_nodo(ArbolBinario A, int N);
+int nivelNodo(ArbolBinario A, int N);
 
 int a_altura(ArbolBinario arbol);
 

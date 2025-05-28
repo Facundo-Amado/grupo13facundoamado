@@ -24,7 +24,7 @@ void cargarArbol_sinrep(ArbolBinario A)
     cargar_arbol_binario_NoRepetidos(A);
     printf("\nArbol:");
     pre_orden(a_raiz(A));
-    printf("Pulse enter para volver al menu");
+    printf("\nPulse enter para volver al menu");
     return;
 }
 
@@ -78,7 +78,7 @@ int main_punto3C(ArbolBinario a3) {
     limpiarBuffer();
     int res = a_ej3_hermano(a3, clave);
     if (res == clave) {
-        printf("\nEl nodo %d no tiene hermano (es la raiz o no existe el nodo en el arbol) o el arbol es vacio.\n", clave);
+        printf("\nEl nodo %d no tiene hermanos.\n", clave);
     } else {
         printf("\nEl hermano del nodo con clave %d es %d\n", clave, res);
     }
@@ -150,7 +150,7 @@ void cargarArbol(ArbolBinario A)
     cargar_arbol_binario(A);
     printf("\nArbol:");
     pre_orden(a_raiz(A));
-    printf("Pulse enter para volver al menu");
+    printf("\nPulse enter para volver al menu");
     return;
 }
 
@@ -236,8 +236,76 @@ int mainHermanosNodo(ArbolBinario A)
 }
 
 //punto 7
+int main_equivalentes()
+{
+    ArbolBinario A = a_crear();
+    ArbolBinario B = a_crear();
+    printf("\n\t --- Carga del primer arbol ---\n");
+    cargar_arbol_binario(A);
+    printf("\n\t --- Carga del segundo arbol ---\n");
+    cargar_arbol_binario(B);
+    if (a_ej7_equivalente(A, B)) 
+    {
+        printf("Los arboles son equivalentes.\n");
+    } 
+    else 
+    {
+        printf("Los arboles NO son equivalentes.\n");
+    }
+    return 0;
+}
 
 //punto 8
+int main_8a(ArbolBinario A) 
+{
+    int altura = a_ej8_altura(A);         
+    printf("Altura del Arbol binario: %d\n", altura);
+    return 0;
+}
+
+int main_8b(ArbolBinario A)
+{
+    int clave;
+    printf("Ingrese la clave del nodo: ");
+    while(scanf("%d", &clave) !=1)
+    {
+        printf("Dato invalido. Ingrese un numero entero: ");
+        limpiarBuffer();
+    }
+    int nivel = a_ej8_nivel(A, clave);
+    if (nivel != -1) {                                                                
+        printf("El nodo con clave %d esta en el nivel %d\n", clave, nivel);
+    } else {
+        printf("El nodo con clave %d no se encuentra en el arbol\n", clave);
+    }
+    return 0;
+}   
+
+int main_8c(ArbolBinario A)
+{
+    Lista internos = a_ej8_internos(A);
+    if (internos == NULL)
+    {
+        printf("El arbol no tiene nodos internos");
+    }
+    else
+    {
+        printf("Claves de los nodos internos: \n");
+        l_mostrar(internos);
+    }
+    return 0;
+}
+	 
+int main_8d(ArbolBinario A)
+{
+    bool mismo_nivel = a_ej8_hojasmismonivel(A);
+    if (mismo_nivel) {
+        printf("Todas las hojas estan al mismo nivel.\n");
+    } else {
+        printf("Las hojas NO estan todas al mismo nivel.\n");
+    }
+    return 0;
+}
 
 //punto 9
 int main_punto9() {
@@ -478,7 +546,7 @@ int main()
                 switch (opc3)
                 {
                 case 1:
-                    cargarArbol_sinrep(A3);
+                    cargarArbol(A3);
                     arbolCargadoej3 = true;
                     pausar();
                     break;
@@ -601,7 +669,7 @@ int main()
             }
             break;
         case 7:
-            //main_equivalentes();
+            main_equivalentes();
             break;
         case 8:
             salir_p8 = false;
@@ -626,7 +694,7 @@ int main()
                 case 2:
                     if(arbolCargadoej8)
                     {
-                        //alturaArbol(A8);
+                        main_8a(A8);
                     }
                     else printf("Primero debe cargar el arbol (opcion 1).\n");
                     pausar();
@@ -634,7 +702,7 @@ int main()
                 case 3:
                     if(arbolCargadoej8)
                     {
-                        //Nivel_Nodo(A8);
+                        main_8b(A8);
                     }
                     else printf("Primero debe cargar el arbol (opcion 1).\n");
                     pausar();
@@ -642,7 +710,7 @@ int main()
                 case 4:
                     if(arbolCargadoej8)
                     {
-                        //Nodos_interiores(A8);
+                        main_8c(A8);
                     }
                     else printf("Primero debe cargar el arbol (opcion 1).\n");
                     pausar();
@@ -650,7 +718,7 @@ int main()
                 case 5:
                     if(arbolCargadoej8)
                     {
-                        //main_nivel_hojas(A8);
+                        main_8d(A8);
                     }
                     else printf("Primero debe cargar el arbol (opcion 1).\n");
                     pausar();

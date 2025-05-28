@@ -382,7 +382,7 @@ void nivelint(NodoArbol Q, int Cbuscada, int *h, int c){
 
 // Funcion que devuelve el nivel de una clave o -1 si esta no se encuentra en el arbol.
 // Llama a la funcion recursiva que busca la clave y proporciona su nivel.
-int nivel_nodo(ArbolBinario A, int N){
+int nivelNodo(ArbolBinario A, int N){
     int nivel = -1;
     nivelint(a_raiz(A), N, &nivel, 0);
     return nivel;
@@ -390,7 +390,7 @@ int nivel_nodo(ArbolBinario A, int N){
 
 void alturaSub(ArbolBinario arbol, NodoArbol nodo, int *altura, int cantidad){
     if(nodo==NULL){
-        if(cantidad>*altura){            *altura=cantidad;}       
+        if(cantidad>*altura){*altura=cantidad;}       
     }    else{        
         alturaSub(arbol,n_hijoizquierdo(nodo),altura,cantidad+1);        
         alturaSub(arbol,n_hijoderecho(nodo),altura,cantidad+1);    

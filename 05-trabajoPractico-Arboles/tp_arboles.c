@@ -282,8 +282,14 @@ int a_ej4_q_hojas(ArbolBinario A)
 //c
 bool son_similares(NodoArbol a, NodoArbol b) 
 {
-    if (a == NULL && b == NULL) return true;
-    if (a == NULL || b == NULL) return false;
+    if (a == NULL && b == NULL) 
+    {
+        return true;
+    }
+    if (a == NULL || b == NULL) 
+    {
+        return false;
+    }
     return son_similares(n_hijoizquierdo(a), n_hijoizquierdo(b)) && son_similares(n_hijoderecho(a), n_hijoderecho(b));
 }
 
@@ -357,30 +363,148 @@ Lista a_ej4_hermanos(ArbolBinario A, int clave)
 }
 
 //punto 7
-bool a_ej7_equivalente(ArbolBinario A, ArbolBinario B){
-
+bool son_equivalentes(NodoArbol a, NodoArbol b) {
+    if (a == NULL && b == NULL) {
+        return true;
+    }
+    if (a == NULL || b == NULL) {                                   
+        return false;
+    }
+    if ((n_recuperar(a)->clave != n_recuperar(b)->clave)) 
+    {    
+        return false;                                             
+    }                                                            
+    return son_equivalentes(n_hijoizquierdo(a), n_hijoizquierdo(b)) &&
+           son_equivalentes(n_hijoderecho(a), n_hijoderecho(b));
 }
 
+bool a_ej7_equivalente(ArbolBinario A, ArbolBinario B)
+{
+    return son_equivalentes(a_raiz(A), a_raiz(B));
+}
 
 //punto 8
+//a
+void altura_arbol(NodoArbol nodo, int c, int *alt) 
+{                                
+    if (a_es_rama_nula(nodo))
+    {
+        if (c > *alt) 
+        {
+            *alt = c;
+        }
+    }
+    else
+    {
+        altura_arbol(n_hijoizquierdo(nodo), c + 1, alt);
+        altura_arbol(n_hijoderecho(nodo), c, alt);
+    }    
+}
+
+int altura_nario(NodoArbol n)
+{
+    int alt = 0;
+    altura_arbol(n, 0, &alt);
+    return alt;
+}
+
 int a_ej8_altura(ArbolBinario A)
 {
+    if (A == NULL) return 0;                               //A es nulo o no, si la altura es igual a 0 
+    return altura_nario(a_raiz(A));  
+}
 
+//b
+int nivel_nodo(NodoArbol nodo, int clave, int nivel_actual, int *res) {            
+    TipoElemento X = te_crear(0);
+    if (!a_es_rama_nula(nodo))
+    {
+        X = n_recuperar(nodo);
+        if (X->clave == clave)
+        {
+            *res = nivel_actual;
+        }
+        else
+        {
+            nivel_nodo(n_hijoizquierdo(nodo), clave, nivel_actual + 1, res);
+            nivel_nodo(n_hijoderecho(nodo), clave, nivel_actual, res);
+        }
+    }              
 }
 
 int a_ej8_nivel(ArbolBinario A, int clave)
 {
-
+    int N = -1;
+    NodoArbol R = a_raiz(A);
+    nivel_nodo(R, clave, 0, &N);
+    return N;
 }
 
-Lista a_ej8_internos(ArbolBinario A)
-{
+//c
+void a_ej8_internos_otra(NodoArbol nodo, Lista *lista, ArbolBinario A) {
+    if (nodo == NULL) 
+    {
+        return;
+    }
+    else if (!a_es_rama_nula(nodo))
+    {
+        if (!a_es_rama_nula(n_hijoizquierdo(nodo)) && n_recuperar(a_raiz(A))->clave != n_recuperar(nodo)->clave) 
+        {
+            l_agregar(*lista, n_recuperar(nodo));
+        }
+        a_ej8_internos_otra(n_hijoizquierdo(nodo), lista, A);
+        a_ej8_internos_otra(n_hijoderecho(nodo), lista, A);
+    }
+}
 
+Lista a_ej8_internos(ArbolBinario A) {
+    Lista lista = l_crear();
+    if (A != NULL && a_raiz(A) != NULL) {
+        a_ej8_internos_otra(a_raiz(A), &lista, A);
+    }
+    return lista;
+}
+
+//d
+Lista obtener_hojas_recursivamente(NodoArbol nodo, Lista lista, ArbolBinario A) {
+        if (!a_es_rama_nula(nodo))
+    {
+        if (a_es_rama_nula(n_hijoizquierdo(nodo)))
+        {
+            TipoElemento X = n_recuperar(nodo);
+            int nivel = a_ej8_nivel(A, X->clave);
+            TipoElemento X1 = te_crear(nivel);
+            l_agregar(lista, X1);
+        }
+        obtener_hojas_recursivamente(n_hijoizquierdo(nodo), lista, A);
+        obtener_hojas_recursivamente(n_hijoderecho(nodo), lista, A);
+    }
 }
 
 bool a_ej8_hojasmismonivel(ArbolBinario A)
 {
-
+    Lista l = l_crear();
+    bool res = true;
+    TipoElemento X, X1;
+    obtener_hojas_recursivamente(a_raiz(A), l, A);
+    Iterador ite = iterador(l);
+    if (!l_es_vacia(l))
+    {
+        X = siguiente(ite);
+        while (hay_siguiente(ite) && res != false)
+        {
+            X1 = siguiente(ite);
+            if (X->clave != X1->clave)
+            {
+                res = false;
+            }
+        }
+    }
+    else
+    {
+        res = false;
+    }
+    return res;
 }
 
 
