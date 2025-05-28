@@ -81,9 +81,7 @@ int main_2c(ArbolBinario A)
 int main_2d()
 {
     printf("\n\t --- Complejidad algoritmica del ejercicio --- \n");
-    printf("\nA) \n");
-    printf("\nB) \n");
-    printf("\nC) \n");
+    printf("\nTodos los incisos del ejercicio tienen como complejidad O(n), ya \nque siempre en el peor de los casos se recorre el arbol completo. \n");
     return 0;
 }
 
