@@ -17,18 +17,73 @@
 
 
 //punto 2
-Lista a_ej2_hojas(ArbolBinario A){
+//a
+void es_hoja(NodoArbol n, Lista l) {
+    if (a_es_rama_nula(n)) {
+        return;
+    }
+    NodoArbol hijoDer = n_hijoizquierdo(n);
+    NodoArbol hijoIzq = n_hijoderecho(n);
 
+    if (a_es_rama_nula(hijoIzq) && a_es_rama_nula(hijoDer)) {
+        l_agregar(l, te_crear_con_valor(n_recuperar(n)->clave, n));
+    }
+    es_hoja(hijoIzq, l);
+    es_hoja(hijoDer, l);
+}
+
+Lista a_ej2_hojas(ArbolBinario A){
+    Lista hojas = l_crear();
+    es_hoja(a_raiz(A), hojas);
+    return hojas;
+}
+
+//b
+void es_interno(NodoArbol n, Lista l, NodoArbol raiz) {
+    if (a_es_rama_nula(n)) {
+        return;
+    }
+
+    NodoArbol hijoDer = n_hijoizquierdo(n);
+    NodoArbol hijoIzq = n_hijoderecho(n);
+
+    if (n != raiz) {
+        if (!a_es_rama_nula(hijoIzq) || !a_es_rama_nula(hijoDer)) {
+            l_agregar(l, te_crear_con_valor(n_recuperar(n)->clave, n));
+        }
+    }
+    es_interno(hijoIzq, l, raiz);
+    es_interno(hijoDer, l, raiz);
 }
 
 Lista a_ej2_interiores(ArbolBinario A){
-
+    Lista internos = l_crear();
+    NodoArbol raiz = a_raiz(A);
+    es_interno(raiz, internos, raiz);
+    return internos;
 }
 
-Lista a_ej2_buscarclave(ArbolBinario A, int clave){
+void es_igual_a_clave(NodoArbol n, Lista l, int clave) {
+    if (a_es_rama_nula(n)) {
+        return;
+    }
 
+    NodoArbol hijoIzq = n_hijoizquierdo(n);
+    NodoArbol hijoDer = n_hijoderecho(n);
+
+    if (n_recuperar(n)->clave == clave) {
+        l_agregar(l, te_crear_con_valor(n_recuperar(n)->clave, n));
+    }
+    es_igual_a_clave(hijoIzq, l, clave);
+    es_igual_a_clave(hijoDer, l, clave);
 }
 
+Lista a_ej2_buscarclave(ArbolBinario A, int clave)
+{
+    Lista direcciones = l_crear();
+    es_igual_a_clave(a_raiz(A), direcciones, clave);
+    return direcciones;
+}
 
 //punto 3
 //a
@@ -415,7 +470,7 @@ int a_ej8_altura(ArbolBinario A)
 }
 
 //b
-int nivel_nodo(NodoArbol nodo, int clave, int nivel_actual, int *res) {            
+void nivel_nodo(NodoArbol nodo, int clave, int nivel_actual, int *res) {            
     TipoElemento X = te_crear(0);
     if (!a_es_rama_nula(nodo))
     {
@@ -466,7 +521,7 @@ Lista a_ej8_internos(ArbolBinario A) {
 }
 
 //d
-Lista obtener_hojas_recursivamente(NodoArbol nodo, Lista lista, ArbolBinario A) {
+void obtener_hojas_recursivamente(NodoArbol nodo, Lista lista, ArbolBinario A) {
         if (!a_es_rama_nula(nodo))
     {
         if (a_es_rama_nula(n_hijoizquierdo(nodo)))

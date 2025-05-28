@@ -290,7 +290,8 @@ void l_mostrar_con_valor(Lista l)
     for (int i = 1; i < l_longitud(l); i++) 
     {
         TipoElemento elem = l_recuperar(l, i);
-        printf("%d:%s ", elem->clave, (char*)elem->valor);
+        int valor = *(int*)elem->valor;
+        printf("%d:%d ", elem->clave, valor);
     }
     printf("\n");
 }

@@ -16,6 +16,76 @@
 #include "../libs/arboles/headers/arbol-binario-busqueda.h"
 
 //punto 2
+void cargarArbol(ArbolBinario A)
+{
+    printf("\n\t --- Carga del arbol ---\n");
+    cargar_arbol_binario(A);
+    printf("\nArbol:");
+    pre_orden(a_raiz(A));
+    printf("\nPulse enter para volver al menu");
+    return;
+}
+
+int main_2a(ArbolBinario A)
+{
+    Lista hojas = a_ej2_hojas(A);
+    if (hojas == NULL)
+    {
+        printf("El arbol no tiene hojas");
+    }
+    else
+    {
+        printf("Nodos hoja del arbol: ");
+        l_mostrar(hojas);
+    }
+    return 0;
+}
+
+int main_2b(ArbolBinario A)
+{
+    Lista interiores = a_ej2_interiores(A);
+    if (interiores == NULL)
+    {
+        printf("\nEl arbol no tiene nodos interiores");
+    }
+    else
+    {
+        printf("\nNodos interiores del arbol: ");
+        l_mostrar(interiores);
+    }
+    return 0;
+}
+
+int main_2c(ArbolBinario A)
+{
+    int clave;
+    printf("Ingrese la clave del nodo: ");
+    while(scanf("%d", &clave) !=1)
+    {
+        printf("Dato invalido. Ingrese un numero entero: ");
+        limpiarBuffer();
+    }
+    Lista ocurrencias = a_ej2_buscarclave(A, clave);
+    if (ocurrencias == NULL)
+    {
+        printf("\nEl arbol no tiene nodos interiores");
+    }
+    else
+    {
+        printf("\nlista de Nodos repetidos y su posicion: ");
+        l_mostrar_con_valor(ocurrencias);
+    }
+    return 0;
+}
+
+int main_2d()
+{
+    printf("\n\t --- Complejidad algoritmica del ejercicio --- \n");
+    printf("\nA) \n");
+    printf("\nB) \n");
+    printf("\nC) \n");
+    return 0;
+}
 
 //punto 3
 void cargarArbol_sinrep(ArbolBinario A)
@@ -143,17 +213,6 @@ int main_punto3F(ArbolBinario a3) {
 }
 
 //punto 4
-
-void cargarArbol(ArbolBinario A)
-{
-    printf("\n\t --- Carga del arbol ---\n");
-    cargar_arbol_binario(A);
-    printf("\nArbol:");
-    pre_orden(a_raiz(A));
-    printf("\nPulse enter para volver al menu");
-    return;
-}
-
 //a
 int mainAnchoArbol(ArbolBinario A)
 {
@@ -388,6 +447,7 @@ void menu_punto2()
     printf("  2   Mostrar nodos terminales u hojas\n");
     printf("  3   Nodos interiores\n");
     printf("  4   Buscar todas las ocurrencias de una clave con su posición\n");
+    printf("  5   Complejidad algoritmica del ejercicio\n");
     printf("\n");
     printf("  0   Salir\n");
     printf("\n");
@@ -487,7 +547,7 @@ int main()
             {
                 menu_punto2();
                 validador = scanf("%i", &opc2);
-                while (validador != 1 || opc2 < 0 || opc2 > 4)
+                while (validador != 1 || opc2 < 0 || opc2 > 5)
                 {
                     printf("Opción incorrecta\n");
                     printf("Seleccione una opción: ");
@@ -504,7 +564,7 @@ int main()
                 case 2:
                     if(arbolCargadoej2)
                     {
-                        //main_hojas(A2);
+                        main_2a(A2);
                     }
                     else printf("Primero debe cargar el arbol (opcion 1).\n");
                     pausar();
@@ -512,7 +572,7 @@ int main()
                 case 3:
                     if(arbolCargadoej2)
                     {
-                        //main_interior(A2);
+                        main_2b(A2);
                     }
                     else printf("Primero debe cargar el arbol (opcion 1).\n");
                     pausar();
@@ -520,9 +580,13 @@ int main()
                 case 4:
                     if(arbolCargadoej2)
                     {
-                        //main_buscar(A2);
+                        main_2c(A2);
                     }
                     else printf("Primero debe cargar el arbol (opcion 1).\n");                    
+                    pausar();
+                    break;
+                case 5:
+                    main_2d();
                     pausar();
                     break;
                 case 0:
