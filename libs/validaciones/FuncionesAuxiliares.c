@@ -13,7 +13,8 @@
 #include "../arboles/headers/nodo.h"
 #include "../arboles/headers/arbol-avl.h"
 #include "../arboles/headers/arbol-binario-busqueda.h"
-
+#include "../tablaHash/headers/tabla_hash.h"
+#include "../tablaHash/headers/tp_thash.h"
 
 void limpiarBuffer()
 {
@@ -404,3 +405,204 @@ int a_altura(ArbolBinario arbol){
     alturaSub(arbol,a_raiz(arbol),&altura,0);    
     return altura;
 }
+
+int FuncionHash_Punto6(int n)
+{
+    return n % 47;
+}
+
+struct PersonaRep
+{
+    int fecha;
+    int dni;
+    char nombre[20];
+    char apellido[20];
+};
+typedef struct PersonaRep *Persona;
+
+//Función que dado un día, mes y año indica si la fecha es valida
+bool validarFecha(int dia, int mes, int anio)
+{
+    int dia_maximo;
+    bool fecha_correcta = false;
+
+    if (mes >= 1 && mes <= 12)
+    {
+        switch (mes)
+        {
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12:
+            dia_maximo = 31;
+            break;
+
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            dia_maximo = 30;
+            break;
+
+        case 2:
+            if ((anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0))
+                dia_maximo = 29;
+            else
+                dia_maximo = 28;
+        }
+        if (dia >= 1 && dia <= dia_maximo)
+            fecha_correcta = true;
+    }
+    return fecha_correcta;
+}
+
+int juntarNumeros(int dia, int mes, int anio)
+{
+    char fecha[9];
+    sprintf(fecha, "%02u%02u%04u", dia, mes, anio);
+    int entero = atoi(fecha);
+    return entero;
+}
+
+bool sonLetras(char *cadena)
+{
+    bool res = true;
+    for (int i = 0; i < strlen(cadena) - 1; i++)
+    {
+        if (!isalpha(cadena[i]))
+        {
+            res = false;
+        }
+    }
+    return res;
+}
+
+void agregarATabla(TablaHash *th, Persona persona)
+{
+
+    TipoElemento X = th_recuperar(*th, persona->fecha);
+    if (X == NULL)
+    {
+        Lista L = l_crear();
+        X = te_crear_con_valor(0, persona);
+        l_agregar(L, X);
+        TipoElemento X1 = te_crear_con_valor(persona->fecha, L);
+        th_insertar(*th, X1);
+    }
+    else
+    {
+        TipoElemento X1 = te_crear_con_valor(0, persona);
+        Lista L = (Lista)X->valor;
+        l_agregar(L, X1);
+        X->valor = L;
+        th_insertar(*th, X);
+    }
+}
+
+void cargarPersona(TablaHash *th)
+{
+    Persona persona = malloc(sizeof(struct PersonaRep));
+    int dia, mes, anio, dni, validador, fecha;
+    bool fechaValida = false;
+    // Cargar DNI
+    printf("DNI: ");
+    validador = scanf("%d", &persona->dni);
+    limpiarBuffer();
+    while (validador != 1 || persona->dni < 1 || persona->dni > 99999999)
+    {
+        printf("\t\t-------- ERROR -------- \n");
+        printf("DATO FUERA DE RANGO\n\n");
+        pausar();
+        printf("DNI: ");
+        validador = scanf("%d", &persona->dni);
+        limpiarBuffer();
+    }
+    // Cargar nombre
+    bool estado_nombre = true;
+    do
+    {
+        if (!estado_nombre)
+        {
+            printf("ERROR\tNO ES UNA CADENA VALIDA\n");
+        }
+        printf("Nombre: ");
+        fgets(persona->nombre, 20, stdin);
+        persona->nombre[strcspn(persona->nombre, "\n")] = '\0'; // Eliminar el carácter de nueva línea
+        estado_nombre = sonLetras(persona->nombre);
+    } while (!estado_nombre);
+
+    // Cargar apellido
+    bool estado_apellido = true;
+    do
+    {
+        if (!estado_apellido)
+        {
+            printf("ERROR\tNO ES UNA CADENA VALIDA\n");
+        }
+        printf("Apellido: ");
+        fgets(persona->apellido, 20, stdin);
+        persona->apellido[strcspn(persona->apellido, "\n")] = '\0'; // Eliminar el carácter de nueva línea
+        estado_apellido = sonLetras(persona->apellido);
+    } while (!estado_apellido);
+
+    while (!fechaValida)
+    {
+        // Cargar fecha
+        printf("Ingresar la fecha de vacunación\n");
+
+        // Cargar día
+        printf("Día: ");
+        validador = scanf("%u", &dia);
+        limpiarBuffer();
+        while (validador != 1 || dia < 1 || dia > 31)
+        {
+            printf("\t\t-------- ERROR -------- \n");
+            printf("DATO FUERA DE RANGO\n\n");
+            pausar();
+            printf("Día: ");
+            validador = scanf("%u", &dia);
+            limpiarBuffer();
+        }
+
+        // Cargar mes
+        printf("Mes: ");
+        validador = scanf("%u", &mes);
+        limpiarBuffer();
+        while (validador != 1 || mes < 1 || mes > 12)
+        {
+            printf("\t\t-------- ERROR -------- \n");
+            printf("DATO FUERA DE RANGO\n\n");
+            pausar();
+            printf("Mes: ");
+            validador = scanf("%u", &mes);
+            limpiarBuffer();
+        }
+
+        // Cargar año
+        printf("Año: ");
+        validador = scanf("%u", &anio);
+        limpiarBuffer();
+        while (validador != 1 || anio < 2020 || anio > 2025)
+        {
+            printf("\t\t-------- ERROR -------- \n");
+            printf("DATO FUERA DE RANGO\n\n");
+            printf("El rango es entre 2020 y 2025\n\n");
+            pausar();
+            printf("Año: ");
+            validador = scanf("%u", &anio);
+            limpiarBuffer();
+        }
+        fechaValida = validarFecha(dia, mes, anio);
+        printf("%s", fechaValida ? "La fecha es válida\n" : "La fecha no es válida, vuelva a ingresarla\n");
+    }
+
+    persona->fecha = juntarNumeros(dia, mes, anio);
+
+    agregarATabla(th, persona);
+    printf("\nPersona cargada correctamente!\n");
+    pausar();
+}
+

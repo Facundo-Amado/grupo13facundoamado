@@ -13,6 +13,8 @@
 #include "../arboles/headers/nodo.h"
 #include "../arboles/headers/arbol-avl.h"
 #include "../arboles/headers/arbol-binario-busqueda.h"
+#include "../tablaHash/headers/tabla_hash.h"
+#include "../tablaHash/headers/tp_thash.h"
 
 //funciones de carga de datos
 void cargarpila(Pila p);
@@ -50,6 +52,25 @@ void pausar();
 int nivelNodo(ArbolBinario A, int N);
 
 int a_altura(ArbolBinario arbol);
+
+int FuncionHash_Punto6(int n);
+
+void cargarPersona(TablaHash *th);
+
+int juntarNumeros(int dia, int mes, int anio);
+
+bool validarFecha(int dia, int mes, int anio);
+
+struct PersonaRep
+{
+    int fecha;
+    int dni;
+    char nombre[20];
+    char apellido[20];
+};
+typedef struct PersonaRep *Persona;
+
+
 
 
 
