@@ -21,10 +21,10 @@ void main_6b(TablaHash *th)
     while (!fechaValida)
     {
         // Cargar fecha
-        printf("Ingresar la fecha de vacunación\n");
+        printf("Ingresar la fecha de vacunacion\n");
 
-        // Cargar día
-        printf("Día: ");
+        // Cargar dia
+        printf("Dia: ");
         validador = scanf("%u", &dia);
         limpiarBuffer();
         while (validador != 1 || dia < 1 || dia > 31)
@@ -32,7 +32,7 @@ void main_6b(TablaHash *th)
             printf("\t\t-------- ERROR -------- \n");
             printf("DATO FUERA DE RANGO\n\n");
             pausar();
-            printf("Día: ");
+            printf("Dia: ");
             validador = scanf("%u", &dia);
             limpiarBuffer();
         }
@@ -51,8 +51,8 @@ void main_6b(TablaHash *th)
             limpiarBuffer();
         }
 
-        // Cargar año
-        printf("Año: ");
+        // Cargar anio
+        printf("Anio: ");
         validador = scanf("%d", &anio);
         limpiarBuffer();
         while (validador != 1 || anio < 2020 || anio > 2025)
@@ -60,13 +60,13 @@ void main_6b(TablaHash *th)
             printf("\t\t-------- ERROR -------- \n");
             printf("DATO FUERA DE RANGO\n\n");
             pausar();
-            printf("Año: ");
+            printf("Anio: ");
             validador = scanf("%u", &anio);
             limpiarBuffer();
         }
 
         fechaValida = validarFecha(dia, mes, anio);
-        printf("%s", fechaValida ? "\nLa fecha es válida\n" : "\nLa fecha no es válida, vuelva a ingresarla\n");
+        printf("%s", fechaValida ? "\nLa fecha es valida\n" : "\nLa fecha no es valida, vuelva a ingresarla\n");
     }
     fecha = juntarNumeros(dia, mes, anio);
     int cant_vacunados = th_ej6_covid(*th, fecha);
@@ -90,7 +90,7 @@ void menu_personas()
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("Seleccione una opción: ");
+    printf("Seleccione una opcion: ");
 }
 
 void main_punto6()
@@ -104,8 +104,8 @@ void main_punto6()
         int validador = scanf("%i", &opcion);
         while (validador != 1 || opcion < 0 || opcion > 2)
         {
-            printf("Opción incorrecta\n");
-            printf("Seleccione una opción: ");
+            printf("Opcion incorrecta\n");
+            printf("Seleccione una opcion: ");
             limpiarBuffer();
             validador = scanf("%i", &opcion);
         }
@@ -140,7 +140,7 @@ void menu_alumnos()
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("Seleccione una opción: ");
+    printf("Seleccione una opcion: ");
 }
 
 void menu_punto4()
@@ -149,7 +149,7 @@ void menu_punto4()
     int opcion;
     //FILE *archivo;
     //crear_archivo_binario();
-    //TablaHash th = th_crear(tamaño, FuncionHash);
+    //TablaHash th = th_crear(tamanio, FuncionHash);
     while (!salir_p4)
     {
         menu_alumnos();
@@ -157,8 +157,8 @@ void menu_punto4()
         limpiarBuffer();
         while (validador != 1 || opcion < 0 || opcion > 4)
         {
-            printf("Opción incorrecta\n");
-            printf("Seleccione una opción: ");
+            printf("Opcion incorrecta\n");
+            printf("Seleccione una opcion: ");
             validador = scanf("%i", &opcion);
             limpiarBuffer();
         }
@@ -196,8 +196,8 @@ void menu_punto6()
         int validador = scanf("%i", &opcion);
         while (validador != 1 || opcion < 0 || opcion > 2)
         {
-            printf("Opción incorrecta\n");
-            printf("Seleccione una opción: ");
+            printf("Opcion incorrecta\n");
+            printf("Seleccione una opcion: ");
             limpiarBuffer();
             validador = scanf("%i", &opcion);
         }
@@ -223,14 +223,14 @@ void menu_principal()
     printf("  ============================================================================\n");
     printf("\n");
     printf("  1   ABM Alumnos\n");
-    printf("  2   Comparación en tiempos de acceso\n");
+    printf("  2   Comparacion en tiempos de acceso\n");
     printf("  3   Buscar vacunados por fecha\n");
     printf("\n");
     printf("  0   Salir\n");
     printf("\n");
     printf(" ------------------------------------------------------------------------------\n");
     printf("\n");
-    printf("Seleccione una opción: ");
+    printf("Seleccione una opcion: ");
 }
 
 int main()
@@ -245,8 +245,8 @@ int main()
         limpiarBuffer();
         while (validador != 1 || opcion < 0 || opcion > 3)
         {
-            printf("Opción incorrecta\n");
-            printf("Seleccione una opción: ");
+            printf("Opcion incorrecta\n");
+            printf("Seleccione una opcion: ");
             validador = scanf("%i", &opcion);
             limpiarBuffer();
         }

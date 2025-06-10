@@ -420,7 +420,7 @@ struct PersonaRep
 };
 typedef struct PersonaRep *Persona;
 
-//Función que dado un día, mes y año indica si la fecha es valida
+//Funcion que dado un dia, mes y anio indica si la fecha es valida
 bool validarFecha(int dia, int mes, int anio)
 {
     int dia_maximo;
@@ -530,7 +530,7 @@ void cargarPersona(TablaHash *th)
         }
         printf("Nombre: ");
         fgets(persona->nombre, 20, stdin);
-        persona->nombre[strcspn(persona->nombre, "\n")] = '\0'; // Eliminar el carácter de nueva línea
+        persona->nombre[strcspn(persona->nombre, "\n")] = '\0'; // Eliminar el caracter de nueva linea
         estado_nombre = sonLetras(persona->nombre);
     } while (!estado_nombre);
 
@@ -544,17 +544,17 @@ void cargarPersona(TablaHash *th)
         }
         printf("Apellido: ");
         fgets(persona->apellido, 20, stdin);
-        persona->apellido[strcspn(persona->apellido, "\n")] = '\0'; // Eliminar el carácter de nueva línea
+        persona->apellido[strcspn(persona->apellido, "\n")] = '\0'; // Eliminar el caracter de nueva linea
         estado_apellido = sonLetras(persona->apellido);
     } while (!estado_apellido);
 
     while (!fechaValida)
     {
         // Cargar fecha
-        printf("Ingresar la fecha de vacunación\n");
+        printf("Ingresar la fecha de vacunacion\n");
 
-        // Cargar día
-        printf("Día: ");
+        // Cargar dia
+        printf("Dia: ");
         validador = scanf("%u", &dia);
         limpiarBuffer();
         while (validador != 1 || dia < 1 || dia > 31)
@@ -562,7 +562,7 @@ void cargarPersona(TablaHash *th)
             printf("\t\t-------- ERROR -------- \n");
             printf("DATO FUERA DE RANGO\n\n");
             pausar();
-            printf("Día: ");
+            printf("Dia: ");
             validador = scanf("%u", &dia);
             limpiarBuffer();
         }
@@ -581,8 +581,8 @@ void cargarPersona(TablaHash *th)
             limpiarBuffer();
         }
 
-        // Cargar año
-        printf("Año: ");
+        // Cargar anio
+        printf("Anio: ");
         validador = scanf("%u", &anio);
         limpiarBuffer();
         while (validador != 1 || anio < 2020 || anio > 2025)
@@ -591,12 +591,12 @@ void cargarPersona(TablaHash *th)
             printf("DATO FUERA DE RANGO\n\n");
             printf("El rango es entre 2020 y 2025\n\n");
             pausar();
-            printf("Año: ");
+            printf("Anio: ");
             validador = scanf("%u", &anio);
             limpiarBuffer();
         }
         fechaValida = validarFecha(dia, mes, anio);
-        printf("%s", fechaValida ? "La fecha es válida\n" : "La fecha no es válida, vuelva a ingresarla\n");
+        printf("%s", fechaValida ? "La fecha es valida\n" : "La fecha no es valida, vuelva a ingresarla\n");
     }
 
     persona->fecha = juntarNumeros(dia, mes, anio);
