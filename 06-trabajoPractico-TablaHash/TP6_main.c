@@ -482,6 +482,119 @@ int menu_punto4(){
 
 //punto 5
 
+int main() {
+    srand(time(NULL));
+
+    int num_claves, claves_buscadas, repeticiones, rango_minimo, rango_maximo;
+    bool clave_Valida = false, clave_Valida2 = false, clave_Valida3 = false, clave_Valida4 = false, clave_Valida5 = false;
+
+    printf("\nINGRESAR LA CANTIDAD DE CLAVES A GENERAR (1 - 2000): \n");
+    while(!clave_Valida4){
+        clave_Valida4 = ValidarNumero(&num_claves);
+        if((num_claves < 1) || (num_claves > 2000)){
+            printf("ERROR: La cantidad de claves a generar debe ser mayor o igual a 1 y menor o igual a 2000.\n");
+            clave_Valida4 = false;
+        }
+    }
+
+    printf("\nINGRESAR VALOR MINIMO DE CLAVES A GENERAR: \n");
+    while(!clave_Valida2){
+        clave_Valida2 = ValidarNumero(&rango_minimo);
+        if((rango_minimo > 1000000) || (rango_minimo < 0)){
+            printf("\nEl valor minimo no puede ser superior a 1000000.\n");
+            clave_Valida2 = false;
+        }
+    }
+
+    printf("\nINGRESAR VALOR MAXIMO DE CLAVES A GENERAR (mayor que valor minimo): \n");
+    while(!clave_Valida3){
+        clave_Valida3 = ValidarNumero(&rango_maximo);
+        if((rango_maximo > 1000000) || (rango_maximo < -1000000) || (rango_maximo <= rango_minimo)){
+            printf("\nEl valor minimo no puede ser igual o menor al valor minimo, tampoco puede ser superior a 1000000.\n");
+            clave_Valida3 = false;
+        }
+        if((rango_maximo - rango_minimo + 1) < num_claves){
+            printf("\nEl rango de claves no es suficiente para generar %d claves unicas.\n", num_claves);
+            clave_Valida3 = false;
+        }
+    }
+
+    printf("\nINGRESAR NUMERO DE REPETICIONES\n");
+    while(!clave_Valida){
+        clave_Valida = ValidarNumero(&repeticiones);
+        if(repeticiones == 0){
+            printf("No hay repeticiones. Termina el programa");
+            return 0;
+        }
+        if((repeticiones < 1) || (repeticiones > 10000)){
+            printf("\nLa cantidad de repeticiones debe estar entre 1 y 10000.\n");
+            clave_Valida = false;
+        }
+    }
+
+    printf("\nINGRESAR CANTIDAD DE CLAVES A BUSCAR EN AMBAS ESTRUCTURAS: \n");
+    while(!clave_Valida5){
+        clave_Valida5 = ValidarNumero(&claves_buscadas);
+        if((claves_buscadas < 1) || (claves_buscadas > 2000) || (claves_buscadas > num_claves)){
+            printf("ERROR: La cantidad de claves a buscar debe ser menor o igual que la cantidad de claves a generar. Ademas debe ser mayor o igual a 1 y menor o igual a 2000.\n");
+            clave_Valida5 = false;
+        }
+    }
+
+    double tiempo_total_hash = 0.0;
+    double tiempo_total_avl = 0.0;
+    double tiempo_min_hash = DBL_MAX;
+    double tiempo_max_hash = 0.0;
+    double tiempo_min_avl = DBL_MAX;
+    double tiempo_max_avl = 0.0;
+
+    for (int i = 0; i < repeticiones; i++) {
+        Lista l_claves = generar_claves(num_claves, rango_minimo, rango_maximo);
+        Lista l_claves_a_buscar = generar_claves_a_buscar(claves_buscadas, rango_minimo, rango_maximo);
+
+        TablaHash th = th_crear(1997, hash_function);
+        ArbolAVL arbol = avl_crear();
+
+        Iterador iterador_claves = iterador(l_claves);
+        while (hay_siguiente(iterador_claves)) {
+            TipoElemento te = siguiente(iterador_claves);
+            th_insertar(th, te);
+            avl_insertar(arbol, te);
+        }
+
+        double tiempo_hash = medir_tiempo_hash(th, l_claves_a_buscar);
+        double tiempo_avl = medir_tiempo_avl(arbol, l_claves_a_buscar);
+
+        tiempo_total_hash += tiempo_hash;
+        tiempo_total_avl += tiempo_avl;
+
+        if (tiempo_hash < tiempo_min_hash) tiempo_min_hash = tiempo_hash;
+        if (tiempo_hash > tiempo_max_hash) tiempo_max_hash = tiempo_hash;
+
+        if (tiempo_avl < tiempo_min_avl) tiempo_min_avl = tiempo_avl;
+        if (tiempo_avl > tiempo_max_avl) tiempo_max_avl = tiempo_avl;
+    }
+
+    double tiempo_promedio_hash = tiempo_total_hash / repeticiones;
+    double tiempo_promedio_avl = tiempo_total_avl / repeticiones;
+
+    printf("\nTiempo promedio de busqueda en la tabla hash: %f segundos\n", tiempo_promedio_hash);
+    printf("\nTiempo minimo de busqueda en la tabla hash: %f segundos\n", tiempo_min_hash);
+    printf("\nTiempo maximo de busqueda en la tabla hash: %f segundos\n", tiempo_max_hash);
+
+    printf("\nTiempo promedio de busqueda en el arbol AVL: %f segundos\n", tiempo_promedio_avl);
+    printf("\nTiempo minimo de busqueda en el arbol AVL: %f segundos\n", tiempo_min_avl);
+    printf("\nTiempo maximo de busqueda en el arbol AVL: %f segundos\n", tiempo_max_avl);
+
+    while (getchar() != '\n');
+    printf("Presione Enter para continuar...");
+    getchar();
+
+    return 0;
+}
+
+
+
 //punto 6
 void main_6b(TablaHash *th)
 {
