@@ -9,6 +9,106 @@
 #include "../libs/tablaHash/headers/tp_thash.h"
 
 //punto 4
+int menu_punto4(){
+    int opcion, opcion2, opcion3, legajo_baja, legajo_modif, res, res2, existe;
+
+    do{
+        printf("  ============================================================================\n");
+        printf(" |                                  PUNTO 4                                   |\n");
+        printf("  ============================================================================\n");
+        printf("1- Crear archivo\n");
+        printf("2- ABM alumnos\n");
+        printf("3- Mostrar archivo\n");
+        printf("4- Mostrar TablaHash\n");
+        printf("5- Terminar\n");
+        printf("\nIngrese una opcion: ");
+        res2 = scanf("%d", &opcion);
+
+        switch (opcion){
+            case 1:
+                crear_archivo();
+                break;
+            case 2:
+                printf("\n\t----MENU ABM----\n");
+                printf("1- Alta alumno\n");
+                printf("2- Baja alumno\n");
+                printf("3- Modificacion alumno\n");
+                printf("4- Terminar\n");
+                printf("\nIngrese una opcion: ");
+                scanf("%d", &opcion2);
+            
+                switch(opcion2){
+                    case 1:
+                        alta_alumno();
+                        break;
+                    case 2:
+                        do{
+                            printf("\nIngrese el legajo del alumno que quiere dar de baja: ");
+                            res = scanf("%d", &legajo_baja);
+                            getchar();
+
+                            if(res != 1 || legajo_baja < 100000 || legajo_baja > 999999){
+                                printf("Legajo invalido. Debe ser un numero de 6 digitos.\n");
+                            }
+
+                            existe = legajo_existe(legajo_baja);
+                            if(existe == 0){
+                                printf("\nEl legajo no existe o esta dado de baja, ingrese otro.\n");
+                            }
+
+                        } while (res != 1 || legajo_baja < 100000 || legajo_baja > 999999 || existe == 0); 
+
+                        baja_alumno(legajo_baja);
+                        break;
+                    case 3:
+                        do{
+                            printf("\nIngrese el legajo del alumno que quiere modificar: ");
+                            res = scanf("%d", &legajo_modif);
+                            getchar();
+
+                            if(res != 1 || legajo_modif < 100000 || legajo_modif > 999999){
+                                printf("Legajo invalido. Debe ser un numero de 6 digitos.\n");
+                            }
+
+                            existe = legajo_existe(legajo_modif);
+                            if(existe == 0){
+                                printf("\nEl legajo no existe o esta dado de baja, ingrese otro.\n");
+                            }
+
+                        } while (res != 1 || legajo_modif < 100000 || legajo_modif > 999999 || existe == 0); 
+
+                        modificacion_alumno(legajo_modif);
+                        break;
+                    case 4:
+                        break;
+                }
+                break;
+            case 3:
+                printf("\n1- Mostrar archivo completo (altas y bajas).");
+                printf("\n2- Mostrar archivo (solo altas).");
+                printf("\nIngrese una opcion: ");
+                scanf("%d", &opcion3);
+
+                switch (opcion3){
+                    case 1:
+                        mostrar_archivo_completo();
+                        break;
+                    case 2:
+                        mostrar_archivo_solo_altas();
+                        break;
+                }
+                break;
+            case 4:
+                th_ej4_abm();
+                break;
+        }
+    } while(res2 != 1 || opcion != 5);
+
+    
+
+    return 0;
+}
+
 
 //punto 5
 
@@ -142,46 +242,6 @@ void menu_alumnos()
     printf("\n");
     printf("Seleccione una opcion: ");
 }
-
-void menu_punto4()
-{
-    bool salir_p4 = false;
-    int opcion;
-    //FILE *archivo;
-    //crear_archivo_binario();
-    //TablaHash th = th_crear(tamanio, FuncionHash);
-    while (!salir_p4)
-    {
-        menu_alumnos();
-        int validador = scanf("%i", &opcion);
-        limpiarBuffer();
-        while (validador != 1 || opcion < 0 || opcion > 4)
-        {
-            printf("Opcion incorrecta\n");
-            printf("Seleccione una opcion: ");
-            validador = scanf("%i", &opcion);
-            limpiarBuffer();
-        }
-        switch (opcion)
-        {
-        case 1:
-            //alta(th);
-            break;
-        case 2:
-            //main_baja(th);
-            break;
-        case 3:
-            //main_modificar(th);
-            break;
-        case 4:
-            //mostrarArchivo();
-            break;
-        case 0:
-            salir_p4 = true;
-        }
-    }
-}
-
 
 
 void menu_punto6()
