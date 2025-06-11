@@ -482,7 +482,7 @@ int menu_punto4(){
 
 //punto 5
 
-int main() {
+int main_punto5() {
     srand(time(NULL));
 
     int num_claves, claves_buscadas, repeticiones, rango_minimo, rango_maximo;
