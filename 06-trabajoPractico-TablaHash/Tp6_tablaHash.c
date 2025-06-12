@@ -105,7 +105,7 @@ void th_ej5_comparacion(int claves, int repeticiones, int rango_min, int rango_m
     // generar un random y buscar en las dos tablas tomando tiempo
     claveABuscar = getRandom(rango_min, rango_max);
 
-    // Tiempo y búsqueda en hash
+    // Tiempo y busqueda en hash
     clock_gettime(CLOCK_REALTIME, &start);
     X = th_recuperar(th, claveABuscar); // Busco la clave
     clock_gettime(CLOCK_REALTIME, &end);
@@ -114,13 +114,13 @@ void th_ej5_comparacion(int claves, int repeticiones, int rango_min, int rango_m
         tiempo_no_esta_th += (end.tv_nsec - start.tv_nsec);
         no_esta_th++;
     }
-    // Estadísticas iniciales de hash
+    // Estadisticas iniciales de hash
     tiempo_actual_th = (end.tv_nsec - start.tv_nsec);
     tiempo_minimo_th = tiempo_actual_th;
     tiempo_maximo_th = tiempo_actual_th;
     tiempo_suma_th += tiempo_actual_th;
 
-    // Tiempo y búsqueda en avl
+    // Tiempo y busqueda en avl
     clock_gettime(CLOCK_REALTIME, &start);
     X = avl_buscar(A_AVL, claveABuscar); // Busco la clave
     clock_gettime(CLOCK_REALTIME, &end);
@@ -129,7 +129,7 @@ void th_ej5_comparacion(int claves, int repeticiones, int rango_min, int rango_m
         tiempo_no_esta_avl += (end.tv_nsec - start.tv_nsec);
         no_esta_avl++;
     }
-    // Estadísticas iniciales de avl
+    // Estadisticas iniciales de avl
     tiempo_actual_avl = (end.tv_nsec - start.tv_nsec);
     tiempo_minimo_avl = tiempo_actual_avl;
     tiempo_maximo_avl = tiempo_actual_avl;
@@ -140,7 +140,7 @@ void th_ej5_comparacion(int claves, int repeticiones, int rango_min, int rango_m
         // generar un random y buscar en las dos tablas tomando tiempo
         claveABuscar = getRandom(rango_min, rango_max);
 
-        // Tiempo y búsqueda en hash
+        // Tiempo y busqueda en hash
         clock_gettime(CLOCK_REALTIME, &start);
         X = th_recuperar(th, claveABuscar); // Busco la clave
         clock_gettime(CLOCK_REALTIME, &end);
@@ -150,7 +150,7 @@ void th_ej5_comparacion(int claves, int repeticiones, int rango_min, int rango_m
             no_esta_th++;
         }
 
-        // Estadísticas de hash
+        // Estadisticas de hash
         tiempo_actual_th = (end.tv_nsec - start.tv_nsec);
         if (tiempo_minimo_th > tiempo_actual_th)
         {
@@ -162,7 +162,7 @@ void th_ej5_comparacion(int claves, int repeticiones, int rango_min, int rango_m
         }
         tiempo_suma_th += tiempo_actual_th;
 
-        // Tiempo y búsqueda en avl
+        // Tiempo y busqueda en avl
         clock_gettime(CLOCK_REALTIME, &start);
         X = avl_buscar(A_AVL, claveABuscar); // Busco la clave
         clock_gettime(CLOCK_REALTIME, &end);
@@ -172,7 +172,7 @@ void th_ej5_comparacion(int claves, int repeticiones, int rango_min, int rango_m
             no_esta_avl++;
         }
 
-        // Estadísticas de avl
+        // Estadisticas de avl
         tiempo_actual_avl = (end.tv_nsec - start.tv_nsec);
         if (tiempo_minimo_avl > tiempo_actual_avl)
         {
@@ -197,17 +197,17 @@ void th_ej5_comparacion(int claves, int repeticiones, int rango_min, int rango_m
     {
         tiempo_no_esta_promedio_avl = tiempo_no_esta_avl / no_esta_avl;
     }
-    printf("\nSe realizaron %d búsquedas en las estructuras, las estadísticas son:\n", repeticiones);
-    printf("El tiempo mínimo del arbol AVL es: %llu nanosegundos\n", tiempo_minimo_avl);
-    printf("El tiempo máximo del arbol AVL es: %llu nanosegundos\n", tiempo_maximo_avl);
+    printf("\nSe realizaron %d busquedas en las estructuras, las estadisticas son:\n", repeticiones);
+    printf("El tiempo minimo del arbol AVL es: %llu nanosegundos\n", tiempo_minimo_avl);
+    printf("El tiempo maximo del arbol AVL es: %llu nanosegundos\n", tiempo_maximo_avl);
     printf("El tiempo promedio del arbol AVL es: %.2f nanosegundos\n", tiempo_promedio_avl);
     if (no_esta_avl != 0)
     {
         printf("El tiempo promedio del arbol AVL si no esta la clave es: %.2f nanosegundos\n", tiempo_no_esta_promedio_avl);
     }
     printf("El tiempo total del arbol AVL es: %llu nanosegundos\n\n", tiempo_suma_avl);
-    printf("El tiempo mínimo de la tabla hash es: %llu nanosegundos\n", tiempo_minimo_th);
-    printf("El tiempo máximo de la tabla hash es: %llu nanosegundos\n", tiempo_maximo_th);
+    printf("El tiempo minimo de la tabla hash es: %llu nanosegundos\n", tiempo_minimo_th);
+    printf("El tiempo maximo de la tabla hash es: %llu nanosegundos\n", tiempo_maximo_th);
     printf("El tiempo promedio de la tabla hash es: %.2f nanosegundos\n", tiempo_promedio_th);
     if (no_esta_avl != 0)
     {
