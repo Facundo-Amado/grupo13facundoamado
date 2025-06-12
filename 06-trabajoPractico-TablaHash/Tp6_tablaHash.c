@@ -4,6 +4,9 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
+#include <time.h>
+#include <sys/time.h>
+#include <float.h>
 #include "../libs/validaciones/FuncionesAuxiliares.h"
 #include "../libs/tipoElemento/headers/tipo_elemento.h"
 #include "../libs/listas/headers/listas.h"
@@ -71,8 +74,147 @@ void th_ej4_abm(){
 }
 
 
-//punto 5
+//punto5
+int primo;
 
+int FuncionHash_Punto5(int n)
+{
+    return n % primo;
+}
+
+void th_ej5_comparacion(int claves, int repeticiones, int rango_min, int rango_max)
+{
+    srand(time(NULL)); // Establecer semilla
+    int claveABuscar;
+    struct timespec start, end;
+    TipoElemento X;
+
+    unsigned long long tiempo_minimo_avl, tiempo_maximo_avl, tiempo_suma_avl = 0, tiempo_actual_avl;
+    unsigned long long tiempo_minimo_th, tiempo_maximo_th, tiempo_suma_th = 0, tiempo_actual_th;
+    double tiempo_promedio_avl, tiempo_promedio_th, tiempo_no_esta_promedio_th, tiempo_no_esta_promedio_avl;
+    unsigned long long tiempo_no_esta_avl = 0, tiempo_no_esta_th = 0;
+    int no_esta_avl = 0, no_esta_th = 0;
+
+    ArbolAVL A_AVL = avl_crear();
+    primo = numeroPrimoMasCercanoMenor(claves);
+    TablaHash th = th_crear(claves, &FuncionHash_Punto5);
+    for (int i = 1; i <= claves; i++) // Repite n veces el proceso de carga de los nodos
+    {
+        cargar_clave_AVL_HASH(&th, &A_AVL, rango_min, rango_max);
+    }
+    // generar un random y buscar en las dos tablas tomando tiempo
+    claveABuscar = getRandom(rango_min, rango_max);
+
+    // Tiempo y búsqueda en hash
+    clock_gettime(CLOCK_REALTIME, &start);
+    X = th_recuperar(th, claveABuscar); // Busco la clave
+    clock_gettime(CLOCK_REALTIME, &end);
+    if (X == NULL)
+    {
+        tiempo_no_esta_th += (end.tv_nsec - start.tv_nsec);
+        no_esta_th++;
+    }
+    // Estadísticas iniciales de hash
+    tiempo_actual_th = (end.tv_nsec - start.tv_nsec);
+    tiempo_minimo_th = tiempo_actual_th;
+    tiempo_maximo_th = tiempo_actual_th;
+    tiempo_suma_th += tiempo_actual_th;
+
+    // Tiempo y búsqueda en avl
+    clock_gettime(CLOCK_REALTIME, &start);
+    X = avl_buscar(A_AVL, claveABuscar); // Busco la clave
+    clock_gettime(CLOCK_REALTIME, &end);
+    if (X == NULL)
+    {
+        tiempo_no_esta_avl += (end.tv_nsec - start.tv_nsec);
+        no_esta_avl++;
+    }
+    // Estadísticas iniciales de avl
+    tiempo_actual_avl = (end.tv_nsec - start.tv_nsec);
+    tiempo_minimo_avl = tiempo_actual_avl;
+    tiempo_maximo_avl = tiempo_actual_avl;
+    tiempo_suma_avl += tiempo_actual_avl;
+
+    for (int i = 1; i < repeticiones; i++)
+    {
+        // generar un random y buscar en las dos tablas tomando tiempo
+        claveABuscar = getRandom(rango_min, rango_max);
+
+        // Tiempo y búsqueda en hash
+        clock_gettime(CLOCK_REALTIME, &start);
+        X = th_recuperar(th, claveABuscar); // Busco la clave
+        clock_gettime(CLOCK_REALTIME, &end);
+        if (X == NULL)
+        {
+            tiempo_no_esta_th += (end.tv_nsec - start.tv_nsec);
+            no_esta_th++;
+        }
+
+        // Estadísticas de hash
+        tiempo_actual_th = (end.tv_nsec - start.tv_nsec);
+        if (tiempo_minimo_th > tiempo_actual_th)
+        {
+            tiempo_minimo_th = tiempo_actual_th;
+        }
+        if (tiempo_maximo_th < tiempo_actual_th)
+        {
+            tiempo_maximo_th = tiempo_actual_th;
+        }
+        tiempo_suma_th += tiempo_actual_th;
+
+        // Tiempo y búsqueda en avl
+        clock_gettime(CLOCK_REALTIME, &start);
+        X = avl_buscar(A_AVL, claveABuscar); // Busco la clave
+        clock_gettime(CLOCK_REALTIME, &end);
+        if (X == NULL)
+        {
+            tiempo_no_esta_avl += (end.tv_nsec - start.tv_nsec);
+            no_esta_avl++;
+        }
+
+        // Estadísticas de avl
+        tiempo_actual_avl = (end.tv_nsec - start.tv_nsec);
+        if (tiempo_minimo_avl > tiempo_actual_avl)
+        {
+            tiempo_minimo_avl = tiempo_actual_avl;
+        }
+        if (tiempo_maximo_avl < tiempo_actual_avl)
+        {
+            tiempo_maximo_avl = tiempo_actual_avl;
+        }
+        tiempo_suma_avl += tiempo_actual_avl;
+    }
+    free(th);
+    free_avl(avl_raiz(A_AVL));
+
+    tiempo_promedio_th = tiempo_suma_th / repeticiones;
+    tiempo_promedio_avl = tiempo_suma_avl / repeticiones;
+    if (no_esta_th != 0)
+    {
+        tiempo_no_esta_promedio_th = tiempo_no_esta_th / no_esta_th;
+    }
+    if (no_esta_avl != 0)
+    {
+        tiempo_no_esta_promedio_avl = tiempo_no_esta_avl / no_esta_avl;
+    }
+    printf("\nSe realizaron %d búsquedas en las estructuras, las estadísticas son:\n", repeticiones);
+    printf("El tiempo mínimo del arbol AVL es: %llu nanosegundos\n", tiempo_minimo_avl);
+    printf("El tiempo máximo del arbol AVL es: %llu nanosegundos\n", tiempo_maximo_avl);
+    printf("El tiempo promedio del arbol AVL es: %.2f nanosegundos\n", tiempo_promedio_avl);
+    if (no_esta_avl != 0)
+    {
+        printf("El tiempo promedio del arbol AVL si no esta la clave es: %.2f nanosegundos\n", tiempo_no_esta_promedio_avl);
+    }
+    printf("El tiempo total del arbol AVL es: %llu nanosegundos\n\n", tiempo_suma_avl);
+    printf("El tiempo mínimo de la tabla hash es: %llu nanosegundos\n", tiempo_minimo_th);
+    printf("El tiempo máximo de la tabla hash es: %llu nanosegundos\n", tiempo_maximo_th);
+    printf("El tiempo promedio de la tabla hash es: %.2f nanosegundos\n", tiempo_promedio_th);
+    if (no_esta_avl != 0)
+    {
+        printf("El tiempo promedio de la tabla hash si no esta la clave es: %.2f nanosegundos\n", tiempo_no_esta_promedio_th);
+    }
+    printf("El tiempo total de la tabla hash es: %llu nanosegundos\n\n", tiempo_suma_th);
+}
 
 //punto 6
 

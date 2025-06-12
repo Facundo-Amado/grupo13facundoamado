@@ -61,6 +61,17 @@ int juntarNumeros(int dia, int mes, int anio);
 
 bool validarFecha(int dia, int mes, int anio);
 
+int numeroPrimoMasCercanoMenor(int numero);
+
+bool esPrimo(int numero);
+
+int getRandom(int min, int max);
+
+void cargar_clave_AVL_HASH(TablaHash *th, ArbolAVL *A_AVL, int min, int max);
+
+void free_avl(NodoArbol Q);
+
+
 struct PersonaRep
 {
     int fecha;

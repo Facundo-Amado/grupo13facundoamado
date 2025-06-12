@@ -406,6 +406,77 @@ int a_altura(ArbolBinario arbol){
     return altura;
 }
 
+bool esPrimo(int numero)
+{
+    if (numero <= 1)
+    {
+        return false;
+    }
+    for (int i = 2; i <= sqrt(numero); i++)
+    {
+        if (numero % i == 0)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int numeroPrimoMasCercanoMenor(int numero)
+{
+    int numeroPrimo = numero - 1;
+
+    while (numeroPrimo > 1)
+    {
+        if (esPrimo(numeroPrimo))
+        {
+            return numeroPrimo;
+        }
+
+        numeroPrimo--;
+    }
+
+    return -1; // No se encontró un número primo menor
+}
+
+void free_avl(NodoArbol Q)
+{
+    if (avl_es_rama_nula(Q))
+    {
+        return;
+    }
+
+    free_avl(n_hijoizquierdo(Q));
+    free_avl(n_hijoderecho(Q));
+    free(Q);
+    Q = NULL;
+}
+
+int getRandom(int min, int max)
+{
+    int n_aleatorio;
+    n_aleatorio = min + (rand() % (max - min + 1));
+    return n_aleatorio;
+}
+
+void cargar_clave_AVL_HASH(TablaHash *th, ArbolAVL *A_AVL, int min, int max)
+{
+    TipoElemento X;
+    int n_aleatorio;
+    if (!avl_es_lleno(*A_AVL))
+    {
+        n_aleatorio = getRandom(min, max);
+        while (avl_buscar(*A_AVL, n_aleatorio) != NULL)
+        {
+            n_aleatorio = getRandom(min, max);
+        }
+        X = te_crear(n_aleatorio);
+        avl_insertar(*A_AVL, X);
+        th_insertar(*th, X);
+    }
+}
+
 int FuncionHash_Punto6(int n)
 {
     return n % 47;
