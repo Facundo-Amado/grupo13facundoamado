@@ -485,7 +485,7 @@ void main_punto5()
 
     int min, max, repeticiones, clave, validador;
     // Cantidad de repeticiones
-    printf("Ingrese la cantidad de repeticiones que se ejecutara la búsqueda de un clave en las estructuras [2-100000]: ");
+    printf("Ingrese la cantidad de repeticiones que se ejecutara la busqueda de un clave en las estructuras [2-100000]: ");
     validador = scanf("%d", &repeticiones);
     limpiarBuffer();
     while (validador != 1 || repeticiones < N_MIN || repeticiones > 100000)
@@ -493,7 +493,7 @@ void main_punto5()
         printf("\t\t-------- ERROR -------- \n");
         printf("DATO FUERA DE RANGO\n\n");
         pausar();
-        printf("Ingrese la cantidad de repeticiones que se ejecutara la búsqueda de un clave en las estructuras [2-100000]: ");
+        printf("Ingrese la cantidad de repeticiones que se ejecutara la busqueda de un clave en las estructuras [2-100000]: ");
         validador = scanf("%d", &repeticiones);
         limpiarBuffer();
     }
@@ -512,8 +512,8 @@ void main_punto5()
         limpiarBuffer();
     }
 
-    // Rango mínimo
-    printf("Ingrese el rango mínimo de la serie aleatoria [1-%d]: ", A_MAX);
+    // Rango minimo
+    printf("Ingrese el rango minimo de la serie aleatoria [1-%d]: ", A_MAX);
     validador = scanf("%d", &min);
     limpiarBuffer();
     while (validador != 1 || min < N_MIN || min > A_MAX)
@@ -521,26 +521,26 @@ void main_punto5()
         printf("\t\t-------- ERROR -------- \n");
         printf("DATO FUERA DE RANGO\n\n");
         pausar();
-        printf("Ingrese el rango mínimo de la serie aleatoria [1-%d]: ", A_MAX);
+        printf("Ingrese el rango minimo de la serie aleatoria [1-%d]: ", A_MAX);
         validador = scanf("%d", &min);
         limpiarBuffer();
     }
 
-    // Rango máximo
-    printf("Ingrese el rango máximo de la serie aleatoria [%d-999.999]\n", ((clave* 2)+min));
-    printf("Tener en cuenta que la diferencia entre el máximo y el mínimo tiene que ser superior a la cantidad de nodos x2: ");
+    // Rango maximo
+    printf("Ingrese el rango maximo de la serie aleatoria [%d-999.999]\n", ((clave* 2)+min));
+    printf("Tener en cuenta que la diferencia entre el maximo y el minimo tiene que ser superior a la cantidad de nodos x2: ");
     validador = scanf("%d", &max);
     limpiarBuffer();
     while ((validador != 1) || ((max - min) < (clave * 2)) || (max > 999999))
     {
         printf("ERROR\n");
-        printf("Datos fuera de rango\nPor favor Ingrese nuevamente el rango máximo de la serie aleatoria [%d-999.999]: ", ((clave* 2)+min));
+        printf("Datos fuera de rango\nPor favor Ingrese nuevamente el rango maximo de la serie aleatoria [%d-999.999]: ", ((clave* 2)+min));
         validador = scanf("%d", &max);
         limpiarBuffer();
     }
 
     th_ej5_comparacion(clave, repeticiones, min, max);
-    printf("\nEl tiempo de búsqueda en un árbol AVL es logarítmico, a diferencia del tiempo de búsqueda en una tabla hash que depende de la calidad de la función de hash utilizada y del porcentaje ocupado de la tabla.\nSi la función de hash distribuye uniformemente las claves en la tabla y el porcentaje ocupado es bajo, el tiempo de acceso  en promedio será cercano a O(1). Sin embargo, si el porcentaje de ocupación de la tabla es alto y hay muchas colisiones, el tiempo de acceso puede ser de O(n), donde n es el número de elementos almacenados en la tabla.\nEn conclusión, en escenarios en los que la función de hash es efectiva y el porcentaje de ocupación es bajo, la tabla hash tendrá tiempos de acceso constantes O(1). En contraparte, el árbol AVL garantiza en promedio tiempos de acceso logarítmicos , lo que significa que es más eficiente que una tabla hash cuando el porcentaje de ocupación es grande.");
+    printf("\nEl tiempo de busqueda en un arbol AVL es logaritmico, a diferencia del tiempo de busqueda en una tabla hash que depende de la calidad de la funcion de hash utilizada y del porcentaje ocupado de la tabla.\nSi la funcion de hash distribuye uniformemente las claves en la tabla y el porcentaje ocupado es bajo, el tiempo de acceso  en promedio sera cercano a O(1). Sin embargo, si el porcentaje de ocupacion de la tabla es alto y hay muchas colisiones, el tiempo de acceso puede ser de O(n), donde n es el numero de elementos almacenados en la tabla.\nEn conclusion, en escenarios en los que la funcion de hash es efectiva y el porcentaje de ocupacion es bajo, la tabla hash tendra tiempos de acceso constantes O(1). En contraparte, el arbol AVL garantiza en promedio tiempos de acceso logaritmicos , lo que significa que es mas eficiente que una tabla hash cuando el porcentaje de ocupacion es grande.");
     pausar();
 }
 
