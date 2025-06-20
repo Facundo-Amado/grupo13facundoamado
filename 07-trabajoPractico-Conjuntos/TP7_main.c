@@ -25,7 +25,38 @@
 //punto 7
 
 //punto 8
+void main_punto8()
+{
+    Conjunto A = cto_crear();
+    Conjunto B = cto_crear();
+    bool iguales;
+    printf("\n\t --- Carga del primer conjunto ---\n");
+    A = cargarConjunto();
+    limpiarBuffer();
+    printf("\n\t --- Carga del segundo conjunto ---\n");
+    B = cargarConjunto();
+    limpiarBuffer();
 
+    if (cto_cantidad_elementos(A) != cto_cantidad_elementos(B))
+    {
+        printf("\n\nLos conjuntos NO son iguales pues no tiene el mismo tamaño uno del otro!\n");
+    }
+    else
+    {
+        iguales = c_ej8_soniguales(A, B);
+        if (iguales == true)
+        {
+            printf("\n\nAmbos conjuntos son iguales\n");
+        }
+        else
+        {
+            printf("\n\nLos conjuntos son distintos\n");
+        }
+    }
+    printf("\n\t\t\t\t --- Complejidad algoritmica del ejercicio ---\n");
+    printf("La complejidad algorítmica utilizando la implementación de Arboles AVL seria O(n * log n) ya que el 'cto_recuperar' \nes O(n) y el 'cto_pertenece' es O(log n), resultado en Orden lineal * logaritmo, que su vez se repite n veces por el \nwhile que depende de la cantidad de elementos del subconjunto.\n\nLa complejidad algorítmica utilizando la implementación de listas seria O(n^2) ya que 'cto_recuperar' es O(n) y el \n'cto_pertenece' O(n) que su vez se repite n veces por el while que depende de la cantidad de elementos del subconjunto.\n");
+    pausar();
+}
 
 void menu_principal()
 {
@@ -69,22 +100,22 @@ int main()
         switch (opcion)
         {
         case 2:
-            main_punto2();
+            //main_punto2();
             break;
         case 3:
-            main_punto3();
+            //main_punto3();
             break;
         case 4:
-            main_punto4();
+            //main_punto4();
             break;
         case 5:
-            main_punto5();
+            //main_punto5();
             break;
         case 6:
-            main_punto6();
+            //main_punto6();
             break;
         case 7:
-            main_punto7();
+            //main_punto7();
             break;
         case 8:
             main_punto8();

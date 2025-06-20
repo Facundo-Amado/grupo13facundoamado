@@ -26,3 +26,18 @@
 //punto 7
 
 //punto 8
+bool c_ej8_soniguales(Conjunto a, Conjunto b)
+{
+    TipoElemento x = te_crear(0);
+    int cantidad = cto_cantidad_elementos(a);
+
+    for (int i = 1; i <= cantidad; i++)
+    {
+        x = cto_recuperar(a, i);
+        if (!cto_pertenece(b, x->clave))
+        {
+            return false;
+        }
+    }
+    return true;
+}

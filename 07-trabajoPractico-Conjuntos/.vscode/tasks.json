@@ -20,6 +20,7 @@
                 "${fileDirname}\\../libs/arboles/implementaciones/arbol-binario-busqueda.c",
                 "${fileDirname}\\../libs/arboles/implementaciones/arbol-binario.c",
                 "${fileDirname}\\../libs/arboles/implementaciones/nodo.c",
+                "${fileDirname}\\../libs/tablaHash/implementaciones/tabla_hash_zona_overflow.c",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "-Wall"
@@ -56,6 +57,7 @@
                 "${fileDirname}\\../libs/arboles/implementaciones/arbol-binario-busqueda.c",
                 "${fileDirname}\\../libs/arboles/implementaciones/arbol-binario.c",
                 "${fileDirname}\\../libs/arboles/implementaciones/nodo.c",
+                "${fileDirname}\\../libs/tablaHash/implementaciones/tabla_hash_zona_overflow.c",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "-Wall"

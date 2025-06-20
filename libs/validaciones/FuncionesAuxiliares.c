@@ -6,7 +6,6 @@
 #include <math.h>
 #include "../tipoElemento/headers/tipo_elemento.h"
 #include "../cola/headers/colas.h"
-#include "../cola/headers/tp_4_colas.h"
 #include "../pila/headers/pilas.h"
 #include "../listas/headers/listas.h"
 #include "../arboles/headers/arbol-binario.h"
@@ -14,7 +13,7 @@
 #include "../arboles/headers/arbol-avl.h"
 #include "../arboles/headers/arbol-binario-busqueda.h"
 #include "../tablaHash/headers/tabla_hash.h"
-#include "../tablaHash/headers/tp_thash.h"
+#include "../conjuntos/headers/conjuntos.h"
 
 void limpiarBuffer()
 {
@@ -276,6 +275,115 @@ void Cargar_SubArbol_NoRepetidos(ArbolBinario A, NodoArbol N, int sa) {
 
 void cargar_arbol_binario_NoRepetidos(ArbolBinario A) {
     Cargar_SubArbol_NoRepetidos(A, NULL, 0);
+}
+
+Conjunto cargarConjunto()
+{
+    int tamano, validador, claveIngresada;
+    TipoElemento X;
+    bool pertenece;
+    Conjunto A = cto_crear();
+    printf("Ingrese la cardinalidad del conjunto: ");
+    validador = scanf("%i", &tamano);
+    while ((validador != 1) || (tamano < 0) || (tamano > 99))
+    {
+        printf("Entrada invalida.\n");
+        printf("Ingrese la cardinalidad del conjunto: ");
+        limpiarBuffer();
+        validador = scanf("%i", &tamano);
+    }
+    if (tamano > 0)
+    {
+        for (int i = 1; i <= tamano; i++)
+        {
+            printf("Ingrese el elemento #%d del conjunto: ", i);
+            validador = scanf("%d", &claveIngresada);
+            if (cto_es_vacio(A)) 
+            {
+                pertenece = false;
+            } 
+            else {
+                pertenece = cto_pertenece(A, claveIngresada);
+            }
+            while ((validador != 1) || (claveIngresada <= -10000) || (claveIngresada >= 10000) ||
+                   pertenece)
+            {
+                printf("Entrada invalida.\n");
+                printf("Ingrese el elemento #%d del conjunto: ", i);
+                limpiarBuffer();
+                validador = scanf("%d", &claveIngresada);
+            if (cto_es_vacio(A)) 
+                {
+                    pertenece = false;
+                } 
+                else 
+                {
+                    pertenece = cto_pertenece(A, claveIngresada);
+                }
+            }
+            X = te_crear(claveIngresada);
+            cto_agregar(A, X);
+        }
+        printf("El conjunto fue cargado con éxito \n");
+        cto_mostrar(A);
+    }
+    else
+        printf("El conjunto fue creado vacío \n");
+    return A;
+}
+
+Conjunto cargarConjuntoPositivos()
+{
+    int tamano, validador, claveIngresada;
+    TipoElemento X;
+    bool pertenece;
+    Conjunto A = cto_crear();
+    printf("Ingrese la cardinalidad del conjunto: ");
+    validador = scanf("%i", &tamano);
+    while ((validador != 1) || (tamano < 0) || (tamano > 99))
+    {
+        printf("Entrada invalida.\n");
+        printf("Ingrese la cardinalidad del conjunto: ");
+        limpiarBuffer();
+        validador = scanf("%i", &tamano);
+    }
+    if (tamano > 0)
+    {
+        for (int i = 1; i <= tamano; i++)
+        {
+            printf("Ingrese el elemento #%d del conjunto: ", i);
+            validador = scanf("%d", &claveIngresada);
+            if (cto_es_vacio(A)) 
+            {
+                pertenece = false;
+            } 
+            else {
+                pertenece = cto_pertenece(A, claveIngresada);
+            }            
+            while ((validador != 1) || (claveIngresada < 0) || (claveIngresada >= 10000) || pertenece)
+            {
+                printf("Entrada invalida. Ingresar solo numero naturales (> 0)\n");
+                printf("Ingrese el elemento #%d del conjunto: ", i);
+                limpiarBuffer();
+                validador = scanf("%d", &claveIngresada);
+                if (cto_es_vacio(A)) 
+                {
+                    pertenece = false;
+                } 
+                else 
+                {
+                    pertenece = cto_pertenece(A, claveIngresada);
+                }            
+            }
+            X = te_crear(claveIngresada);
+            cto_agregar(A, X);
+        }
+        printf("El conjunto fue cargado con éxito \n");
+        cto_mostrar(A);
+    }
+    else
+        printf("El conjunto fue creado vacío \n");
+    return A;
 }
 
 //funciones para mostrar
@@ -676,4 +784,5 @@ void cargarPersona(TablaHash *th)
     printf("\nPersona cargada correctamente!\n");
     pausar();
 }
+
 

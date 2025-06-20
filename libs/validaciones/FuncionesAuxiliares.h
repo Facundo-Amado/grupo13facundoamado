@@ -14,7 +14,8 @@
 #include "../arboles/headers/arbol-avl.h"
 #include "../arboles/headers/arbol-binario-busqueda.h"
 #include "../tablaHash/headers/tabla_hash.h"
-#include "../tablaHash/headers/tp_thash.h"
+#include "../conjuntos/headers/conjuntos.h"
+
 
 //funciones de carga de datos
 void cargarpila(Pila p);
@@ -32,6 +33,10 @@ Cola cargarColaPositivos();
 void cargar_arbol_binario(ArbolBinario A);
 
 void cargar_arbol_binario_NoRepetidos(ArbolBinario A);
+
+Conjunto cargarConjunto();
+
+Conjunto cargarConjuntoPositivos();
 
 //funciones de mostrar
 void l_mostrar_con_valor(Lista l);
@@ -80,6 +85,8 @@ struct PersonaRep
     char apellido[20];
 };
 typedef struct PersonaRep *Persona;
+
+
 
 
 
