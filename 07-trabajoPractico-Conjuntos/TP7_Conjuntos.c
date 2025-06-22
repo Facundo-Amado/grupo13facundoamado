@@ -18,6 +18,27 @@
 //punto 3
 
 //punto 4
+bool es_subconjunto(Conjunto A, Conjunto B) {
+    int n = cto_cantidad_elementos(A);
+    for (int i = 1; i <= n; i++) {
+        TipoElemento elem = cto_recuperar(A, i);
+        if (!cto_pertenece(B, elem->clave)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool c_ej4_transitividad(Conjunto A, Conjunto B, Conjunto C) {
+    bool A_en_B = es_subconjunto(A, B);
+    bool B_en_C = es_subconjunto(B, C);
+    if (A_en_B && B_en_C) {
+        
+        bool A_en_C = es_subconjunto(A, C);
+        return A_en_C;
+    }
+    return false;
+}
 
 //punto 5
 

@@ -16,7 +16,27 @@
 
 //punto 3
 
-//punto 4
+//punto 
+int main_punto4() {
+    Conjunto A = cto_crear();
+    Conjunto B = cto_crear();
+    Conjunto C = cto_crear();
+    printf("\n\t --- Carga del primer conjunto ---\n");
+    A = cargarConjunto();
+    limpiarBuffer();
+    printf("\n\t --- Carga del segundo conjunto ---\n");
+    B = cargarConjunto();
+    limpiarBuffer();
+    printf("\n\t --- Carga del tercer conjunto ---\n");
+    C = cargarConjunto();
+    limpiarBuffer();
+    if (c_ej4_transitividad(A, B, C)) {
+        printf("\nSe cumple la transitividad\n");
+    } else {
+        printf("\nNo se cumple la transitividad\n");
+    }
+    return 0;
+}
 
 //punto 5
 
@@ -27,7 +47,7 @@ int main_punto6(){
     int opcion, res;
     bool esSubConj;
 
-     printf("\n\t --- Carga del primer conjunto ---\n");
+    printf("\n\t --- Carga del primer conjunto ---\n");
     A = cargarConjunto();
     limpiarBuffer();
     printf("\n\t --- Carga del segundo conjunto ---\n");
@@ -160,7 +180,7 @@ int main()
             //main_punto3();
             break;
         case 4:
-            //main_punto4();
+            main_punto4();
             break;
         case 5:
             //main_punto5();
