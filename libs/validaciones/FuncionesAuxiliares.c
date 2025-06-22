@@ -283,12 +283,12 @@ Conjunto cargarConjunto()
     TipoElemento X;
     bool pertenece;
     Conjunto A = cto_crear();
-    printf("Ingrese la cardinalidad del conjunto: ");
+    printf("Ingrese la cantidad de elementos del conjunto: ");
     validador = scanf("%i", &tamano);
     while ((validador != 1) || (tamano < 0) || (tamano > 99))
     {
         printf("Entrada invalida.\n");
-        printf("Ingrese la cardinalidad del conjunto: ");
+        printf("Ingrese la cantidad de elementos del conjunto: ");
         limpiarBuffer();
         validador = scanf("%i", &tamano);
     }
@@ -385,6 +385,7 @@ Conjunto cargarConjuntoPositivos()
         printf("El conjunto fue creado vacío \n");
     return A;
 }
+
 
 //funciones para mostrar
 
@@ -684,7 +685,7 @@ void agregarATabla(TablaHash *th, Persona persona)
 void cargarPersona(TablaHash *th)
 {
     Persona persona = malloc(sizeof(struct PersonaRep));
-    int dia, mes, anio, dni, validador, fecha;
+    int dia, mes, anio, validador;
     bool fechaValida = false;
     // Cargar DNI
     printf("DNI: ");
@@ -692,10 +693,9 @@ void cargarPersona(TablaHash *th)
     limpiarBuffer();
     while (validador != 1 || persona->dni < 1 || persona->dni > 99999999)
     {
-        printf("\t\t-------- ERROR -------- \n");
         printf("DATO FUERA DE RANGO\n\n");
         pausar();
-        printf("DNI: ");
+        printf("ingrese un DNI valido: ");
         validador = scanf("%d", &persona->dni);
         limpiarBuffer();
     }

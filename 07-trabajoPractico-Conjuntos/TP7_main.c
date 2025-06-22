@@ -21,11 +21,64 @@
 //punto 5
 
 //punto 6
+int main_punto6(){
+    Conjunto A = cto_crear();
+    Conjunto B = cto_crear();
+    int opcion, res;
+    bool esSubConj;
+
+     printf("\n\t --- Carga del primer conjunto ---\n");
+    A = cargarConjunto();
+    limpiarBuffer();
+    printf("\n\t --- Carga del segundo conjunto ---\n");
+    B = cargarConjunto();
+    limpiarBuffer();
+
+    do{
+        printf("\n--- Menu ejercicio 6 ---\n");
+        printf("\n1- Determinar si A es subconjunto de B.\n");
+        printf("\n2- Determinar si B es subconjunto de A.\n");
+        res = scanf("%d", &opcion);
+        if(res != 1){
+            limpiarBuffer();
+        }
+    } while(res != 1 || opcion < 1 || opcion > 2);
+
+    switch(opcion){
+        case 1:
+            esSubConj = c_ej6_subconjuntopropio(A, B);
+	        if(esSubConj){
+		        printf("\nA es subconjunto de B.\n");
+	        } else{
+		        printf("\nA no es subconjunto de B.\n");
+	        }
+
+            printf("\nComplejidad algoritmica: \n");
+            printf("\nLa funcion de este ejercicio es O(n), ya que recorre n veces los elementos del conjunto A.\n");
+            printf("Si usamos la TAD Conjunto implementada con listas, la complejidad es O(n * m), porque la funcion cto_pertenece recorre todos los elementos del conjunto B.\n");
+            printf("En cambio, si usamos la TAD Conjunto con arboles AVL, la complejidad es O(n * log m), ya que cto_pertenece utiliza una funcion recursiva propia de AVL que busca en tiempo logaritmico.\n");
+            break;
+        case 2:
+            esSubConj = c_ej6_subconjuntopropio(B, A);
+	        if(esSubConj){
+	        	printf("\nB es subconjunto de A.\n");
+	        } else{
+	        	printf("\nB no es subconjunto de A.\n");
+	        }
+            printf("\n\t\t\t\t --- Complejidad algoritmica del ejercicio ---\n");
+            printf("\nLa funcion de este ejercicio es O(n), ya que recorre n veces los elementos del conjunto A. Si usamos la TAD Conjunto \nimplementada con listas, la complejidad es O(n * m), porque la funcion cto_pertenece recorre todos los elementos \ndel conjunto B. En cambio, si usamos la TAD Conjunto con árboles \nAVL, la complejidad es O(n * log m), ya que cto_pertenece utiliza una funcion recursiva propia de AVL que busca en \ntiempo logaritmico.\n");
+            break;
+        default:
+            break;
+    }
+    pausar();
+    return 0;
+}
 
 //punto 7
 
 //punto 8
-void main_punto8()
+int main_punto8()
 {
     Conjunto A = cto_crear();
     Conjunto B = cto_crear();
@@ -56,6 +109,7 @@ void main_punto8()
     printf("\n\t\t\t\t --- Complejidad algoritmica del ejercicio ---\n");
     printf("La complejidad algorítmica utilizando la implementación de Arboles AVL seria O(n * log n) ya que el 'cto_recuperar' \nes O(n) y el 'cto_pertenece' es O(log n), resultado en Orden lineal * logaritmo, que su vez se repite n veces por el \nwhile que depende de la cantidad de elementos del subconjunto.\n\nLa complejidad algorítmica utilizando la implementación de listas seria O(n^2) ya que 'cto_recuperar' es O(n) y el \n'cto_pertenece' O(n) que su vez se repite n veces por el while que depende de la cantidad de elementos del subconjunto.\n");
     pausar();
+    return 0;
 }
 
 void menu_principal()
@@ -112,7 +166,7 @@ int main()
             //main_punto5();
             break;
         case 6:
-            //main_punto6();
+            main_punto6();
             break;
         case 7:
             //main_punto7();

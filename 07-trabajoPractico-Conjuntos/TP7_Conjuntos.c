@@ -22,6 +22,23 @@
 //punto 5
 
 //punto 6
+bool c_ej6_subconjuntopropio(Conjunto A, Conjunto B){
+    if(cto_es_vacio(B)){
+        return false;
+    }
+    int cantidadA = cto_cantidad_elementos(A);
+    for(int i = 1; i <= cantidadA; i++)
+    {
+        TipoElemento elem = cto_recuperar(A, i);
+        if(!cto_pertenece(B, elem->clave)){
+            return false;  
+        }
+    }
+    if(cantidadA == cto_cantidad_elementos(B)){
+        return false; 
+    }
+    return true;
+}
 
 //punto 7
 
