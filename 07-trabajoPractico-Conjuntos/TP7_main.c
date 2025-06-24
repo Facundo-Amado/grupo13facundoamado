@@ -218,12 +218,10 @@ int main_punto6(){
 }
 
 //punto 7
-int main(){
+int main_punto7(){
     Conjunto A = cto_crear();
     Conjunto B = cto_crear();
     Conjunto C = cto_crear();
-    int cant, res;
-    bool valido;
     c_ej7_subconjtotalparcial(A, B, C);
     printf("\nComplejidad algoritmica:\n");
     printf("Sin tener en cuenta la TAD: O(n)\n");
@@ -324,7 +322,7 @@ int main()
             main_punto6();
             break;
         case 7:
-            //main_punto7();
+            main_punto7();
             break;
         case 8:
             main_punto8();
