@@ -13,8 +13,103 @@
 #include "../libs/conjuntos/headers/tp_conjunto.h"
 
 //punto 2
+int main_punto2()
+{
+    Conjunto Cinterseccion, Cunion, Cdiferencia;
+    Conjunto A = cto_crear();
+    Conjunto B = cto_crear();
+    printf("\n\t --- Carga del primer conjunto ---\n");
+    A = cargarConjunto();
+    printf("\n\t --- Carga del segundo conjunto ---\n");
+    B = cargarConjunto();
+
+    int cardA = cto_cantidad_elementos(A);
+    int cardB = cto_cantidad_elementos(B);
+
+    bool pertenece = false;
+
+    if (cardA == 0 && cardB == 0)
+    {
+        printf("Los conjuntos estan vacíos\n");
+    }
+    else
+    {
+        Cinterseccion = c_ej2_interseccion(A, B);
+        Cdiferencia = c_ej2_diferencia(A, B);
+        Cunion = c_ej2_union(A, B);
+        pertenece = p2_pertenece(A, B);
+        printf("Intersección: \n");
+        cto_mostrar(Cinterseccion);
+        printf("Diferencia de A con B: \n");
+        cto_mostrar(Cdiferencia);
+        printf("Diferencia de B con A: \n");
+        Cdiferencia = c_ej2_diferencia(B, A);
+        cto_mostrar(Cdiferencia);
+        printf("Unión: \n");
+        cto_mostrar(Cunion);
+        printf("Pertenencia: \n");
+        if (cardA <= cardB)
+        {
+            if (pertenece)
+            {
+                printf("El conjunto de A pertenece al conjunto de B\n");
+            }
+            else{
+                printf("El conjunto de A NO pertenece al conjunto de B y viceversa\n");
+            }
+        }
+        else{
+            if (pertenece)
+            {
+                printf("El conjunto de B pertenece al conjunto de A\n");
+            }
+            else{
+                printf("El conjunto de B NO pertenece al conjunto de A y viceversa\n");
+            }
+        }
+        limpiarBuffer();
+        pausar();
+    }
+    return 0;
+}
 
 //punto 3
+int main_punto3()
+{
+    const int MIN = 2;
+    const int MAX = 10;
+    int cant_c;
+    Lista lista_c = l_crear();
+    Conjunto C = cto_crear();
+    Conjunto C2 = cto_crear();
+    printf("Cuantos conjuntos desea cargar? entre [2 - 10]: ");
+    int validador = scanf("%d", &cant_c);
+    limpiarBuffer();
+    while (validador != 1 || cant_c < MIN || cant_c > MAX)
+    {
+        printf("----- ERROR -----");
+        printf("DATO fuera de rango, ingrese una cantidad entre 2 y 10: ");
+        validador = scanf("%d", &cant_c);
+        limpiarBuffer();
+    }
+    for (int i = 0; i < cant_c; i++)
+    {
+        Conjunto conjunto = cto_crear();
+        printf("\n\t --- Carga del conjunto ---\n");
+        conjunto = cargarConjunto();
+        TipoElemento x = te_crear_con_valor(i, conjunto);
+        l_agregar(lista_c, x);
+    }
+
+    C = c_ej3_uniones(lista_c);
+    printf("\nUnion de los conjuntos: ");
+    cto_mostrar(C);
+    C2 = c_ej3_intersecciones(lista_c);
+    printf("\n intersecciones de los conjuntos: ");
+    cto_mostrar(C2);
+    pausar();
+    return 0;
+}
 
 //punto 
 int main_punto4() {
@@ -39,6 +134,33 @@ int main_punto4() {
 }
 
 //punto 5
+int main_punto5()
+{
+    Conjunto Cdiferencia;
+    Conjunto A = cto_crear();
+    Conjunto B = cto_crear();
+    printf("\n\t --- Carga del primer conjunto ---\n");
+    A = cargarConjunto();
+    printf("\n\t --- Carga del segundo conjunto ---\n");
+    B = cargarConjunto();
+
+    int cardA = cto_cantidad_elementos(A);
+    int cardB = cto_cantidad_elementos(B);
+
+    if (cardA == 0 && cardB == 0)
+    {
+        printf("Los conjuntos estan vacíos\n");
+    }
+    else
+    {
+        printf("Diferencia simétrica: \n");
+        Cdiferencia = c_ej5_dif_simetrica(A, B);
+        cto_mostrar(Cdiferencia);
+        limpiarBuffer();
+        pausar();
+    }
+    return 0;
+}
 
 //punto 6
 int main_punto6(){
@@ -96,6 +218,7 @@ int main_punto6(){
 }
 
 //punto 7
+
 
 //punto 8
 int main_punto8()
@@ -174,16 +297,16 @@ int main()
         switch (opcion)
         {
         case 2:
-            //main_punto2();
+            main_punto2();
             break;
         case 3:
-            //main_punto3();
+            main_punto3();
             break;
         case 4:
             main_punto4();
             break;
         case 5:
-            //main_punto5();
+            main_punto5();
             break;
         case 6:
             main_punto6();

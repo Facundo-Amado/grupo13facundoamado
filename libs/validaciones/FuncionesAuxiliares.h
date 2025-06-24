@@ -86,6 +86,8 @@ struct PersonaRep
 };
 typedef struct PersonaRep *Persona;
 
+bool p2_pertenece(Conjunto A, Conjunto B);
+
 
 
 
