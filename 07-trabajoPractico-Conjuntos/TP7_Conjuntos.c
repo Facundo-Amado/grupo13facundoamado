@@ -179,6 +179,106 @@ bool c_ej6_subconjuntopropio(Conjunto A, Conjunto B){
 }
 
 //punto 7
+bool esSubconjunto(Conjunto A, Conjunto B){
+    bool subconj = true;
+    if (cto_cantidad_elementos(A) > cto_cantidad_elementos(B)){
+        return false;
+    }else{
+        TipoElemento X;
+        for (int i = 1; i <= cto_cantidad_elementos(A); i++){
+            X = cto_recuperar(A, i);
+            if (!cto_pertenece(B, X->clave)){
+                subconj = false;
+            }
+        }
+    }
+    return subconj;
+}
+
+bool esSubconjuntoParcial(Conjunto A, Conjunto B){
+    int contador = 0;
+    TipoElemento X;
+    int cantelem_a, cantelem_b;
+    cantelem_a = cto_cantidad_elementos(A);
+    cantelem_b = cto_cantidad_elementos(B);
+    for (int i = 1; i <= cantelem_a; i++){
+        X = cto_recuperar(A, i);
+        if (cto_pertenece(B, X->clave)){
+            contador += 1;
+        }
+    }
+
+    if ((cantelem_a % 2) != 0){
+        cantelem_a += 1;
+    }
+
+    if (contador >= (cantelem_a / 2)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+void c_ej7_subconjtotalparcial(Conjunto A, Conjunto B, Conjunto C){
+    bool AsubctB, AsubcpB, AsubctC, AsubcpC;
+    bool BsubctA, BsubcpA, BsubctC, BsubcpC;
+    bool CsubctA, CsubcpA, CsubctB, CsubcpB;
+
+    AsubctB = esSubconjunto(A, B);
+    if (AsubctB){
+        printf("A es subconjunto total de B.\n");
+    }else{
+        AsubcpB = esSubconjuntoParcial(A, B);
+        if (AsubcpB){
+            printf("A es subconjunto PARCIAL de B.\n");
+        }
+    }
+    AsubctC = esSubconjunto(A, C);
+    if (AsubctC){
+        printf("A es subconjunto total de C.\n");
+    }else{
+        AsubcpC = esSubconjuntoParcial(A, C);
+        if (AsubcpC){
+            printf("A es subconjunto PARCIAL de C.\n");
+        }
+    }
+    BsubctA = esSubconjunto(B, A);
+    if (BsubctA){
+        printf("B es subconjunto total de A.\n");
+    }else{
+        BsubcpA = esSubconjuntoParcial(B, A);
+        if (BsubcpA){
+            printf("B es subconjunto PARCIAL de A.\n");
+        }
+    }
+    BsubctC = esSubconjunto(B, C);
+    if (BsubctC){
+        printf("B es subconjunto total de C.\n");
+    }else{
+        BsubcpC = esSubconjuntoParcial(B, C);
+        if (BsubcpC){
+            printf("B es subconjunto PARCIAL de C.\n");
+        }
+    }
+    CsubctA = esSubconjunto(C, A);
+    if (CsubctA){
+        printf("C es subconjunto total de A.\n");
+    }else{
+        CsubcpA = esSubconjuntoParcial(C, A);
+        if (CsubcpA){
+            printf("C es subconjunto PARCIAL de A.\n");
+        }
+    }
+    CsubctB = esSubconjunto(C, B);
+    if (CsubctB){
+        printf("C es subconjunto total de B.\n");
+    }else{
+        CsubcpB = esSubconjuntoParcial(C, B);
+        if (CsubcpB){
+            printf("C es subconjunto PARCIAL de B.\n");
+        }
+    }
+}
 
 //punto 8
 bool c_ej8_soniguales(Conjunto a, Conjunto b)
